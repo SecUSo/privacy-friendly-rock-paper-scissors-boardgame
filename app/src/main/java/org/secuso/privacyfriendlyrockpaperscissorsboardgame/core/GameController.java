@@ -1,19 +1,19 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.core;
 
 /**
- * Created by david on 06.05.2016.
+ * Created by David Giessing on 06.05.2016.
  */
 public class GameController {
 
-    int fieldX;
-    int fieldY;
+    private int fieldX;
+    private int fieldY;
 
     /**
      * Starts a new Game in Standard 8x8 Layout
      */
     public GameController(){
-        this.fieldX=8;
-        this.fieldY=8;
+        this.setFieldX(8);
+        this.setFieldY(8);
     }
 
     /**
@@ -22,7 +22,23 @@ public class GameController {
      * @param fieldY
      */
     public GameController(int fieldX, int fieldY){
-        this.fieldX=fieldX;
-        this.fieldY=fieldY;
+        this.setFieldX(fieldX);
+        this.setFieldY(fieldY);
+    }
+
+    public int getFieldX() {
+        return fieldX;
+    }
+
+    public void setFieldX(int fieldX) {
+        this.fieldX = fieldX;
+    }
+
+    public int getFieldY() {
+        return fieldY;
+    }
+
+    public void setFieldY(int fieldY) {
+        this.fieldY = fieldY;
     }
 }

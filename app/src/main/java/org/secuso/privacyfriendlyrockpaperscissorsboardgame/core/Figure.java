@@ -8,9 +8,23 @@ import java.util.List;
  */
 public abstract class Figure {
 
+    protected int posX;
+
+    protected int posY;
+
     protected final List<Class> weaknesses;
 
-    protected Figure(List<Class> weaknesses){
+    protected final Player owner;
+
+    protected Figure(List<Class> weaknesses, Player owner){
         this.weaknesses=weaknesses;
     }
+
+    protected abstract boolean moveForward();
+
+    protected abstract boolean moveForwardFast();
+
+    protected abstract boolean moveForwardLeft();
+
+    protected abstract boolean moveForwardRight();
 }
