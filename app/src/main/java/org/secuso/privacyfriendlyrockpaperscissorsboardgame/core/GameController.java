@@ -1,19 +1,21 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.core;
 
+import android.content.Context;
+
 /**
- * Created by David Giessing on 06.05.2016.
+ * Created by david on 06.05.2016.
  */
 public class GameController {
 
-    private int fieldX;
-    private int fieldY;
+    int fieldX;
+    int fieldY;
 
     /**
      * Starts a new Game in Standard 8x8 Layout
      */
     public GameController(){
-        this.setFieldX(8);
-        this.setFieldY(8);
+        this.fieldX=8;
+        this.fieldY=8;
     }
 
     /**
@@ -21,24 +23,16 @@ public class GameController {
      * @param fieldX
      * @param fieldY
      */
-    public GameController(int fieldX, int fieldY){
-        this.setFieldX(fieldX);
-        this.setFieldY(fieldY);
+    public GameController(int fieldX, int fieldY, Context context){
+        this.fieldX=fieldX;
+        this.fieldY=fieldY;
     }
 
-    public int getFieldX() {
+    public int getX(){
         return fieldX;
     }
 
-    public void setFieldX(int fieldX) {
-        this.fieldX = fieldX;
-    }
-
-    public int getFieldY() {
+    public int getY(){
         return fieldY;
-    }
-
-    public void setFieldY(int fieldY) {
-        this.fieldY = fieldY;
     }
 }

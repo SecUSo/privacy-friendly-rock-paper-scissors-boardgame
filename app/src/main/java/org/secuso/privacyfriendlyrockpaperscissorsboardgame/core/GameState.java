@@ -5,7 +5,7 @@ package org.secuso.privacyfriendlyrockpaperscissorsboardgame.core;
  */
 public class GameState {
     private Figure[][] gamePane;
-    private Player players[2];
+    private Player[] players;
     private int playerOnTurn;
 
 }

@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Privacy Friendly RockPaperScissors Board Game</string>
+    <string name="app_name">RockPaperScissors Board Game</string>
     <string name="sStartButton">Start Game</string>
 </resources>

@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class PaperFigure extends Figure {
 
-    public PaperFigure(Player owner){
-        super(new ArrayList<Class>(){{add(ScissorFigure.class);}},owner);
+    public PaperFigure(){
+        super(new ArrayList<Class>(){{add(ScissorFigure.class);}});
     }
 }

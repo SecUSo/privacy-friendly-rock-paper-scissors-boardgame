@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class RockFigure extends Figure {
 
-    public RockFigure(Player owner){
-        super(new ArrayList<Class>(){{add(PaperFigure.class);}},owner);
+    public RockFigure(){
+        super(new ArrayList<Class>(){{add(PaperFigure.class);}});
     }
 }
