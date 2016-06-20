@@ -14,16 +14,18 @@ public enum RPSFigure {
     PAPER(R.drawable.paper),
     SCISSOR(R.drawable.scissor),
     LIZARD(R.drawable.lizard),
-    SPOCK(R.drawable.spock);
-
+    SPOCK(R.drawable.spock),
+    FLAG(R.drawable.flag),
+    GHOST(R.drawable.ghost);
     int imageID;
+    private RPSFigure secretType;
 
     RPSFigure(int imageID) {
         this.imageID = imageID;
     }
 
     public int getImageResourceId() {
-        return imageID;
+            return imageID;
     }
 
     public boolean getsBeatenBy(RPSFigure enemy){
@@ -38,8 +40,11 @@ public enum RPSFigure {
                 return enemy==PAPER||enemy==LIZARD;
             case LIZARD:
                 return enemy==SCISSOR||enemy==ROCK;
+            case FLAG:
+                return true;
             default: return false;
         }
     }
+
 
 }

@@ -14,5 +14,6 @@
         android:layoutDirection="ltr"
         android:layout_height="match_parent"
         android:clickable="true"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:background="@drawable/borders"/>
 </GridLayout>
