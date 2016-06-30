@@ -80,7 +80,7 @@ public class RPSBoardLayout extends GridLayout{
     public void drawFigures(RPSFigure[][] pane){
         for(int i =0; i<pane.length;i++){
             for(int j=0;j<pane[i].length;j++){
-                if(pane[i][j]!=null)
+
                     board[i][j].setImage(pane[i][j],null);
             }
         }

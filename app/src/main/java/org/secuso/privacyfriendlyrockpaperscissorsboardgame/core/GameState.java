@@ -4,6 +4,9 @@ package org.secuso.privacyfriendlyrockpaperscissorsboardgame.core;
  * Created by David Giessing on 07.05.2016.
  */
 public class GameState {
+    /**
+     * The Game Pane as follows. The y Axis 0,1 are the start of player 0. The Y axis 6 and 7  are player 1s starting poistions.
+     */
     private RPSGameFigure[][] gamePane;
     private IPlayer[] players;
     private int playerOnTurn;
