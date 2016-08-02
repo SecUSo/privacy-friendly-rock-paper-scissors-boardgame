@@ -3,7 +3,8 @@
     android:width="326.93dp"
     android:height="426.3dp"
     android:viewportWidth="326.93"
-    android:viewportHeight="426.3">
+    android:viewportHeight="426.3"
+    android:tintMode="multiply">
 
     <group
             android:name="g630"

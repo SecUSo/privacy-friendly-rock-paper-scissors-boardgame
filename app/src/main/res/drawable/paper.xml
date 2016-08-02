@@ -3,7 +3,8 @@
     android:width="107.416dp"
     android:height="136.009dp"
     android:viewportWidth="107.416"
-    android:viewportHeight="136.009">
+    android:viewportHeight="136.009"
+    android:tintMode="multiply">
 
     <path
         android:name="path5"

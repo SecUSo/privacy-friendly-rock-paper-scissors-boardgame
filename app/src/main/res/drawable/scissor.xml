@@ -3,7 +3,8 @@
     android:width="302.05dp"
     android:height="500.61dp"
     android:viewportWidth="302.05"
-    android:viewportHeight="500.61">
+    android:viewportHeight="500.61"
+    android:tintMode="multiply">
 
     <path
         android:name="path693"

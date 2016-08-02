@@ -1,5 +1,7 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.core;
 
+import android.graphics.Color;
+
 import java.util.List;
 
 /**
@@ -23,11 +25,15 @@ public interface IPlayer {
      * Returns a new RPSFigure type. for example when a draw occurs.
      * @return the new RPSFigure type
      */
-    RPSFigure getNewType();
+    RPSGameFigure getNewType();
 
     /**
      * Returns the players ID
      * @return the players ID
      */
     int getId();
+
+    boolean equals(IPlayer player);
+
+    int getColor();
 }

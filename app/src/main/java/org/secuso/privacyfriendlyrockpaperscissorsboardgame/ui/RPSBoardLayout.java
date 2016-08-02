@@ -1,13 +1,16 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.GridLayout;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.GameController;
+import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.IPlayer;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.RPSFigure;
+import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.RPSGameFigure;
 
 /**
  * Created by david on 11.06.2016.
@@ -32,7 +35,7 @@ public class RPSBoardLayout extends GridLayout{
         for(int i=0;i<gameController.getY();i++){
             black=!black;
             for(int j=0; j<gameController.getX();j++){
-                board[i][j]= new RPSFieldView(getContext(),this.attrs,black,i,j);
+                board[i][j]= new RPSFieldView(getContext(),this.attrs,black,j,i);
                 black=!black;
                 addView(board[i][j]);
             }
@@ -77,11 +80,16 @@ public class RPSBoardLayout extends GridLayout{
      * Draws the figures to the Pane
      * @param pane the GamePane to take the figures from, this is already oriented correctly
      */
-    public void drawFigures(RPSFigure[][] pane){
+    public void drawFigures(RPSGameFigure[][] pane,IPlayer onTurn){
         for(int i =0; i<pane.length;i++){
             for(int j=0;j<pane[i].length;j++){
-
-                    board[i][j].setImage(pane[i][j],null);
+                if(pane[i][j]!=null){
+                    if(pane[i][j].getOwner().equals(onTurn)){
+                        board[i][j].setImage(pane[i][j].getType(),pane[i][j].getOwner().getColor());
+                    }
+                    else board[i][j].setImage(pane[i][j].isHidden()?RPSFigure.GHOST:pane[i][j].getType(),pane[i][j].getOwner().getColor());
+                }
+                else board[i][j].setImage(null,Color.TRANSPARENT);
             }
         }
     }

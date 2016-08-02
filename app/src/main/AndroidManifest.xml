@@ -8,14 +8,51 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HomeActivity">
+        <activity
+            android:name="org.secuso.privacyfriendlyrockpaperscissorsboardgame.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GameActivity">
+        <activity
+            android:name="org.secuso.privacyfriendlyrockpaperscissorsboardgame.GameActivity"
+            android:parentActivityName="org.secuso.privacyfriendlyrockpaperscissorsboardgame.HomeActivity"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.secuso.privacyfriendlyrockpaperscissorsboardgame.HomeActivity" />
+        </activity>
+        <activity
+            android:name="org.secuso.privacyfriendlyrockpaperscissorsboardgame.AboutActivity"
+            android:label="@string/sAbout"
+            android:parentActivityName="org.secuso.privacyfriendlyrockpaperscissorsboardgame.HomeActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.secuso.privacyfriendlyrockpaperscissorsboardgame.HomeActivity" />
+        </activity>
+        <activity
+            android:name="org.secuso.privacyfriendlyrockpaperscissorsboardgame.HelpActivity"
+            android:label="@string/sHelp"
+            android:parentActivityName="org.secuso.privacyfriendlyrockpaperscissorsboardgame.HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.secuso.privacyfriendlyrockpaperscissorsboardgame.HomeActivity" />
+        </activity>
+        <activity
+            android:name="org.secuso.privacyfriendlyrockpaperscissorsboardgame.SettingsActivity"
+            android:label="@string/sTitleActivitySettings"
+            android:parentActivityName="org.secuso.privacyfriendlyrockpaperscissorsboardgame.HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.secuso.privacyfriendlyrockpaperscissorsboardgame.HomeActivity" />
         </activity>
     </application>
 

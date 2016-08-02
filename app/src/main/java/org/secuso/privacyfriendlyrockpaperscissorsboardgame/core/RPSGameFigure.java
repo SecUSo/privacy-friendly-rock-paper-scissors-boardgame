@@ -7,9 +7,9 @@ public class RPSGameFigure {
 
     RPSFigure type;
     boolean hidden;
-    int owner;
+    IPlayer owner;
 
-    public RPSGameFigure(int owner, RPSFigure type){
+    public RPSGameFigure(IPlayer owner, RPSFigure type){
         this.owner=owner;
         this.type=type;
         this.hidden=true;
@@ -28,7 +28,7 @@ public class RPSGameFigure {
         return this.type;
     }
 
-    public int getOwner() {
+    public IPlayer getOwner() {
         return owner;
     }
 

@@ -2,6 +2,7 @@ package org.secuso.privacyfriendlyrockpaperscissorsboardgame;
 
 import android.content.res.Configuration;
 import android.os.PersistableBundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -20,6 +21,10 @@ public class GameActivity extends AppCompatActivity {
             this.gameController=new GameController(8,8,getApplicationContext());
             boardLayout = (RPSBoardLayout) findViewById(R.id.boardLayout);
             boardLayout.createBoard(this.gameController);
+        ActionBar ab = getSupportActionBar();
+        if(ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override

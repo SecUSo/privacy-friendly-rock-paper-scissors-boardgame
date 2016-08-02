@@ -1,5 +1,7 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.core;
 
+import android.graphics.Color;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -12,13 +14,19 @@ public class NormalPlayer implements IPlayer {
 
     private int id;
 
-    public NormalPlayer(int id){
+    private int color;
+
+    public NormalPlayer(int id, int color){
         this.id=id;
+        this.color=color;
     }
 
     @Override
-    public RPSFigure getNewType() {
-        return null;
+    public RPSGameFigure getNewType() {
+        double rand=Math.random();
+        if(rand>0.5)
+            return new RPSGameFigure(this,RPSFigure.PAPER);
+        else return new RPSGameFigure(this,RPSFigure.ROCK);
     }
 
     public int getId() {
@@ -35,13 +43,13 @@ public class NormalPlayer implements IPlayer {
             int type=rand.nextInt(3);
             switch (type){
                 case 0:
-                    figures.add(new RPSGameFigure(this.getId(),RPSFigure.ROCK));
+                    figures.add(new RPSGameFigure(this,RPSFigure.ROCK));
                     break;
                 case 1:
-                    figures.add(new RPSGameFigure(this.getId(),RPSFigure.PAPER));
+                    figures.add(new RPSGameFigure(this,RPSFigure.PAPER));
                     break;
                 case 2:
-                    figures.add(new RPSGameFigure(this.getId(),RPSFigure.SCISSOR));
+                    figures.add(new RPSGameFigure(this,RPSFigure.SCISSOR));
                     break;
             }
         }
@@ -50,6 +58,13 @@ public class NormalPlayer implements IPlayer {
 
     @Override
     public void makeMove() {
-        return ;
+    }
+
+    public boolean equals(IPlayer player){
+        return this.getId()==player.getId();
+    }
+
+    public int getColor(){
+        return this.color;
     }
 }

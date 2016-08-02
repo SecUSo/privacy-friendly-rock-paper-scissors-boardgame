@@ -11,10 +11,10 @@ public class GameState {
     private IPlayer[] players;
     private int playerOnTurn;
 
-    public GameState(int x, int y){
+    public GameState(int x, int y,IPlayer p0, IPlayer p1){
         players= new IPlayer[2];
-        players[0]=new NormalPlayer(0);
-        players[1]=new NormalPlayer(1);
+        players[0]=p0;
+        players[1]=p1;
         gamePane= new RPSGameFigure[x][y];
     }
 

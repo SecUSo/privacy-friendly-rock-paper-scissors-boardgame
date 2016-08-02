@@ -1,8 +1,12 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.core;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.widget.Toast;
 
+import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui.RPSBoardLayout;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui.RPSFieldView;
 
@@ -26,10 +30,11 @@ public class GameController {
     /**
      * Starts a new Game in Standard 8x8 Layout
      */
-    public GameController(){
+    public GameController(Context context){
         this.fieldX=8;
         this.fieldY=8;
         cellSelected=false;
+        this.context=context;
     }
 
 
@@ -57,13 +62,13 @@ public class GameController {
      * @param view the Board view to use as view
      */
     public void startGame(RPSBoardLayout view){
-        this.p0=new NormalPlayer(0);
-        this.p1=new NormalPlayer(1);
+        this.p0=new NormalPlayer(0, -1);
+        this.p1=new NormalPlayer(1, ContextCompat.getColor(this.context,R.color.colorAccent));
         this.playerOnTurn=this.p1;
         this.view=view;
-        this.model=new GameState(fieldX,fieldY);
+        this.model=new GameState(fieldX,fieldY,p0,p1);
         this.model.setGamePane(this.placeFigures(p0.provideInitialAssignment(this.getX()*2),p1.provideInitialAssignment(this.getX()*2)));
-        view.drawFigures(this.getRepresentationForPlayer());
+        this.view.drawFigures(this.getRepresentationForPlayer(),this.playerOnTurn);
     }
 
     /**
@@ -93,34 +98,22 @@ public class GameController {
      * Implements the Figure Hiding Game and the bottom up view for the player that is currently on turn.
      * @return
      */
-    public RPSFigure[][] getRepresentationForPlayer(){
+    public RPSGameFigure[][] getRepresentationForPlayer(){
         RPSGameFigure[][] originalGamePane=model.getGamePane();
-        RPSFigure[][] representationForPlayer= new RPSFigure[originalGamePane.length][originalGamePane[0].length];
-        if(playerOnTurn==p1){
+        RPSGameFigure[][] representationForPlayer= new RPSGameFigure[originalGamePane.length][originalGamePane[0].length];
+        if(playerOnTurn.equals(p0)){
             for(int i=0;i<originalGamePane.length;i++){
                 for(int j=0;j<originalGamePane[i].length;j++){
-                    if(originalGamePane[i][j]!=null&&!(originalGamePane[i][j].getOwner()==p0.getId())){
-                        representationForPlayer[getY()-1-i][getX()-1-j]=originalGamePane[i][j].isHidden()?RPSFigure.GHOST:originalGamePane[i][j].getType();
-                    }
-                    else representationForPlayer[getY()-1-i][getX()-1-j]=originalGamePane[i][j]==null?null:originalGamePane[i][j].getType();
+                    representationForPlayer[getY()-1-i][getX()-1-j]=originalGamePane[i][j];
                 }
             }
         }
-        else{
-            for(int i=0;i<originalGamePane.length;i++){
-                for(int j=0;j<originalGamePane[i].length;j++){
-                    if(originalGamePane[i][j]!=null&&!(originalGamePane[i][j].getOwner()==p1.getId())){
-                        representationForPlayer[i][j]=originalGamePane[i][j].isHidden()?RPSFigure.GHOST:originalGamePane[i][j].getType();
-                    }
-                    else representationForPlayer[i][j]=originalGamePane[i][j]==null?null:originalGamePane[i][j].getType();
-                }
-            }
-        }
+        else return originalGamePane;
         return representationForPlayer;
     }
 
     public void forceRedraw(){
-        this.view.drawFigures(this.getRepresentationForPlayer());
+        this.view.drawFigures(this.getRepresentationForPlayer(),playerOnTurn);
     }
 
     public void playerMove(int xTarget, int yTarget){
@@ -180,68 +173,74 @@ public class GameController {
         }
         //Check if source field is occupied
         RPSGameFigure[][] gamePane=this.model.getGamePane();
-        //Check if figure on field is of current Player
-        if(gamePane[yStart][xStart]==null) {
-            Toast.makeText(this.context, "Invalid Move", Toast.LENGTH_SHORT).show();
+        if(playerOnTurn.getId()==p1.getId()){
+            if(gamePane[yStart][xStart]==null) {
+                Toast.makeText(this.context, "Invalid Move, Starting Field is empty", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+        else if(gamePane[getY()-1-yStart][getX()-1-xStart]==null){
+            Toast.makeText(this.context, "Invalid Move, Starting Field is empty", Toast.LENGTH_SHORT).show();
             return;
         }
+        //Check if figure on field is of current Player
         if(playerOnTurn.getId()==p1.getId()){
-            if(gamePane[yStart][xStart].getOwner()!=p1.getId()) {
-                Toast.makeText(this.context, "Invalid Move", Toast.LENGTH_SHORT).show();
+            if(gamePane[yStart][xStart].getOwner().getId()!=p1.getId()) {
+                Toast.makeText(this.context, "Invalid Move, Figure is not owned by Player "+playerOnTurn.getId(), Toast.LENGTH_SHORT).show();
                 return ;
             }
         }
-        else if (gamePane[getY()-1-yStart][getX()-1-xStart].getOwner()!=p0.getId()){
-            Toast.makeText(this.context, "Invalid Move", Toast.LENGTH_SHORT).show();
+        else if (gamePane[getY()-1-yStart][getX()-1-xStart].getOwner().getId()!=p0.getId()){
+            Toast.makeText(this.context, "Invalid Move, Figure is not owned by Player "+playerOnTurn.getId(), Toast.LENGTH_SHORT).show();
             return ;
         }
         if(playerOnTurn.getId()==p1.getId())
             //Check if target field is empty
-            if(gamePane[getY()-1-yTarget][getX()-1-xTarget]==null) {
-                gamePane[getY()-1-yTarget][getX()-1-xTarget]=gamePane[getY()-1-yStart][getX()-1-xStart];
-                gamePane[getY()-1-yStart][getX()-1-xStart]=null;
+            if(gamePane[yTarget][xTarget]==null) {
+                gamePane[yTarget][xTarget]=gamePane[yStart][xStart];
+                gamePane[yStart][xStart]=null;
                 updateModelAndView(gamePane);
                 //wait(2000);
-                this.playerOnTurn=p0;
-                this.forceRedraw();
+                nextTurn();
                 return ;
             }
             else{
-                    if(gamePane[yStart][xStart].getOwner()!=p1.getId()) {
-                        //TODO: initiateFight
+                    if(gamePane[yStart][xStart].getOwner().getId()==p1.getId()) {
+                        gamePane[yTarget][xTarget]=attack(gamePane[yStart][xStart],gamePane[yTarget][xTarget]);
+                        gamePane[yTarget][xTarget].discover();
+                        gamePane[yStart][xStart]=null;
                         updateModelAndView(gamePane);
                         //wait(2000);
-                        this.playerOnTurn=p0;
-                        this.forceRedraw();
+                        nextTurn();
                         return ;
                     }
                     else{
-                        Toast.makeText(this.context, "Invalid Move", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this.context, "Invalid Move, attacking own Figures", Toast.LENGTH_SHORT).show();
                         return ;
                     }
                 }
         else{
             //Check if target field is empty
-            if(gamePane[yTarget][xTarget]==null){
-                gamePane[yTarget][xTarget]=gamePane[yStart][xStart];
-                gamePane[yStart][xStart]=null;
+            if(gamePane[getY()-1-yTarget][getX()-1-xTarget]==null){
+                gamePane[getY()-1-yTarget][getX()-1-xTarget]=gamePane[getY()-1-yStart][getX()-1-xStart];
+                gamePane[getY()-1-yStart][getX()-1-xStart]=null;
                 updateModelAndView(gamePane);
                 //wait(2000);
-                this.playerOnTurn=p0;
-                this.forceRedraw();
+                nextTurn();
                 return ;
             }
             else{
-                if(gamePane[getY()-1-yStart][getX()-1-xStart].getOwner()!=p0.getId()) {
-                    //TODO: initiateFight
+                if(gamePane[getY()-1-yStart][getX()-1-xStart].getOwner().getId()==p0.getId()) {
+                    gamePane[getY()-1-yTarget][getX()-1-xTarget]=attack(gamePane[getY()-1-yStart][getX()-1-xStart],gamePane[getY()-1-yTarget][getX()-1-xStart]);
+                    gamePane[getY()-1-yTarget][getX()-1-xTarget].discover();
+                    gamePane[getY()-1-yStart][getX()-1-xStart]=null;
                     updateModelAndView(gamePane);
                     //wait(2000);
-                    this.playerOnTurn=p0;
-                    this.forceRedraw();
+                    nextTurn();
                     return ;
                 }
                 else{
-                    Toast.makeText(this.context, "Invalid Move", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this.context, "Invalid Move, attacking own Figures", Toast.LENGTH_SHORT).show();
                     return ;
                 }
             }
@@ -250,6 +249,23 @@ public class GameController {
 
     void updateModelAndView(RPSGameFigure[][] newPane){
         model.setGamePane(newPane);
-        this.view.drawFigures(this.getRepresentationForPlayer());
+        this.view.drawFigures(this.getRepresentationForPlayer(),this.playerOnTurn);
     }
+
+    void nextTurn(){
+        if(playerOnTurn.getId()==p1.getId())
+            playerOnTurn=p0;
+        else playerOnTurn=p1;
+        forceRedraw();
+    }
+
+    RPSGameFigure attack(RPSGameFigure attacker, RPSGameFigure attacked){
+        if(attacked.getType()==attacker.getType())
+            return attack(p0.getNewType(),p1.getNewType());
+        if(attacked.getType().getsBeatenBy(attacker.getType()))
+            return attacker;
+        else return attacked;
+    }
+
+
 }

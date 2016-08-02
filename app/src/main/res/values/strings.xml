@@ -1,4 +1,39 @@
 <resources>
-    <string name="app_name">RockPaperScissors Board Game</string>
+    <string name="app_name">RockPaperScissors  - The Board Game</string>
     <string name="sStartButton">Start Game</string>
+    <string name="sContinueButton">Continue Game</string>
+    <string name="sGameDesc">Game Description</string>
+    <string name="sHome">Home</string>
+    <!-- Drawer -->
+    <string name="sMenuHelp">Help</string>
+    <string name="sMenuAbout">About</string>
+    <string name="sMenuSettings">Settings</string>
+    <string name="sNavigationDrawerOpen">Open navigation drawer</string>
+    <string name="sNavigationDrawerClose">Close navigation drawer</string>
+    <!-- Help -->
+    <string name="sHelp">Help</string>
+    <string name="sHelpOverviewHeading">Overview</string>
+    <string name="sHelpExample">Example Help Entry</string>
+    <string name="sHelpCategoryExample">Example Help Category</string>
+    <string name="sHelpPrivacyHeading">Privacy Info</string>
+    <string name="sHelpPermissionsHeading">Permissions</string>
+    <string name="sHelpPermissionsDescription">Privacy Friendly Rock Paper Scissors Board Game does not use any permissions</string>
+    <string name="sHelpIntro">Welcome to the help page. This app is a board game variant of the famous hand game Rock-Paper-Scissors. It features a single device multiplayer as well as games against an AI.</string>
+    <!-- Settings -->
+    <string name="sTitleActivitySettings">Settings</string>
+    <string name="sPrefHeaderGeneral">General</string>
+    <string name="sPrefExampleSwitch">Example Switch</string>
+    <string name="sPrefExampleSwitch_summary">Example Switch Summary</string>
+    <string name="sPrefExampleSummary">Example Summary</string>
+    <!-- About -->
+    <string name="sAbout">About</string>
+    <string name="sApp_name_prefix">Privacy Friendly RockPaperScissors Board Game</string>
+    <string name="sVersionNumber">0.9</string>
+    <string name="sAboutAuthor">Author:</string>
+    <string name="sAboutAuthorName">David Giessing</string>
+    <string name="sAboutAuthorContributors"></string>
+    <string name="sAboutAffiliation">In affiliation with</string>
+    <string name="sPrivacyFriendly">This application belongs to the group of Privacy Friendly Apps developed by Technische Universität Darmstadt.</string>
+    <string name="sMoreInfo">More information can be found on:</string>
+    <string name="sUrl" translatable="false"><a href="https://www.secuso.org/pfa">https://www.secuso.org/pfa</a></string>
 </resources>
