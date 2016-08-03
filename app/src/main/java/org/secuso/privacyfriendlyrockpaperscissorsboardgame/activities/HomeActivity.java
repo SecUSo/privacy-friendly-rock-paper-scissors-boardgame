@@ -1,4 +1,4 @@
-package org.secuso.privacyfriendlyrockpaperscissorsboardgame;
+package org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
 
 public class HomeActivity extends BaseActivity {
     private ViewPager mViewPager;

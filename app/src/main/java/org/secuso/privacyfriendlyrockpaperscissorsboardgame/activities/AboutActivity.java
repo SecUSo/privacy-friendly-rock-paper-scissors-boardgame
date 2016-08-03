@@ -1,9 +1,12 @@
-package org.secuso.privacyfriendlyrockpaperscissorsboardgame;
+package org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
+
 public class AboutActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {

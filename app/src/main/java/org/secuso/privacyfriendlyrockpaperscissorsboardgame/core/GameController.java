@@ -10,6 +10,7 @@ import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui.RPSBoardLayout;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui.RPSFieldView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -130,9 +131,13 @@ public class GameController {
             this.cellSelected=true;
             this.selX=x;
             this.selY=y;
+             RPSGameFigure[][] board=this.getRepresentationForPlayer();
+            if(board[y][x]!=null)
+            this.view.highlightDestinations(this.getValidDestinations(new Coordinate(x,y),playerOnTurn));
     }
 
     public void deselect(){
+        forceRedraw();
         this.cellSelected=false;
         Toast.makeText(this.context, "Deselect Cell "+selY+", "+selX, Toast.LENGTH_SHORT).show();
     }
@@ -205,7 +210,7 @@ public class GameController {
                 return ;
             }
             else{
-                    if(gamePane[yStart][xStart].getOwner().getId()==p1.getId()) {
+                    if(gamePane[yTarget][xTarget].getOwner().getId()==p0.getId()) {
                         gamePane[yTarget][xTarget]=attack(gamePane[yStart][xStart],gamePane[yTarget][xTarget]);
                         gamePane[yTarget][xTarget].discover();
                         gamePane[yStart][xStart]=null;
@@ -230,7 +235,7 @@ public class GameController {
                 return ;
             }
             else{
-                if(gamePane[getY()-1-yStart][getX()-1-xStart].getOwner().getId()==p0.getId()) {
+                if(gamePane[getY()-1-yTarget][getX()-1-xTarget].getOwner().getId()==p1.getId()) {
                     gamePane[getY()-1-yTarget][getX()-1-xTarget]=attack(gamePane[getY()-1-yStart][getX()-1-xStart],gamePane[getY()-1-yTarget][getX()-1-xStart]);
                     gamePane[getY()-1-yTarget][getX()-1-xTarget].discover();
                     gamePane[getY()-1-yStart][getX()-1-xStart]=null;
@@ -256,7 +261,8 @@ public class GameController {
         if(playerOnTurn.getId()==p1.getId())
             playerOnTurn=p0;
         else playerOnTurn=p1;
-        forceRedraw();
+        view.handleTurnover(playerOnTurn);
+        //forceRedraw();
     }
 
     RPSGameFigure attack(RPSGameFigure attacker, RPSGameFigure attacked){
@@ -267,5 +273,33 @@ public class GameController {
         else return attacked;
     }
 
+    private List<Coordinate> getValidDestinations(Coordinate origin, IPlayer player){
+        ArrayList<Coordinate> result = new ArrayList<>();
+        ArrayList<Coordinate> temp = new ArrayList<>();
+        RPSGameFigure[][] fieldFromPlayer=this.getRepresentationForPlayer();
+        Coordinate c1=new Coordinate(origin.getX()-1,origin.getY());
+        Coordinate c2=new Coordinate(origin.getX()+1,origin.getY());
+        Coordinate c3=new Coordinate(origin.getX(),origin.getY()-1);
+        Coordinate c4=new Coordinate(origin.getX(),origin.getY()+1);
+        temp.add(c1);
+        temp.add(c2);
+        temp.add(c3);
+        temp.add(c4);
+        for(Coordinate c:temp){
+            if(isValid(c,fieldFromPlayer,player))
+                result.add(c);
+        }
+        return result;
+    }
+
+    private boolean isValid(Coordinate c,RPSGameFigure[][] field, IPlayer player){
+        if(c.getX()>=this.getX()||c.getY()>=this.getY()||c.getX()<0||c.getY()<0)
+            return false;
+        if(field[c.getY()][c.getX()]==null)
+            return true;
+        else if(field[c.getY()][c.getX()].getOwner().equals(player))
+            return false;
+        else return true;
+    }
 
 }

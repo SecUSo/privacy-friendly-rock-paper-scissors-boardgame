@@ -1,4 +1,4 @@
-package org.secuso.privacyfriendlyrockpaperscissorsboardgame;
+package org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities;
 
 import android.content.res.Configuration;
 import android.os.PersistableBundle;
@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
 
+import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.GameController;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui.RPSBoardLayout;
 

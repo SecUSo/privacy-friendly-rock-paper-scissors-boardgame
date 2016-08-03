@@ -1,4 +1,4 @@
-package org.secuso.privacyfriendlyrockpaperscissorsboardgame;
+package org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities;
 
 
 import android.annotation.TargetApi;
@@ -13,6 +13,8 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
+
+import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On

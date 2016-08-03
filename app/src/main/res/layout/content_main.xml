@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="org.secuso.privacyfriendlyrockpaperscissorsboardgame.HomeActivity">
+    tools:context=".activities.HomeActivity">
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        tools:context="org.secuso.privacyfriendlyrockpaperscissorsboardgame.HomeActivity"
+        tools:context=".activities.HomeActivity"
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -65,7 +65,7 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:paddingBottom="@dimen/activity_vertical_margin"
-            tools:context="org.secuso.privacyfriendlyrockpaperscissorsboardgame.HomeActivity"
+            tools:context=".activities.HomeActivity"
             android:orientation="vertical"
             android:weightSum="8"
             android:divider="#000"

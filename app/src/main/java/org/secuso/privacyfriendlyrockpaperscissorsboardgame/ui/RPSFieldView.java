@@ -26,6 +26,8 @@ public class  RPSFieldView extends ImageView {
     boolean black;
     int xIndex;
 
+    private boolean isHighlighted;
+
     public int getyIndex() {
         return yIndex;
     }

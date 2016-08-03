@@ -1,7 +1,10 @@
-package org.secuso.privacyfriendlyrockpaperscissorsboardgame;
+package org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+
+import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
+
 public class HelpActivity extends BaseActivity {
 
     @Override

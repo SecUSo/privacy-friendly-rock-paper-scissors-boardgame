@@ -1,4 +1,4 @@
-package org.secuso.privacyfriendlyrockpaperscissorsboardgame;
+package org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

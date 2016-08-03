@@ -36,4 +36,8 @@
     <string name="sPrivacyFriendly">This application belongs to the group of Privacy Friendly Apps developed by Technische Universität Darmstadt.</string>
     <string name="sMoreInfo">More information can be found on:</string>
     <string name="sUrl" translatable="false"><a href="https://www.secuso.org/pfa">https://www.secuso.org/pfa</a></string>
+    <!-- Dialogs -->
+    <string name="sDialogHandOverMessage">Please hand over the device and confirm</string>
+    <string name="sDialogHandOverTitle">It\'s your opponents turn</string>
+    <string name="sDialogHandOverOkButton">Ok</string>
 </resources>

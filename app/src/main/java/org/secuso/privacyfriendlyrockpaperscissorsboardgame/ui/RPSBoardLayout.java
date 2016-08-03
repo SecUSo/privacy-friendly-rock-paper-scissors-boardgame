@@ -1,16 +1,29 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.widget.GridLayout;
+
+import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
+import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.Coordinate;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.GameController;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.IPlayer;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.RPSFigure;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.RPSGameFigure;
+
+import java.util.List;
 
 /**
  * Created by david on 11.06.2016.
@@ -111,5 +124,51 @@ public class RPSBoardLayout extends GridLayout{
             }
         }
         return null;
+    }
+
+    public void handleTurnover(final IPlayer player) {
+        this.clearBoard();
+        AlertDialog.Builder dialogBuilder= new AlertDialog.Builder((Activity)this.getContext());
+        dialogBuilder.setMessage(R.string.sDialogHandOverMessage);
+        dialogBuilder.setTitle(R.string.sDialogHandOverTitle);
+        dialogBuilder.setNegativeButton(R.string.sDialogHandOverOkButton, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                drawFigures(RPSBoardLayout.this.gameController.getRepresentationForPlayer(),player);
+            }
+        });
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                handleTurnover(player);
+            }
+        });
+        dialog.show();
+    }
+
+    private void clearBoard(){
+        for(RPSFieldView[] row: this.board){
+            for(RPSFieldView view: row){
+                view.setImage(null,-1);
+            }
+        }
+    }
+
+    public void highlightDestinations(List<Coordinate> destinations){
+        Drawable highlighted= ResourcesCompat.getDrawable(this.getResources(),R.drawable.higlighted,null).mutate();
+        for(Coordinate c:destinations){
+            if(this.board[c.getY()][c.getX()].getDrawable()!=null){
+                Drawable[] drawables= new Drawable[2];
+                drawables[0]=highlighted;
+                drawables[1]= this.board[c.getY()][c.getX()].getDrawable();
+                LayerDrawable layered= new LayerDrawable(drawables);
+                this.board[c.getY()][c.getX()].setImageDrawable(layered);
+            }
+            else
+                this.board[c.getY()][c.getX()].setImageDrawable(highlighted);
+
+
+        }
     }
 }
