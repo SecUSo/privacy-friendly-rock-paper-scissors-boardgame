@@ -19,7 +19,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_game);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-            this.gameController=new GameController(8,8,getApplicationContext());
+            this.gameController=new GameController(8,8,this.getApplicationContext());
             boardLayout = (RPSBoardLayout) findViewById(R.id.boardLayout);
             boardLayout.createBoard(this.gameController);
         ActionBar ab = getSupportActionBar();

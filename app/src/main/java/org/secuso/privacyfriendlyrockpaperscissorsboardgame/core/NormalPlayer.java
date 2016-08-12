@@ -23,10 +23,18 @@ public class NormalPlayer implements IPlayer {
 
     @Override
     public RPSGameFigure getNewType() {
-        double rand=Math.random();
-        if(rand>0.5)
-            return new RPSGameFigure(this,RPSFigure.PAPER);
-        else return new RPSGameFigure(this,RPSFigure.ROCK);
+        Random rand= new Random();
+        Calendar cal = Calendar.getInstance();
+        rand.setSeed(cal.getTimeInMillis());
+        int type=rand.nextInt(3);
+            switch (type) {
+                case 0:
+                    return new RPSGameFigure(this, RPSFigure.ROCK);
+                case 1:
+                    return new RPSGameFigure(this, RPSFigure.PAPER);
+                default:
+                    return new RPSGameFigure(this, RPSFigure.SCISSOR);
+            }
     }
 
     public int getId() {
@@ -39,7 +47,7 @@ public class NormalPlayer implements IPlayer {
         Random rand= new Random();
         Calendar cal = Calendar.getInstance();
         rand.setSeed(cal.getTimeInMillis());
-        for(int i =0;i<numFigures;i++){
+        for(int i =0;i<15;i++){
             int type=rand.nextInt(3);
             switch (type){
                 case 0:
@@ -53,6 +61,7 @@ public class NormalPlayer implements IPlayer {
                     break;
             }
         }
+        figures.add(rand.nextInt(15),new RPSGameFigure(this,RPSFigure.FLAG));
         return figures;
      }
 

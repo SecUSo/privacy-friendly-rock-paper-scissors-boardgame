@@ -40,4 +40,16 @@
     <string name="sDialogHandOverMessage">Please hand over the device and confirm</string>
     <string name="sDialogHandOverTitle">It\'s your opponents turn</string>
     <string name="sDialogHandOverOkButton">Ok</string>
+
+    <!-- FightDialog -->
+    <string name="sFightDialogAttacker">Attacker</string>
+    <string name="sFightDialogAttacked">Attacked</string>
+    <string name="sFightDialogWinner">Winner</string>
+    <string name="sFightDialogTitle">Fight</string>
+    <string name="sFightDialogSeconds">Dismiss (%1$d)</string>
+    <!-- WinDialog -->
+    <string name="sWinDialogTitle">Congratulations!</string>
+    <string name="sWinDialogText">You discovered the enemies flag and won the game!</string>
+    <string name="sWinDialogBack">Back to Main Menu</string>
+    <string name="sWinDialogShowBoard">Show Board</string>
 </resources>

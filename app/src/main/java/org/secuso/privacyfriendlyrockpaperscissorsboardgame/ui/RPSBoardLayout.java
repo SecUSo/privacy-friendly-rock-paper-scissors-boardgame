@@ -4,19 +4,27 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.os.CountDownTimer;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v4.view.LayoutInflaterCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.GridLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
+import org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities.HomeActivity;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.Coordinate;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.GameController;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.IPlayer;
@@ -59,6 +67,8 @@ public class RPSBoardLayout extends GridLayout{
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if(this.gameController.isGameFinished())
+            return true;
         RPSFieldView target;
         if(event.getAction()==MotionEvent.ACTION_DOWN){
            target=this.findViewByAbsoluteLocation(event.getRawX(),event.getRawY());
@@ -160,15 +170,78 @@ public class RPSBoardLayout extends GridLayout{
         for(Coordinate c:destinations){
             if(this.board[c.getY()][c.getX()].getDrawable()!=null){
                 Drawable[] drawables= new Drawable[2];
-                drawables[0]=highlighted;
+                drawables[0]= highlighted;
                 drawables[1]= this.board[c.getY()][c.getX()].getDrawable();
                 LayerDrawable layered= new LayerDrawable(drawables);
                 this.board[c.getY()][c.getX()].setImageDrawable(layered);
             }
             else
                 this.board[c.getY()][c.getX()].setImageDrawable(highlighted);
-
-
         }
+
     }
-}
+
+    public void showFightDialog(RPSGameFigure attacker, RPSGameFigure attacked , RPSGameFigure winner, DialogInterface.OnDismissListener listener) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+        LayoutInflater inflater=((Activity)this.getContext()).getLayoutInflater();
+        final View fightDialogView= inflater.inflate(R.layout.fight_dialog_layout,null);
+        builder.setView(fightDialogView);
+        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        //FightDialog dialog = new FightDialog(this.getContext(), attacker, attacked, winner,listener);
+        //dialog.getWindow().setContentView(R.layout.fight_dialog_layout);
+        builder.setTitle(R.string.sFightDialogTitle);
+        ImageView attackerImageView=(ImageView)fightDialogView.findViewById(R.id.imageView1);
+        ImageView attackedImageView=(ImageView)fightDialogView.findViewById(R.id.imageView2);
+        ImageView winnerImageView=(ImageView)fightDialogView.findViewById(R.id.imageView3);
+        //WindowManager.LayoutParams params = this.getWindow().getAttributes();
+        attackedImageView.setImageDrawable(ResourcesCompat.getDrawable(this.getContext().getResources(),attacked.getType().getImageResourceId(),null));
+        attackerImageView.setImageDrawable(ResourcesCompat.getDrawable(this.getContext().getResources(),attacker.getType().getImageResourceId(),null));
+        winnerImageView.setImageDrawable(ResourcesCompat.getDrawable(this.getContext().getResources(),winner.getType().getImageResourceId(),null));
+        final AlertDialog fightDialog=builder.create();
+                CountDownTimer timer = new CountDownTimer(3100,100) {
+
+                    @Override
+                    public void onTick(long l) {
+                        fightDialog.getButton(AlertDialog.BUTTON_POSITIVE).setText(getResources().getString(R.string.sFightDialogSeconds,(int)l/1000));
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        fightDialog.dismiss();
+                    }
+                };
+                timer.start();
+        fightDialog.setOnDismissListener(listener);
+        fightDialog.show();
+    }
+
+    public void showWinDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder((Activity)this.getContext());
+        builder.setTitle(R.string.sWinDialogTitle);
+        builder.setMessage(R.string.sWinDialogText);
+        builder.setIcon(ResourcesCompat.getDrawable(this.getResources(),R.drawable.award_medal,null));
+        builder.setPositiveButton(R.string.sWinDialogBack, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent = new Intent(RPSBoardLayout.this.getContext(),HomeActivity.class);
+                RPSBoardLayout.this.getContext().startActivity(intent);
+
+            }
+        });
+        builder.setNegativeButton(R.string.sWinDialogShowBoard, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        AlertDialog winDialog = builder.create();
+        winDialog.show();
+    }
+
+
+    }

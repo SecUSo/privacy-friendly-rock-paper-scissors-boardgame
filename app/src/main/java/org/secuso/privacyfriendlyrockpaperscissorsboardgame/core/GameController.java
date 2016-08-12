@@ -1,12 +1,18 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.core;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
+import org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities.GameActivity;
+import org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui.FightDialog;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui.RPSBoardLayout;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui.RPSFieldView;
 
@@ -28,6 +34,7 @@ public class GameController {
     int selX;
     int selY;
     Context context;
+    boolean gameFinished;
     /**
      * Starts a new Game in Standard 8x8 Layout
      */
@@ -36,6 +43,7 @@ public class GameController {
         this.fieldY=8;
         cellSelected=false;
         this.context=context;
+        this.gameFinished=false;
     }
 
 
@@ -48,6 +56,7 @@ public class GameController {
         this.fieldX=fieldX;
         this.fieldY=fieldY;
         this.context=context;
+        this.gameFinished=false;
     }
 
     public int getX(){
@@ -131,9 +140,15 @@ public class GameController {
             this.cellSelected=true;
             this.selX=x;
             this.selY=y;
-             RPSGameFigure[][] board=this.getRepresentationForPlayer();
-            if(board[y][x]!=null)
-            this.view.highlightDestinations(this.getValidDestinations(new Coordinate(x,y),playerOnTurn));
+            RPSGameFigure[][] board=this.getRepresentationForPlayer();
+            if(board[y][x]!=null) {
+                if(board[y][x].getType()!=RPSFigure.FLAG)
+                    this.view.highlightDestinations(this.getValidDestinations(new Coordinate(x, y), playerOnTurn));
+                else{
+                    this.cellSelected=false;
+                    Toast.makeText(this.context, "Flags can not move", Toast.LENGTH_SHORT).show();
+                }
+            }
     }
 
     public void deselect(){
@@ -199,32 +214,40 @@ public class GameController {
             Toast.makeText(this.context, "Invalid Move, Figure is not owned by Player "+playerOnTurn.getId(), Toast.LENGTH_SHORT).show();
             return ;
         }
-        if(playerOnTurn.getId()==p1.getId())
+        if(playerOnTurn.getId()==p1.getId()) {
+            if (gamePane[yStart][xStart].getType() == RPSFigure.FLAG) {
+                Toast.makeText(this.context, "Invalid Move, Flags can not move", Toast.LENGTH_SHORT).show();
+                return;
+            }
             //Check if target field is empty
-            if(gamePane[yTarget][xTarget]==null) {
-                gamePane[yTarget][xTarget]=gamePane[yStart][xStart];
-                gamePane[yStart][xStart]=null;
+            if (gamePane[yTarget][xTarget] == null) {
+                gamePane[yTarget][xTarget] = gamePane[yStart][xStart];
+                gamePane[yStart][xStart] = null;
                 updateModelAndView(gamePane);
                 //wait(2000);
                 nextTurn();
-                return ;
-            }
-            else{
-                    if(gamePane[yTarget][xTarget].getOwner().getId()==p0.getId()) {
-                        gamePane[yTarget][xTarget]=attack(gamePane[yStart][xStart],gamePane[yTarget][xTarget]);
+                return;
+            } else {
+                if (gamePane[yTarget][xTarget].getOwner().getId() == p0.getId()) {
+                    gamePane[yTarget][xTarget] = attack(gamePane[yStart][xStart], gamePane[yTarget][xTarget]);
+                    if(!this.gameFinished){
                         gamePane[yTarget][xTarget].discover();
-                        gamePane[yStart][xStart]=null;
+                        gamePane[yStart][xStart] = null;
                         updateModelAndView(gamePane);
-                        //wait(2000);
-                        nextTurn();
-                        return ;
+                        //nextTurn();
                     }
-                    else{
-                        Toast.makeText(this.context, "Invalid Move, attacking own Figures", Toast.LENGTH_SHORT).show();
-                        return ;
-                    }
+                    return;
+                } else {
+                    Toast.makeText(this.context, "Invalid Move, attacking own Figures", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+            }
+        }
         else{
+            if(gamePane[getY()-1-yStart][getX()-1-xStart].getType()==RPSFigure.FLAG){
+                Toast.makeText(this.context, "Invalid Move, Flags can not move", Toast.LENGTH_SHORT).show();
+                return;
+            }
             //Check if target field is empty
             if(gamePane[getY()-1-yTarget][getX()-1-xTarget]==null){
                 gamePane[getY()-1-yTarget][getX()-1-xTarget]=gamePane[getY()-1-yStart][getX()-1-xStart];
@@ -236,12 +259,13 @@ public class GameController {
             }
             else{
                 if(gamePane[getY()-1-yTarget][getX()-1-xTarget].getOwner().getId()==p1.getId()) {
-                    gamePane[getY()-1-yTarget][getX()-1-xTarget]=attack(gamePane[getY()-1-yStart][getX()-1-xStart],gamePane[getY()-1-yTarget][getX()-1-xStart]);
-                    gamePane[getY()-1-yTarget][getX()-1-xTarget].discover();
-                    gamePane[getY()-1-yStart][getX()-1-xStart]=null;
-                    updateModelAndView(gamePane);
-                    //wait(2000);
-                    nextTurn();
+                    gamePane[getY() - 1 - yTarget][getX() - 1 - xTarget] = attack(gamePane[getY() - 1 - yStart][getX() - 1 - xStart], gamePane[getY() - 1 - yTarget][getX() - 1 - xStart]);
+                    if(!this.gameFinished){
+                        gamePane[getY() - 1 - yTarget][getX() - 1 - xTarget].discover();
+                        gamePane[getY() - 1 - yStart][getX() - 1 - xStart] = null;
+                        updateModelAndView(gamePane);
+                        //nextTurn();
+                    }
                     return ;
                 }
                 else{
@@ -262,15 +286,66 @@ public class GameController {
             playerOnTurn=p0;
         else playerOnTurn=p1;
         view.handleTurnover(playerOnTurn);
-        //forceRedraw();
     }
 
     RPSGameFigure attack(RPSGameFigure attacker, RPSGameFigure attacked){
+        if(attacked.getType()==RPSFigure.FLAG){
+            handleGameFinished();
+            return attacker;
+        }
         if(attacked.getType()==attacker.getType())
             return attack(p0.getNewType(),p1.getNewType());
-        if(attacked.getType().getsBeatenBy(attacker.getType()))
+        if(attacked.getType().getsBeatenBy(attacker.getType())){
+            view.showFightDialog(attacker, attacked, attacker, new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialogInterface) {
+                    CountDownTimer timer = new CountDownTimer(2000,1000) {
+                        @Override
+                        public void onTick(long l) {
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            nextTurn();
+                        }
+                    };
+                    timer.start();
+                }
+            });
             return attacker;
-        else return attacked;
+        }
+
+        else {
+            view.showFightDialog(attacker,attacked,attacked, new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialogInterface) {
+                    CountDownTimer timer = new CountDownTimer(2000,1000) {
+                        @Override
+                        public void onTick(long l) {
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            nextTurn();
+                        }
+                    };
+                    timer.start();
+                }
+            });
+            return attacked;
+        }
+    }
+
+    private void handleGameFinished() {
+        this.gameFinished=true;
+        for(RPSGameFigure[] row:this.getRepresentationForPlayer()){
+            for(RPSGameFigure fig:row){
+                if(fig!=null)
+                    fig.discover();
+            }
+        }
+        this.forceRedraw();
+        view.showWinDialog();
     }
 
     private List<Coordinate> getValidDestinations(Coordinate origin, IPlayer player){
@@ -302,4 +377,7 @@ public class GameController {
         else return true;
     }
 
+    public boolean isGameFinished(){
+        return this.gameFinished;
+    }
 }

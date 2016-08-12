@@ -7,14 +7,14 @@
     android:tintMode="screen">
 
     <path
-        android:fillColor="#000000"
-        android:strokeColor="#000000"
-        android:strokeWidth="10"
+        android:fillColor="@color/middlegrey"
+        android:strokeColor="@color/middlegrey"
+        android:strokeWidth="20"
         android:strokeMiterLimit="10"
         android:strokeLineCap="round"
         android:pathData="M 308.42 612 L 308.42 93.417" />
     <path
-        android:fillColor="#ED1C24"
+        android:fillColor="@color/middlegrey"
         android:pathData="M313.62 93.417s0 29.222 133.32 27.396 126.02 20.09 126.02
 20.09-49.02-9.132-114.92 29.222c-65.896 38.354-144.43 27.396-144.43 27.396" />
 </vector>

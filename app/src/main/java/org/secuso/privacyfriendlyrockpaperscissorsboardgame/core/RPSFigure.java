@@ -18,7 +18,6 @@ public enum RPSFigure {
     FLAG(R.drawable.flag),
     GHOST(R.drawable.ghost);
     int imageID;
-    private RPSFigure secretType;
 
     RPSFigure(int imageID) {
         this.imageID = imageID;
