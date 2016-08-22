@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities.GameActivity;
+import org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities.HomeActivity;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui.FightDialog;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui.RPSBoardLayout;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui.RPSFieldView;
@@ -23,6 +24,13 @@ import java.util.List;
  * Created by david on 06.05.2016.
  */
 public class GameController {
+
+    public static final int MODE_NORMAL_AUTO=0;
+    public static final int MODE_ROCKPAPERSCISSORSLIZARDSPOCK_AUTO=1;
+    public static final int MODE_NORMAL_MANUAL=2;
+    public static final int MODE_ROCKPAPERSCISSORSLIZARDSPOCK_MANUAL=3;
+    int gameMode;
+    boolean ai;
     IPlayer p0;
     IPlayer p1;
     IPlayer playerOnTurn;
@@ -38,25 +46,14 @@ public class GameController {
     /**
      * Starts a new Game in Standard 8x8 Layout
      */
-    public GameController(Context context){
+    public GameController(Context context,int gameMode,boolean ai){
         this.fieldX=8;
         this.fieldY=8;
         cellSelected=false;
         this.context=context;
         this.gameFinished=false;
-    }
-
-
-    /**
-     * Starts a GameController with a saved instance. This can either be a savegame or the advencing into the next level when a game is draw for now.
-     * @param fieldX describes how many fields we have in x direction
-     * @param fieldY describes how many fields we have in y direction
-     */
-    public GameController(int fieldX, int fieldY, Context context){
-        this.fieldX=fieldX;
-        this.fieldY=fieldY;
-        this.context=context;
-        this.gameFinished=false;
+        this.gameMode=gameMode;
+        this.ai=ai;
     }
 
     public int getX(){
@@ -72,8 +69,16 @@ public class GameController {
      * @param view the Board view to use as view
      */
     public void startGame(RPSBoardLayout view){
-        this.p0=new NormalPlayer(0, -1);
-        this.p1=new NormalPlayer(1, ContextCompat.getColor(this.context,R.color.colorAccent));
+        switch(this.gameMode){
+            case MODE_NORMAL_AUTO :
+                this.p0=this.ai?new AIPlayer(0,-1):new NormalPlayer(0, -1);
+                this.p1=new NormalPlayer(1, ContextCompat.getColor(this.context,R.color.colorAccent));
+                break;
+            case MODE_ROCKPAPERSCISSORSLIZARDSPOCK_AUTO:
+                this.p0= this.ai?new LizardSpockAIPlayer(0,-1):new LizardSpockPlayer(0,-1);
+                this.p1=new LizardSpockPlayer(1, ContextCompat.getColor(this.context,R.color.colorAccent));
+                break;
+        }
         this.playerOnTurn=this.p1;
         this.view=view;
         this.model=new GameState(fieldX,fieldY,p0,p1);
@@ -127,16 +132,20 @@ public class GameController {
     }
 
     public void playerMove(int xTarget, int yTarget){
+        boolean deselect=true;
         try {
-            validateMove(this.selX, this.selY,xTarget,yTarget);
+            deselect=validateMove(this.selX, this.selY,xTarget,yTarget);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        this.cellSelected=false;
+        if(deselect){
+            this.deselect();
+            this.forceRedraw();
+        }
     }
 
     public void selectCell(int x, int y){
-            //Toast.makeText(this.context, "Select Cell "+y+", "+x, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.context, "Select Cell "+y+", "+x, Toast.LENGTH_SHORT).show();
             this.cellSelected=true;
             this.selX=x;
             this.selY=y;
@@ -174,56 +183,65 @@ public class GameController {
         return this.selY;
     }
 
-    private void validateMove(int xStart, int yStart, int xTarget, int yTarget) throws InterruptedException {
+    private boolean validateMove(int xStart, int yStart, int xTarget, int yTarget) throws InterruptedException {
         //Check if movement direction and length is fine
         if(Math.abs(xStart-xTarget)==1) {
             if (Math.abs(yStart - yTarget) == 0) {
                 ;
             }
             else{
-                Toast.makeText(this.context, "Invalid Move", Toast.LENGTH_SHORT).show();
-                return ;
+                //Toast.makeText(this.context, "Invalid Move", Toast.LENGTH_SHORT).show();
+                this.deselect();
+                this.forceRedraw();
+                this.selectCell(xTarget,yTarget);
+                return false;
             }
         }
         else if(Math.abs(xStart-xTarget)==0) {
             if (Math.abs(yStart - yTarget) == 1) {
                 ;
             } else {
-                Toast.makeText(this.context, "Invalid Move", Toast.LENGTH_SHORT).show();
-                return ;
+               // Toast.makeText(this.context, "Invalid Move", Toast.LENGTH_SHORT).show();
+                this.deselect();
+                this.forceRedraw();
+                this.selectCell(xTarget,yTarget);
+                return false;
             }
         }
         else {
-            Toast.makeText(this.context, "Invalid Move", Toast.LENGTH_SHORT).show();
-            return ;
+            //Toast.makeText(this.context, "Invalid Move", Toast.LENGTH_SHORT).show();
+            this.deselect();
+            this.forceRedraw();
+            this.selectCell(xTarget,yTarget);
+            return false;
         }
         //Check if source field is occupied
         RPSGameFigure[][] gamePane=this.model.getGamePane();
         if(playerOnTurn.getId()==p1.getId()){
             if(gamePane[yStart][xStart]==null) {
-                Toast.makeText(this.context, "Invalid Move, Starting Field is empty", Toast.LENGTH_SHORT).show();
-                return;
+                //Toast.makeText(this.context, "Invalid Move, Starting Field is empty", Toast.LENGTH_SHORT).show();
+                return true;
             }
         }
         else if(gamePane[getY()-1-yStart][getX()-1-xStart]==null){
-            Toast.makeText(this.context, "Invalid Move, Starting Field is empty", Toast.LENGTH_SHORT).show();
-            return;
+            //Toast.makeText(this.context, "Invalid Move, Starting Field is empty", Toast.LENGTH_SHORT).show();
+            return true;
         }
         //Check if figure on field is of current Player
         if(playerOnTurn.getId()==p1.getId()){
             if(gamePane[yStart][xStart].getOwner().getId()!=p1.getId()) {
-                Toast.makeText(this.context, "Invalid Move, Figure is not owned by Player "+playerOnTurn.getId(), Toast.LENGTH_SHORT).show();
-                return ;
+                //Toast.makeText(this.context, "Invalid Move, Figure is not owned by Player "+playerOnTurn.getId(), Toast.LENGTH_SHORT).show();
+                return true;
             }
         }
         else if (gamePane[getY()-1-yStart][getX()-1-xStart].getOwner().getId()!=p0.getId()){
-            Toast.makeText(this.context, "Invalid Move, Figure is not owned by Player "+playerOnTurn.getId(), Toast.LENGTH_SHORT).show();
-            return ;
+            //Toast.makeText(this.context, "Invalid Move, Figure is not owned by Player "+playerOnTurn.getId(), Toast.LENGTH_SHORT).show();
+            return true;
         }
         if(playerOnTurn.getId()==p1.getId()) {
             if (gamePane[yStart][xStart].getType() == RPSFigure.FLAG) {
-                Toast.makeText(this.context, "Invalid Move, Flags can not move", Toast.LENGTH_SHORT).show();
-                return;
+                Toast.makeText(this.context, "Flags can not move", Toast.LENGTH_SHORT).show();
+                return true;
             }
             //Check if target field is empty
             if (gamePane[yTarget][xTarget] == null) {
@@ -232,7 +250,7 @@ public class GameController {
                 updateModelAndView(gamePane);
                 //wait(2000);
                 nextTurn();
-                return;
+                return true;
             } else {
                 if (gamePane[yTarget][xTarget].getOwner().getId() == p0.getId()) {
                     gamePane[yTarget][xTarget] = attack(gamePane[yStart][xStart], gamePane[yTarget][xTarget]);
@@ -242,17 +260,20 @@ public class GameController {
                         updateModelAndView(gamePane);
                         //nextTurn();
                     }
-                    return;
+                    return true;
                 } else {
-                    Toast.makeText(this.context, "Invalid Move, attacking own Figures", Toast.LENGTH_SHORT).show();
-                    return;
+                    this.deselect();
+                    this.forceRedraw();
+                    this.selectCell(xTarget,yTarget);
+                    //Toast.makeText(this.context, "Invalid Move, attacking own Figures", Toast.LENGTH_SHORT).show();
+                    return false;
                 }
             }
         }
         else{
             if(gamePane[getY()-1-yStart][getX()-1-xStart].getType()==RPSFigure.FLAG){
-                Toast.makeText(this.context, "Invalid Move, Flags can not move", Toast.LENGTH_SHORT).show();
-                return;
+                Toast.makeText(this.context, "Flags can not move", Toast.LENGTH_SHORT).show();
+                return true;
             }
             //Check if target field is empty
             if(gamePane[getY()-1-yTarget][getX()-1-xTarget]==null){
@@ -261,7 +282,7 @@ public class GameController {
                 updateModelAndView(gamePane);
                 //wait(2000);
                 nextTurn();
-                return ;
+                return true;
             }
             else{
                 if(gamePane[getY()-1-yTarget][getX()-1-xTarget].getOwner().getId()==p1.getId()) {
@@ -272,11 +293,14 @@ public class GameController {
                         updateModelAndView(gamePane);
                         //nextTurn();
                     }
-                    return ;
+                    return true;
                 }
                 else{
-                    Toast.makeText(this.context, "Invalid Move, attacking own Figures", Toast.LENGTH_SHORT).show();
-                    return ;
+                    this.deselect();
+                    this.forceRedraw();
+                    this.selectCell(xTarget,yTarget);
+                    //Toast.makeText(this.context, "Invalid Move, attacking own Figures", Toast.LENGTH_SHORT).show();
+                    return false;
                 }
             }
         }

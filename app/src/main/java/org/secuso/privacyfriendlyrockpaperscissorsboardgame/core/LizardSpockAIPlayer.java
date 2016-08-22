@@ -3,18 +3,19 @@ package org.secuso.privacyfriendlyrockpaperscissorsboardgame.core;
 import java.util.List;
 
 /**
- * Created by david on 17.06.2016.
+ * Created by david on 22.08.2016.
  */
-public class AIPlayer implements IPlayer{
+public class LizardSpockAIPlayer implements IPlayer{
 
     private int id;
 
     private int color;
 
-    public AIPlayer(int id, int color){
+    public LizardSpockAIPlayer(int id, int color){
         this.id=id;
         this.color=color;
     }
+
 
     @Override
     public List<RPSGameFigure> provideInitialAssignment(int numFigures) {

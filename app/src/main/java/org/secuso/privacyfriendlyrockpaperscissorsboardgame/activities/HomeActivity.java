@@ -14,11 +14,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
+import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.GameController;
+import org.w3c.dom.Text;
 
 public class HomeActivity extends BaseActivity {
     private ViewPager mViewPager;
     private ImageView mArrowLeft;
     private ImageView mArrowRight;
+    public static String GAMEMODE_EXTRA="MODE";
+    public static String AI_EXTRA="AI";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +44,7 @@ public class HomeActivity extends BaseActivity {
         //care for initial postiton of the ViewPager
         mArrowLeft.setVisibility((index==0)?View.INVISIBLE:View.VISIBLE);
         mArrowRight.setVisibility((index==mSectionsPagerAdapter.getCount()-1)?View.INVISIBLE:View.VISIBLE);
-
+        ((TextView)HomeActivity.this.findViewById(R.id.GameDesc)).setText(R.string.sGameDescDefault);
         //Update ViewPager on change
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -52,7 +56,21 @@ public class HomeActivity extends BaseActivity {
             public void onPageSelected(int position) {
                 mArrowLeft.setVisibility((position==0)?View.INVISIBLE:View.VISIBLE);
                 mArrowRight.setVisibility((position==mSectionsPagerAdapter.getCount()-1)?View.INVISIBLE:View.VISIBLE);
-
+                TextView gameDescription=(TextView)HomeActivity.this.findViewById(R.id.GameDesc);
+                switch(position){
+                    case GameController.MODE_NORMAL_AUTO:
+                        gameDescription.setText(R.string.sGameDescDefault);
+                        break;
+                    case GameController.MODE_ROCKPAPERSCISSORSLIZARDSPOCK_AUTO:
+                        gameDescription.setText(R.string.sGameDescLizardSpock);
+                        break;
+                    case GameController.MODE_NORMAL_MANUAL:
+                        gameDescription.setText(R.string.sGameDescDefaultManual);
+                        break;
+                    case GameController.MODE_ROCKPAPERSCISSORSLIZARDSPOCK_MANUAL:
+                        gameDescription.setText(R.string.sGameDescLizardSpockManual);
+                        break;
+                }
                 //save position in settings
                 SharedPreferences.Editor editor = mSharedPreferences.edit();
                 editor.putInt("lastChosenPage", position);
@@ -68,6 +86,16 @@ public class HomeActivity extends BaseActivity {
 
     public void startGame(View view){
         Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra(AI_EXTRA,false);
+        intent.putExtra(GAMEMODE_EXTRA,this.mViewPager.getCurrentItem());
+        startActivity(intent);
+
+    }
+
+    public void startGameAI(View view){
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra(AI_EXTRA,true);
+        intent.putExtra(GAMEMODE_EXTRA,this.mViewPager.getCurrentItem());
         startActivity(intent);
 
     }
@@ -105,8 +133,8 @@ public class HomeActivity extends BaseActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            // Show 4 total pages.
+            return 4;
         }
     }
 

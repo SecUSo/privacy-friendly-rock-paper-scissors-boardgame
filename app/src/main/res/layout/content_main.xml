@@ -79,7 +79,7 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_weight="4"
                 android:gravity="center"
-                android:text="@string/sGameDesc"/>
+                android:id="@+id/GameDesc"/>
 
             <Button
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
@@ -93,6 +93,19 @@
                 android:text="@string/sStartButton"
                 android:id="@+id/game_button_start"
                 android:onClick="startGame"/>
+
+            <Button
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:background="@drawable/button_fullwidth"
+                android:textSize="25sp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:text="@string/sStartButtonAI"
+                android:id="@+id/game_button_start_ai"
+                android:onClick="startGameAI"/>
 
             <Button
                 android:layout_marginBottom="@dimen/activity_vertical_margin"

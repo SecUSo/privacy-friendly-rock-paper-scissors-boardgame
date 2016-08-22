@@ -1,8 +1,12 @@
 <resources>
     <string name="app_name">RockPaperScissors  - The Board Game</string>
-    <string name="sStartButton">Start Game</string>
+    <string name="sStartButton">Game vs Friend</string>
+    <string name="sStartButtonAI">Game vs AI</string>
     <string name="sContinueButton">Continue Game</string>
-    <string name="sGameDesc">Game Description</string>
+    <string name="sGameDescDefault">Rock Paper Scissors Board Game with randomly assigned starting lineup</string>
+    <string name= "sGameDescLizardSpock">Rock Paper Scissors Lizard Spock Board Game with randomly assigned starting lineup</string>
+    <string name= "sGameDescDefaultManual">Rock Paper Scissors Board Game with manual assignment of starting lineup</string>
+    <string name= "sGameDescLizardSpockManual">Rock Paper Scissors Lizard Spock Board Game with manual assignment of starting lineup</string>
     <string name="sHome">Home</string>
     <!-- Drawer -->
     <string name="sMenuHelp">Help</string>
