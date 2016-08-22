@@ -136,17 +136,23 @@ public class GameController {
     }
 
     public void selectCell(int x, int y){
-            Toast.makeText(this.context, "Select Cell "+y+", "+x, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this.context, "Select Cell "+y+", "+x, Toast.LENGTH_SHORT).show();
             this.cellSelected=true;
             this.selX=x;
             this.selY=y;
             RPSGameFigure[][] board=this.getRepresentationForPlayer();
             if(board[y][x]!=null) {
+                if(!board[y][x].getOwner().equals(this.playerOnTurn)){
+                    this.cellSelected=false;
+                    Toast.makeText(this.context, "This is not your figure", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if(board[y][x].getType()!=RPSFigure.FLAG)
                     this.view.highlightDestinations(this.getValidDestinations(new Coordinate(x, y), playerOnTurn));
                 else{
                     this.cellSelected=false;
                     Toast.makeText(this.context, "Flags can not move", Toast.LENGTH_SHORT).show();
+                    return;
                 }
             }
     }
