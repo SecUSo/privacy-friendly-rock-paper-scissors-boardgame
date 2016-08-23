@@ -46,14 +46,15 @@ public class GameController {
     /**
      * Starts a new Game in Standard 8x8 Layout
      */
-    public GameController(Context context,int gameMode,boolean ai){
+    public GameController(Context context, GameState model){
         this.fieldX=8;
         this.fieldY=8;
+        this.model=model;
         cellSelected=false;
         this.context=context;
-        this.gameFinished=false;
-        this.gameMode=gameMode;
-        this.ai=ai;
+        this.gameFinished=this.model.isGameFinished();
+        this.gameMode=model.getGameMode();
+        this.ai=model.isAgainstAI();
     }
 
     public int getX(){
@@ -69,20 +70,30 @@ public class GameController {
      * @param view the Board view to use as view
      */
     public void startGame(RPSBoardLayout view){
-        switch(this.gameMode){
-            case MODE_NORMAL_AUTO :
-                this.p0=this.ai?new AIPlayer(0,-1):new NormalPlayer(0, -1);
-                this.p1=new NormalPlayer(1, ContextCompat.getColor(this.context,R.color.colorAccent));
-                break;
-            case MODE_ROCKPAPERSCISSORSLIZARDSPOCK_AUTO:
-                this.p0= this.ai?new LizardSpockAIPlayer(0,-1):new LizardSpockPlayer(0,-1);
-                this.p1=new LizardSpockPlayer(1, ContextCompat.getColor(this.context,R.color.colorAccent));
-                break;
+        if(this.model.gameStateIsReady()){
+            IPlayer[] players= this.model.getPlayers();
+            this.p0=players[0];
+            this.p1=players[1];
+            this.playerOnTurn=this.model.getPlayerOnTurn();
         }
-        this.playerOnTurn=this.p1;
+        else{
+            switch(this.gameMode){
+                case MODE_NORMAL_AUTO :
+                    this.p0=this.ai?new AIPlayer(0,-1):new NormalPlayer(0, -1);
+                    this.p1=new NormalPlayer(1, ContextCompat.getColor(this.context,R.color.colorAccent));
+                    break;
+                case MODE_ROCKPAPERSCISSORSLIZARDSPOCK_AUTO:
+                    this.p0= this.ai?new LizardSpockAIPlayer(0,-1):new LizardSpockPlayer(0,-1);
+                    this.p1=new LizardSpockPlayer(1, ContextCompat.getColor(this.context,R.color.colorAccent));
+                    break;
+            }
+            this.model.setPlayer(this.p0,this.p1);
+            this.playerOnTurn=this.p1;
+            this.model.setPlayerOnTurn(this.playerOnTurn);
+            this.model.setGamePane(this.placeFigures(p0.provideInitialAssignment(this.getX()*2),p1.provideInitialAssignment(this.getX()*2)));
+            this.model.setGameStateOK();
+        }
         this.view=view;
-        this.model=new GameState(fieldX,fieldY,p0,p1);
-        this.model.setGamePane(this.placeFigures(p0.provideInitialAssignment(this.getX()*2),p1.provideInitialAssignment(this.getX()*2)));
         this.view.drawFigures(this.getRepresentationForPlayer(),this.playerOnTurn);
     }
 
@@ -315,6 +326,7 @@ public class GameController {
         if(playerOnTurn.getId()==p1.getId())
             playerOnTurn=p0;
         else playerOnTurn=p1;
+        this.model.setPlayerOnTurn(playerOnTurn);
         view.handleTurnover(playerOnTurn);
     }
 
@@ -367,6 +379,7 @@ public class GameController {
     }
 
     private void handleGameFinished() {
+        this.model.gameIsFinished();
         this.gameFinished=true;
         for(RPSGameFigure[] row:this.getRepresentationForPlayer()){
             for(RPSGameFigure fig:row){
