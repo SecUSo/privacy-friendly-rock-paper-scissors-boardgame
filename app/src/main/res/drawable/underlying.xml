@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:top="-2dp" android:right="-2dp" android:left="-2dp">
-    <shape android:shape="oval">
-        <solid android:color="@color/colorPrimaryDark" />
-    </shape>
-</item>
+    <item android:top="-2dp" android:right="-2dp" android:left="-2dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/colorPrimaryDark" />
+        </shape>
+    </item>
 </selector>

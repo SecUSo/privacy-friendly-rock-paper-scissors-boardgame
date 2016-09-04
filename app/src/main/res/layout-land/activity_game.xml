@@ -9,6 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".activities.GameActivity">
+
     <org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui.RPSBoardLayout
         android:id="@+id/boardLayout"
         android:layout_width="wrap_content"
@@ -16,6 +17,5 @@
         android:layout_height="match_parent"
         android:clickable="true"
         android:layout_gravity="center"
-        android:background="@drawable/borders"
-        />
+        android:background="@drawable/borders" />
 </GridLayout>

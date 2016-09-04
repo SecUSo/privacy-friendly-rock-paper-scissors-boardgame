@@ -7,9 +7,9 @@
     android:tintMode="multiply">
 
     <group
-            android:name="g630"
-            android:translateX="-69.885"
-            android:translateY="-38.07">
+        android:name="g630"
+        android:translateX="-69.885"
+        android:translateY="-38.07">
         <path
             android:name="path2208"
             android:fillColor="#c7c7c7"

@@ -14,28 +14,28 @@ public class LizardSpockPlayer implements IPlayer {
 
     private int color;
 
-    public LizardSpockPlayer(int id, int color){
-        this.id=id;
-        this.color=color;
+    public LizardSpockPlayer(int id, int color) {
+        this.id = id;
+        this.color = color;
     }
 
     @Override
-    public RPSGameFigure getNewType() {
-        Random rand= new Random();
+    public RPSFigure getNewType() {
+        Random rand = new Random();
         Calendar cal = Calendar.getInstance();
         rand.setSeed(cal.getTimeInMillis());
-        int type=rand.nextInt(5);
+        int type = rand.nextInt(5);
         switch (type) {
             case 0:
-                return new RPSGameFigure(this, RPSFigure.ROCK);
+                return RPSFigure.ROCK;
             case 1:
-                return new RPSGameFigure(this, RPSFigure.PAPER);
+                return RPSFigure.PAPER;
             case 2:
-                return new RPSGameFigure(this, RPSFigure.SCISSOR);
+                return RPSFigure.SCISSOR;
             case 3:
-                return new RPSGameFigure(this,RPSFigure.LIZARD);
+                return RPSFigure.LIZARD;
             default:
-                return new RPSGameFigure(this,RPSFigure.SPOCK);
+                return RPSFigure.SPOCK;
         }
     }
 
@@ -46,30 +46,30 @@ public class LizardSpockPlayer implements IPlayer {
     @Override
     public List<RPSGameFigure> provideInitialAssignment(int numFigures) {
         List<RPSGameFigure> figures = new ArrayList<RPSGameFigure>();
-        Random rand= new Random();
+        Random rand = new Random();
         Calendar cal = Calendar.getInstance();
         rand.setSeed(cal.getTimeInMillis());
-        for(int i =0;i<15;i++){
-            int type=rand.nextInt(5);
-            switch (type){
+        for (int i = 0; i < 15; i++) {
+            int type = rand.nextInt(5);
+            switch (type) {
                 case 0:
-                    figures.add(new RPSGameFigure(this,RPSFigure.ROCK));
+                    figures.add(new RPSGameFigure(this, RPSFigure.ROCK));
                     break;
                 case 1:
-                    figures.add(new RPSGameFigure(this,RPSFigure.PAPER));
+                    figures.add(new RPSGameFigure(this, RPSFigure.PAPER));
                     break;
                 case 2:
-                    figures.add(new RPSGameFigure(this,RPSFigure.SCISSOR));
+                    figures.add(new RPSGameFigure(this, RPSFigure.SCISSOR));
                     break;
                 case 3:
-                    figures.add(new RPSGameFigure(this,RPSFigure.LIZARD));
+                    figures.add(new RPSGameFigure(this, RPSFigure.LIZARD));
                     break;
                 case 4:
-                    figures.add(new RPSGameFigure(this,RPSFigure.SPOCK));
+                    figures.add(new RPSGameFigure(this, RPSFigure.SPOCK));
                     break;
             }
         }
-        figures.add(rand.nextInt(15),new RPSGameFigure(this,RPSFigure.FLAG));
+        figures.add(rand.nextInt(15), new RPSGameFigure(this, RPSFigure.FLAG));
         return figures;
     }
 
@@ -77,11 +77,16 @@ public class LizardSpockPlayer implements IPlayer {
     public void makeMove() {
     }
 
-    public boolean equals(IPlayer player){
-        return this.getId()==player.getId();
+    public boolean equals(IPlayer player) {
+        return this.getId() == player.getId();
     }
 
-    public int getColor(){
+    public int getColor() {
         return this.color;
+    }
+
+    @Override
+    public boolean isAi() {
+        return false;
     }
 }

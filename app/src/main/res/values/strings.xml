@@ -1,13 +1,14 @@
 <resources>
-    <string name="app_name">RockPaperScissors  - The Board Game</string>
+    <string name="app_name">RockPaperScissors</string>
     <string name="sStartButton">Game vs Friend</string>
     <string name="sStartButtonAI">Game vs AI</string>
     <string name="sContinueButton">Continue Game</string>
     <string name="sGameDescDefault">Rock Paper Scissors Board Game with randomly assigned starting lineup</string>
-    <string name= "sGameDescLizardSpock">Rock Paper Scissors Lizard Spock Board Game with randomly assigned starting lineup</string>
-    <string name= "sGameDescDefaultManual">Rock Paper Scissors Board Game with manual assignment of starting lineup</string>
-    <string name= "sGameDescLizardSpockManual">Rock Paper Scissors Lizard Spock Board Game with manual assignment of starting lineup</string>
+    <string name="sGameDescLizardSpock">Rock Paper Scissors Lizard Spock Board Game with randomly assigned starting lineup</string>
+    <string name="sGameDescDefaultManual">Rock Paper Scissors Board Game with manual assignment of starting lineup</string>
+    <string name="sGameDescLizardSpockManual">Rock Paper Scissors Lizard Spock Board Game with manual assignment of starting lineup</string>
     <string name="sHome">Home</string>
+    <string name="onTurn">Player %1$d is on turn</string>
     <!-- Drawer -->
     <string name="sMenuHelp">Help</string>
     <string name="sMenuAbout">About</string>
@@ -43,7 +44,7 @@
     <!-- Dialogs -->
     <string name="sDialogHandOverMessage">Please hand over the device and confirm</string>
     <string name="sDialogHandOverTitle">It\'s your opponents turn</string>
-    <string name="sDialogHandOverOkButton">Ok</string>
+    <string name="sDialogHandOverOkButton">Okay</string>
 
     <!-- FightDialog -->
     <string name="sFightDialogAttacker">Attacker</string>
@@ -56,4 +57,10 @@
     <string name="sWinDialogText">You discovered the enemies flag and won the game!</string>
     <string name="sWinDialogBack">Back to Main Menu</string>
     <string name="sWinDialogShowBoard">Show Board</string>
+    <!-- DrawDialog -->
+    <string name="sDrawDialogTitle">Draw! Pick a new Figure Player %1$d</string>
+    <!-- Toasts -->
+    <string name="sToastEnemy">"This is not your figure"</string>
+    <string name="sToastFlag">"Flags can not move"</string>
+    <string name="sToastEmpty">Selection of empty cells is not permitted</string>
 </resources>

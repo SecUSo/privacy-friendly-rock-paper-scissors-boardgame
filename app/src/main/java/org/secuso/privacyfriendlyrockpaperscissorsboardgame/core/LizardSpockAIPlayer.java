@@ -1,19 +1,21 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.core;
 
+import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by david on 22.08.2016.
  */
-public class LizardSpockAIPlayer implements IPlayer{
+public class LizardSpockAIPlayer implements IPlayer {
 
     private int id;
 
     private int color;
 
-    public LizardSpockAIPlayer(int id, int color){
-        this.id=id;
-        this.color=color;
+    public LizardSpockAIPlayer(int id, int color) {
+        this.id = id;
+        this.color = color;
     }
 
 
@@ -28,8 +30,23 @@ public class LizardSpockAIPlayer implements IPlayer{
     }
 
     @Override
-    public RPSGameFigure getNewType() {
-        return null;
+    public RPSFigure getNewType() {
+        Random rand = new Random();
+        Calendar cal = Calendar.getInstance();
+        rand.setSeed(cal.getTimeInMillis());
+        int type = rand.nextInt(5);
+        switch (type) {
+            case 0:
+                return RPSFigure.ROCK;
+            case 1:
+                return RPSFigure.PAPER;
+            case 2:
+                return RPSFigure.SCISSOR;
+            case 3:
+                return RPSFigure.LIZARD;
+            default:
+                return RPSFigure.SPOCK;
+        }
     }
 
     @Override
@@ -45,5 +62,10 @@ public class LizardSpockAIPlayer implements IPlayer{
     @Override
     public int getColor() {
         return 0;
+    }
+
+    @Override
+    public boolean isAi() {
+        return true;
     }
 }

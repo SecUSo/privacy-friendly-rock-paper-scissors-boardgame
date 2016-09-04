@@ -1,16 +1,15 @@
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
-        android:title="Example Category">
+    <PreferenceCategory android:title="Example Category">
         <SwitchPreference
             android:id="@+id/pref_example_switch"
             android:key="pref_example_switch"
             android:title="@string/sPrefExampleSwitch"
             android:summary="@string/sPrefExampleSummary"
-            android:defaultValue="false"/>
-        <Preference android:title="Test Setting"
-            android:summary="Text Summary"/>
+            android:defaultValue="false" />
+        <Preference
+            android:title="Test Setting"
+            android:summary="Text Summary" />
     </PreferenceCategory>
 
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->

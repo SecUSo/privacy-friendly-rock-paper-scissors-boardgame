@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".activities.HomeActivity">
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         tools:context=".activities.HomeActivity"
@@ -20,11 +19,13 @@
         android:orientation="horizontal"
         android:weightSum="10"
         style="?android:buttonBarStyle">
+
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layoutDirection="ltr"
             android:layout_weight="4">
+
             <android.support.v4.view.ViewPager
                 android:id="@+id/scroller"
                 android:layout_width="match_parent"
@@ -42,7 +43,8 @@
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_centerVertical="true"
-                android:onClick="onClick"/>
+                android:onClick="onClick" />
+
             <ImageView
                 android:id="@+id/arrow_right"
                 android:layout_width="wrap_content"
@@ -54,7 +56,7 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_centerVertical="true"
-                android:onClick="onClick"/>
+                android:onClick="onClick" />
         </RelativeLayout>
 
         <LinearLayout
@@ -79,7 +81,7 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_weight="4"
                 android:gravity="center"
-                android:id="@+id/GameDesc"/>
+                android:id="@+id/GameDesc" />
 
             <Button
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
@@ -92,7 +94,7 @@
                 android:layout_marginRight="30dp"
                 android:text="@string/sStartButton"
                 android:id="@+id/game_button_start"
-                android:onClick="startGame"/>
+                android:onClick="startGame" />
 
             <Button
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
@@ -105,7 +107,7 @@
                 android:layout_marginRight="30dp"
                 android:text="@string/sStartButtonAI"
                 android:id="@+id/game_button_start_ai"
-                android:onClick="startGameAI"/>
+                android:onClick="startGameAI" />
 
             <Button
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
@@ -118,7 +120,7 @@
                 android:layout_marginRight="30dp"
                 android:text="@string/sContinueButton"
                 android:id="@+id/game_button_continue"
-                android:onClick="onClick"/>
+                android:onClick="onClick" />
 
         </LinearLayout>
     </LinearLayout>

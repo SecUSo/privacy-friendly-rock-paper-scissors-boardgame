@@ -10,6 +10,7 @@ import java.util.List;
 public interface IPlayer {
     /**
      * Creates the starting assignment for a player
+     *
      * @param numFigures the number of figures that is allowed for the game
      * @return the starting assignment for the player
      */
@@ -17,18 +18,21 @@ public interface IPlayer {
 
     /**
      * Creates a Move object that has to be handeled by the controller
+     *
      * @return a move object
      */
     void makeMove();
 
     /**
      * Returns a new RPSFigure type. for example when a draw occurs.
+     *
      * @return the new RPSFigure type
      */
-    RPSGameFigure getNewType();
+    RPSFigure getNewType();
 
     /**
      * Returns the players ID
+     *
      * @return the players ID
      */
     int getId();
@@ -36,4 +40,6 @@ public interface IPlayer {
     boolean equals(IPlayer player);
 
     int getColor();
+
+    boolean isAi();
 }

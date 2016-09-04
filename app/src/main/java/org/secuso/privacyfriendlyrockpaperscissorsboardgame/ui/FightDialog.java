@@ -34,9 +34,9 @@ public class FightDialog extends Dialog {
         super(context);
         this.setCancelable(true);
         this.setContentView(R.layout.fight_dialog_layout);
-        this.attacked=attacked;
-        this.attacker=attacker;
-        this.winner=winner;
+        this.attacked = attacked;
+        this.attacker = attacker;
+        this.winner = winner;
         this.setOnDismissListener(listener);
     }
 
@@ -44,17 +44,17 @@ public class FightDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setTitle(R.string.sFightDialogTitle);
-        ImageView attackerImageView=(ImageView)this.findViewById(R.id.imageView1);
-        ImageView attackedImageView=(ImageView)this.findViewById(R.id.imageView2);
-        ImageView winnerImageView=(ImageView)this.findViewById(R.id.imageView3);
+        ImageView attackerImageView = (ImageView) this.findViewById(R.id.imageView1);
+        ImageView attackedImageView = (ImageView) this.findViewById(R.id.imageView2);
+        ImageView winnerImageView = (ImageView) this.findViewById(R.id.imageView3);
         //WindowManager.LayoutParams params = this.getWindow().getAttributes();
-        attackedImageView.setImageDrawable(ResourcesCompat.getDrawable(this.getContext().getResources(),attacked.getType().getImageResourceId(),null));
-        attackerImageView.setImageDrawable(ResourcesCompat.getDrawable(this.getContext().getResources(),attacker.getType().getImageResourceId(),null));
-        winnerImageView.setImageDrawable(ResourcesCompat.getDrawable(this.getContext().getResources(),winner.getType().getImageResourceId(),null));
+        attackedImageView.setImageDrawable(ResourcesCompat.getDrawable(this.getContext().getResources(), attacked.getType().getImageResourceId(), null));
+        attackerImageView.setImageDrawable(ResourcesCompat.getDrawable(this.getContext().getResources(), attacker.getType().getImageResourceId(), null));
+        winnerImageView.setImageDrawable(ResourcesCompat.getDrawable(this.getContext().getResources(), winner.getType().getImageResourceId(), null));
         this.setOnShowListener(new OnShowListener() {
             @Override
             public void onShow(DialogInterface dialogInterface) {
-                CountDownTimer timer = new CountDownTimer(3100,100) {
+                CountDownTimer timer = new CountDownTimer(3100, 100) {
 
                     @Override
                     public void onTick(long l) {

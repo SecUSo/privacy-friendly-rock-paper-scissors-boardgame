@@ -2,17 +2,18 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory android:title="@string/sHelpOverviewHeading">
-    <Preference
-        android:selectable="false"
-        android:persistent="false"
-        android:title=""
-        android:summary="@string/sHelpIntro"/>
+        <Preference
+            android:selectable="false"
+            android:persistent="false"
+            android:title=""
+            android:summary="@string/sHelpIntro" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/sHelpCategoryExample">
-        <Preference android:title="@string/sHelpExample"
+        <Preference
+            android:title="@string/sHelpExample"
             android:summary="@string/sHelp"
-            android:selectable="false"/>
+            android:selectable="false" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/sHelpPrivacyHeading">

@@ -24,24 +24,44 @@ public enum RPSFigure {
     }
 
     public int getImageResourceId() {
-            return imageID;
+        return imageID;
     }
 
-    public boolean getsBeatenBy(RPSFigure enemy){
-        switch(this){
+    public boolean getsBeatenBy(RPSFigure enemy) {
+        switch (this) {
             case ROCK:
-                return enemy==PAPER||enemy==SPOCK;
+                return enemy == PAPER || enemy == SPOCK;
             case PAPER:
-                return enemy==SCISSOR||enemy==LIZARD;
+                return enemy == SCISSOR || enemy == LIZARD;
             case SCISSOR:
-                return enemy==ROCK||enemy==SPOCK;
+                return enemy == ROCK || enemy == SPOCK;
             case SPOCK:
-                return enemy==PAPER||enemy==LIZARD;
+                return enemy == PAPER || enemy == LIZARD;
             case LIZARD:
-                return enemy==SCISSOR||enemy==ROCK;
+                return enemy == SCISSOR || enemy == ROCK;
             case FLAG:
                 return true;
-            default: return false;
+            default:
+                return false;
+        }
+    }
+
+    public String getName() {
+        switch (this) {
+            case ROCK:
+                return "Rock";
+            case PAPER:
+                return "Paper";
+            case SCISSOR:
+                return "Scissor";
+            case SPOCK:
+                return "Spock";
+            case LIZARD:
+                return "Lizard";
+            case FLAG:
+                return "Flag";
+            default:
+                return "Unknown Type";
         }
     }
 

@@ -9,22 +9,22 @@ public class RPSGameFigure {
     boolean hidden;
     IPlayer owner;
 
-    public RPSGameFigure(IPlayer owner, RPSFigure type){
-        this.owner=owner;
-        this.type=type;
-        this.hidden=true;
+    public RPSGameFigure(IPlayer owner, RPSFigure type) {
+        this.owner = owner;
+        this.type = type;
+        this.hidden = true;
     }
 
     public boolean isHidden() {
         return hidden;
     }
 
-    public RPSFigure discover(){
-        this.hidden=false;
+    public RPSFigure discover() {
+        this.hidden = false;
         return this.type;
     }
 
-    public RPSFigure getType(){
+    public RPSFigure getType() {
         return this.type;
     }
 
@@ -32,10 +32,10 @@ public class RPSGameFigure {
         return owner;
     }
 
-    public String toString(){
+    public String toString() {
         String result;
-        result=""+type;
-        result+=hidden?"Versteckt":"offen";
+        result = "" + type;
+        result += hidden ? "Versteckt" : "offen";
         return result;
     }
 }

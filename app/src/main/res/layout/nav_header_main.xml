@@ -21,7 +21,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:src="@android:drawable/sym_def_app_icon"/>
+            android:src="@android:drawable/sym_def_app_icon" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,7 +32,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/imageView"
-            android:layout_toRightOf="@+id/imageView"/>
+            android:layout_toRightOf="@+id/imageView" />
 
     </RelativeLayout>
 

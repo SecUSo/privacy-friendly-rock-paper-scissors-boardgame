@@ -1,60 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:orientation="horizontal"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="@dimen/activity_horizontal_margin">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sFightDialogAttacker"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal" />
+
             <ImageView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/imageView1" />
         </LinearLayout>
-            <LinearLayout
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/activity_horizontal_margin">
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="@dimen/activity_horizontal_margin">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sFightDialogAttacked"
-                    android:layout_gravity="center_horizontal"/>
-                <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:id="@+id/imageView2"
-                    android:layout_gravity="center_horizontal"/>
-            </LinearLayout>
+                android:text="@string/sFightDialogAttacked"
+                android:layout_gravity="center_horizontal" />
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:id="@+id/imageView2"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:layout_gravity="center_horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sFightDialogWinner"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal" />
+
         <ImageView
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:id="@+id/imageView3"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 </LinearLayout>

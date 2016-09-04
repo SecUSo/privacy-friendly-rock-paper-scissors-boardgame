@@ -16,25 +16,25 @@ public class NormalPlayer implements IPlayer {
 
     private int color;
 
-    public NormalPlayer(int id, int color){
-        this.id=id;
-        this.color=color;
+    public NormalPlayer(int id, int color) {
+        this.id = id;
+        this.color = color;
     }
 
     @Override
-    public RPSGameFigure getNewType() {
-        Random rand= new Random();
+    public RPSFigure getNewType() {
+        Random rand = new Random();
         Calendar cal = Calendar.getInstance();
         rand.setSeed(cal.getTimeInMillis());
-        int type=rand.nextInt(3);
-            switch (type) {
-                case 0:
-                    return new RPSGameFigure(this, RPSFigure.ROCK);
-                case 1:
-                    return new RPSGameFigure(this, RPSFigure.PAPER);
-                default:
-                    return new RPSGameFigure(this, RPSFigure.SCISSOR);
-            }
+        int type = rand.nextInt(3);
+        switch (type) {
+            case 0:
+                return RPSFigure.ROCK;
+            case 1:
+                return RPSFigure.PAPER;
+            default:
+                return RPSFigure.SCISSOR;
+        }
     }
 
     public int getId() {
@@ -44,36 +44,41 @@ public class NormalPlayer implements IPlayer {
     @Override
     public List<RPSGameFigure> provideInitialAssignment(int numFigures) {
         List<RPSGameFigure> figures = new ArrayList<RPSGameFigure>();
-        Random rand= new Random();
+        Random rand = new Random();
         Calendar cal = Calendar.getInstance();
         rand.setSeed(cal.getTimeInMillis());
-        for(int i =0;i<15;i++){
-            int type=rand.nextInt(3);
-            switch (type){
+        for (int i = 0; i < 15; i++) {
+            int type = rand.nextInt(3);
+            switch (type) {
                 case 0:
-                    figures.add(new RPSGameFigure(this,RPSFigure.ROCK));
+                    figures.add(new RPSGameFigure(this, RPSFigure.ROCK));
                     break;
                 case 1:
-                    figures.add(new RPSGameFigure(this,RPSFigure.PAPER));
+                    figures.add(new RPSGameFigure(this, RPSFigure.PAPER));
                     break;
                 case 2:
-                    figures.add(new RPSGameFigure(this,RPSFigure.SCISSOR));
+                    figures.add(new RPSGameFigure(this, RPSFigure.SCISSOR));
                     break;
             }
         }
-        figures.add(rand.nextInt(15),new RPSGameFigure(this,RPSFigure.FLAG));
+        figures.add(rand.nextInt(15), new RPSGameFigure(this, RPSFigure.FLAG));
         return figures;
-     }
+    }
 
     @Override
     public void makeMove() {
     }
 
-    public boolean equals(IPlayer player){
-        return this.getId()==player.getId();
+    public boolean equals(IPlayer player) {
+        return this.getId() == player.getId();
     }
 
-    public int getColor(){
+    public int getColor() {
         return this.color;
+    }
+
+    @Override
+    public boolean isAi() {
+        return false;
     }
 }
