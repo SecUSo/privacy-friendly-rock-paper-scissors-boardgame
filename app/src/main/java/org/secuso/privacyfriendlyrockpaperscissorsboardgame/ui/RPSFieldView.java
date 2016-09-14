@@ -48,6 +48,8 @@ public class RPSFieldView extends ImageView {
     public void setImage(RPSFigure fig, int playerColor) {
         if (fig != null) {
             Drawable drawable = DrawableCompat.wrap(ResourcesCompat.getDrawable(getResources(), fig.getImageResourceId(), null));
+            if(drawable!=null)
+                drawable.mutate();
             if (playerColor != -1)
                 drawable.setColorFilter(playerColor, PorterDuff.Mode.MULTIPLY);
             else clearColorFilter();

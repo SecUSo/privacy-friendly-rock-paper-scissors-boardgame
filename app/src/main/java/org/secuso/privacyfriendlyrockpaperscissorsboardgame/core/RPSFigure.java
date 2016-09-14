@@ -64,6 +64,22 @@ public enum RPSFigure {
                 return "Unknown Type";
         }
     }
+    public String toString(){
+        switch(this){
+            case ROCK:
+                return "0";
+            case PAPER:
+                return "1";
+            case SCISSOR:
+                return "2";
+            case SPOCK:
+                return "3";
+            case LIZARD:
+                return "4";
+            default:
+                return "5";
+        }
+    }
 
 
 }

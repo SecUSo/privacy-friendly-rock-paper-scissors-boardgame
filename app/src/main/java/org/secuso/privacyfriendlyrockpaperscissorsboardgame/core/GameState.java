@@ -1,7 +1,17 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.core;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * Created by David Giessing on 07.05.2016.
@@ -87,5 +97,32 @@ public class GameState extends Fragment {
 
     public void gameIsFinished() {
         this.gameFinished = true;
+    }
+
+    public void saveToFile(File f) {
+        FileOutputStream out= null;
+        try {
+            out = new FileOutputStream(f);
+        } catch (FileNotFoundException e) {
+            return;
+        }
+        String result = "";
+        result+="mode "+gameMode+"\n";
+        result+="P0 "+players[0].toString()+"\n";
+        result+="P1 "+players[1].toString()+"\n";
+        result+="onTurn "+playerOnTurn.getId()+"\n";
+        for(int i=0;i<8;i++){
+            for(int j=0;j<8;j++){
+                result+="x"+i+"y"+j+" ";
+                if(gamePane[i][j]==null)
+                    result+="NULL\n";
+                else result+=gamePane[i][j].toString()+"\n";
+            }
+        }
+        try {
+            out.write(result.getBytes());
+        } catch (IOException e) {
+            return;
+        }
     }
 }

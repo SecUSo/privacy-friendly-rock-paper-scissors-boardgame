@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -14,8 +15,10 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -28,21 +31,31 @@ import android.view.animation.TranslateAnimation;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewAnimator;
 
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities.GameActivity;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities.HomeActivity;
+import org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities.SettingsActivity;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.Coordinate;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.GameController;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.IPlayer;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.Move;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.RPSFigure;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.RPSGameFigure;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Created by david on 11.06.2016.
@@ -119,6 +132,10 @@ public class RPSBoardLayout extends GridLayout {
         ((TextView) ((LinearLayout) RPSBoardLayout.this.getParent()).findViewById(R.id.playerIndicator)).setText(getResources().getString(R.string.onTurn, onTurn.getId()));
         for (int i = 0; i < pane.length; i++) {
             for (int j = 0; j < pane[i].length; j++) {
+                if(board[i][j].black){
+                    board[i][j].setBackgroundColor(Color.BLACK);
+                }
+                else board[i][j].setBackgroundColor(Color.WHITE);
                 if (pane[i][j] != null) {
                     if (pane[i][j].getOwner().equals(onTurn)) {
                         board[i][j].setImage(pane[i][j].getType(), pane[i][j].getOwner().getColor());
@@ -178,18 +195,10 @@ public class RPSBoardLayout extends GridLayout {
         }
     }
 
-    public void highlightDestinations(List<Coordinate> destinations) {
-        Drawable highlighted = ResourcesCompat.getDrawable(this.getResources(), R.drawable.higlighted, null).mutate();
-        for (Coordinate c : destinations) {
-            if (this.board[c.getY()][c.getX()].getDrawable() != null) {
-                Drawable[] drawables = new Drawable[2];
-                drawables[0] = highlighted;
-                drawables[1] = this.board[c.getY()][c.getX()].getDrawable();
-                LayerDrawable layered = new LayerDrawable(drawables);
-                this.board[c.getY()][c.getX()].setImageDrawable(layered);
-            } else
-                this.board[c.getY()][c.getX()].setImageDrawable(highlighted);
-        }
+    public void highlightDestinations(List<Coordinate> destinations,Coordinate selected) {
+        this.board[selected.getY()][selected.getX()].setBackgroundColor(Color.GREEN);
+        for (Coordinate c : destinations)
+                this.board[c.getY()][c.getX()].setBackgroundColor(ResourcesCompat.getColor(getResources(),R.color.yellow,null));
 
     }
 
@@ -212,19 +221,24 @@ public class RPSBoardLayout extends GridLayout {
         attackerImageView.setImageDrawable(ResourcesCompat.getDrawable(this.getContext().getResources(), attacker.getType().getImageResourceId(), null));
         winnerImageView.setImageDrawable(ResourcesCompat.getDrawable(this.getContext().getResources(), winner.getType().getImageResourceId(), null));
         final AlertDialog fightDialog = builder.create();
-        CountDownTimer timer = new CountDownTimer(3100, 100) {
+        SharedPreferences prefs= PreferenceManager.getDefaultSharedPreferences(getContext());
+        boolean b=prefs.getBoolean(SettingsActivity.KEY_TIMER_SWITCH,true);
+        if(b){
+            int seconds=Integer.valueOf(prefs.getString(SettingsActivity.KEY_TIMER_LIST,"3"));
+            CountDownTimer timer = new CountDownTimer(seconds*1000+100, 100) {
 
-            @Override
-            public void onTick(long l) {
-                fightDialog.getButton(AlertDialog.BUTTON_POSITIVE).setText(getResources().getString(R.string.sFightDialogSeconds, (int) l / 1000));
-            }
+                @Override
+                public void onTick(long l) {
+                    fightDialog.getButton(AlertDialog.BUTTON_POSITIVE).setText(getResources().getString(R.string.sFightDialogSeconds, (int) l / 1000));
+                }
 
-            @Override
-            public void onFinish() {
-                fightDialog.dismiss();
-            }
-        };
-        timer.start();
+                @Override
+                public void onFinish() {
+                    fightDialog.dismiss();
+                }
+            };
+            timer.start();
+        }
         fightDialog.setOnDismissListener(listener);
         fightDialog.show();
     }
@@ -252,7 +266,7 @@ public class RPSBoardLayout extends GridLayout {
         winDialog.show();
     }
 
-    public void animateTurn(Move move, Animator.AnimatorListener listener) {
+    public void animateTurn(Move move, Animation.AnimationListener listener) {
         RPSFieldView start = this.board[move.getyStart()][move.getxStart()];
         int newBounds[][] = new int[4][1];
         Rect oldBounds = new Rect(start.getLeft(), start.getTop(), start.getRight(), start.getBottom());
@@ -260,22 +274,22 @@ public class RPSBoardLayout extends GridLayout {
         newBounds[1][0] = oldBounds.top - (oldBounds.bottom - oldBounds.top);
         newBounds[2][0] = oldBounds.right;
         newBounds[3][0] = oldBounds.bottom - (oldBounds.bottom - oldBounds.top);
-        Drawable d = start.getDrawable().mutate();
+        /*Drawable d = start.getDrawable().mutate();
         ObjectAnimator animator = ObjectAnimator.ofMultiInt(d, "bounds", newBounds);
         animator.setDuration(2000);
         animator.addListener(listener);
-        animator.start();
-        /*RPSFieldView finish=this.board[move.getyTarget()][move.getxTarget()];
-        TranslateAnimation translation=new TranslateAnimation(Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,move.getxStart()-move.getxTarget(),Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,move.getyTarget()-move.getyStart());
+        animator.start();*/
+        RPSFieldView finish=this.board[move.getyTarget()][move.getxTarget()];
+        TranslateAnimation translation=new TranslateAnimation(Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,0);
         translation.setDuration(2000);
         translation.setFillAfter(true);
         translation.setFillEnabled(true);
         translation.setAnimationListener(listener);
         start.setAnimation(translation);
-        start.startAnimation(translation);*/
+        start.startAnimation(translation);
     }
 
-    public void animateFight(Move move, Animator.AnimatorListener listener) {
+    public void animateFight(Move move, Animation.AnimationListener listener) {
         RPSFieldView start = this.board[move.getyStart()][move.getxStart()];
         int newBounds[][] = new int[4][1];
         Rect oldBounds = new Rect(start.getLeft(), start.getTop(), start.getRight(), start.getBottom());
@@ -283,14 +297,22 @@ public class RPSBoardLayout extends GridLayout {
         newBounds[1][0] = oldBounds.top - (oldBounds.bottom - oldBounds.top);
         newBounds[2][0] = oldBounds.right;
         newBounds[3][0] = oldBounds.bottom - (oldBounds.bottom - oldBounds.top);
-        Drawable d = start.getDrawable().mutate();
+        /*Drawable d = start.getDrawable().mutate();
         ObjectAnimator animator = ObjectAnimator.ofMultiInt(d, "bounds", newBounds);
         animator.setDuration(2000);
         animator.addListener(listener);
-        animator.start();
+        animator.start();*/
+        TranslateAnimation translation=new TranslateAnimation(Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,0);
+        translation.setDuration(2000);
+        translation.setFillAfter(true);
+        translation.setFillEnabled(true);
+        translation.setAnimationListener(listener);
+        start.setAnimation(translation);
+        start.startAnimation(translation);
     }
 
     public void getNewType(final int gameMode, final IPlayer player, final boolean attacker) {
+        this.clearBoard();
         AlertDialog.Builder builder = new AlertDialog.Builder((Activity) this.getContext());
         ArrayList<CharSequence> items = new ArrayList<CharSequence>();
         items.add(RPSFigure.ROCK.getName());
@@ -316,6 +338,142 @@ public class RPSBoardLayout extends GridLayout {
                 getNewType(gameMode, player, attacker);
             }
         });
+        dialog.show();
+    }
+
+    public void showAssignmentDialog(final IPlayer player, int gameMode){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+        LayoutInflater inflater = ((Activity) this.getContext()).getLayoutInflater();
+        final View assignmentDialogView = inflater.inflate(R.layout.starting_types_layout, null);
+        final List<SeekBar> seekbars= new ArrayList<>();
+        List<TextView> textViews= new ArrayList<>();
+        final Map<RPSFigure,SeekBar> figureToSeekbar= new HashMap<>();
+        final Map<RPSFigure,TextView> figureToTextView= new HashMap<>();
+        seekbars.add((SeekBar)assignmentDialogView.findViewById(R.id.seekbarRock));
+        textViews.add((TextView)assignmentDialogView.findViewById(R.id.assignmentRock));
+        figureToSeekbar.put(RPSFigure.ROCK,(SeekBar)assignmentDialogView.findViewById(R.id.seekbarRock));
+        figureToTextView.put(RPSFigure.ROCK,(TextView)assignmentDialogView.findViewById(R.id.assignmentRock));
+        seekbars.add((SeekBar)assignmentDialogView.findViewById(R.id.seekbarPaper));
+        textViews.add((TextView)assignmentDialogView.findViewById(R.id.assignmentPaper));
+        figureToSeekbar.put(RPSFigure.PAPER,(SeekBar)assignmentDialogView.findViewById(R.id.seekbarPaper));
+        figureToTextView.put(RPSFigure.PAPER,(TextView)assignmentDialogView.findViewById(R.id.assignmentPaper));
+        seekbars.add((SeekBar)assignmentDialogView.findViewById(R.id.seekbarScissor));
+        textViews.add((TextView)assignmentDialogView.findViewById(R.id.assignmentScissor));
+        figureToSeekbar.put(RPSFigure.SCISSOR,(SeekBar)assignmentDialogView.findViewById(R.id.seekbarScissor));
+        figureToTextView.put(RPSFigure.SCISSOR,(TextView)assignmentDialogView.findViewById(R.id.assignmentScissor));
+        if(gameMode==GameController.MODE_ROCKPAPERSCISSORSLIZARDSPOCK_MANUAL){
+            seekbars.add((SeekBar)assignmentDialogView.findViewById(R.id.seekbarLizard));
+            textViews.add((TextView)assignmentDialogView.findViewById(R.id.assignmentLizard));
+            figureToSeekbar.put(RPSFigure.LIZARD,(SeekBar)assignmentDialogView.findViewById(R.id.seekbarLizard));
+            figureToTextView.put(RPSFigure.LIZARD,(TextView)assignmentDialogView.findViewById(R.id.assignmentLizard));
+            seekbars.add((SeekBar)assignmentDialogView.findViewById(R.id.seekbarSpock));
+            textViews.add((TextView)assignmentDialogView.findViewById(R.id.assignmentSpock));
+            figureToSeekbar.put(RPSFigure.SPOCK,(SeekBar)assignmentDialogView.findViewById(R.id.seekbarSpock));
+            figureToTextView.put(RPSFigure.SPOCK,(TextView)assignmentDialogView.findViewById(R.id.assignmentSpock));
+        }
+        final Queue <SeekBar> seekBarQueue = new LinkedBlockingQueue<>(seekbars.size());
+        final Queue <SeekBar> lastModified = new LinkedBlockingQueue<>(1);
+        for(SeekBar s: seekbars){
+            seekBarQueue.add(s);
+        }
+        for(int i=0;i<seekbars.size();i++){
+            seekbars.get(i).setProgress(15/seekbars.size());
+            seekbars.get(i).setVisibility(VISIBLE);
+            seekbars.get(i).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                    if(b){
+                        int totalProgress=0;
+                        for(SeekBar s: seekbars){
+                            totalProgress+=s.getProgress();
+                        }
+                        int progressToCompensate=15-totalProgress;
+                        int summand=(progressToCompensate>0)?1:-1;
+                        SeekBar last=lastModified.poll();
+                        lastModified.add(seekBar);
+                        if(last==null)
+                            last=seekBar;
+                        while(progressToCompensate!=0){
+                            SeekBar toModify=seekBarQueue.poll();
+                            if(toModify.equals(seekBar)||toModify.equals(last)){
+                                seekBarQueue.add(toModify);
+                                continue;
+                            }
+                            toModify.incrementProgressBy(summand);
+                            seekBarQueue.add(toModify);
+                            progressToCompensate-=summand;
+                        }
+                        if(seekBar.getProgress()==15){
+                            for(SeekBar s: seekbars){
+                                if(!s.equals(seekBar))
+                                    s.setProgress(0);
+                            }
+                        }
+                    }
+                    for(RPSFigure fig:RPSFigure.values()){
+                        SeekBar s=figureToSeekbar.get(fig);
+                        if(s==null)
+                            continue;
+                        TextView view=figureToTextView.get(fig);
+                        switch(fig){
+                            case ROCK: view.setText(getResources().getString(R.string.sAssignmentRock,s.getProgress()));
+                                break;
+                            case PAPER: view.setText(getResources().getString(R.string.sAssignmentPaper,s.getProgress()));
+                                break;
+                            case SCISSOR: view.setText(getResources().getString(R.string.sAssignmentScissor,s.getProgress()));
+                                break;
+                            case LIZARD: view.setText(getResources().getString(R.string.sAssignmentLizard,s.getProgress()));
+                                break;
+                            case SPOCK: view.setText(getResources().getString(R.string.sAssignmentSpock,s.getProgress()));
+                                break;
+                        }
+                    }
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+
+                }
+            });
+            textViews.get(i).setVisibility(VISIBLE);
+        }
+        builder.setView(assignmentDialogView);
+        for(RPSFigure fig:RPSFigure.values()){
+            SeekBar s=figureToSeekbar.get(fig);
+            if(s==null)
+                continue;
+            TextView view=figureToTextView.get(fig);
+            switch(fig){
+                case ROCK: view.setText(getResources().getString(R.string.sAssignmentRock,s.getProgress()));
+                    break;
+                case PAPER: view.setText(getResources().getString(R.string.sAssignmentPaper,s.getProgress()));
+                    break;
+                case SCISSOR: view.setText(getResources().getString(R.string.sAssignmentScissor,s.getProgress()));
+                    break;
+                case LIZARD: view.setText(getResources().getString(R.string.sAssignmentLizard,s.getProgress()));
+                    break;
+                case SPOCK: view.setText(getResources().getString(R.string.sAssignmentSpock,s.getProgress()));
+                    break;
+            }
+        }
+        builder.setPositiveButton(R.string.sDialogHandOverOkButton, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Map<RPSFigure,Integer> team=new HashMap<RPSFigure, Integer>();
+                for(Map.Entry<RPSFigure,SeekBar> p: figureToSeekbar.entrySet()){
+                    team.put(p.getKey(),p.getValue().getProgress());
+                }
+                RPSBoardLayout.this.gameController.submitStartingTeam(team, player);
+                dialogInterface.dismiss();
+            }
+        });
+        builder.setTitle(getResources().getString(R.string.sAssignmentTitle,player.getId()));
+        AlertDialog dialog= builder.create();
         dialog.show();
     }
 

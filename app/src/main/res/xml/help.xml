@@ -9,11 +9,50 @@
             android:summary="@string/sHelpIntro" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/sHelpCategoryExample">
+    <PreferenceCategory android:title="@string/sModesCategory"
+        android:summary="@string/sModeSummary">
         <Preference
-            android:title="@string/sHelpExample"
-            android:summary="@string/sHelp"
+            android:title="@string/sMode1"
+            android:summary="@string/sMode1Summary"
             android:selectable="false" />
+        <Preference
+            android:title="@string/sMode2"
+            android:summary="@string/sMode2Summary"
+            android:selectable="false" />
+        <Preference
+            android:title="@string/sMode3"
+            android:summary="@string/sMode3Summary"
+            android:selectable="false" />
+        <Preference
+            android:title="@string/sMode4"
+            android:summary="@string/sMode4Summary"
+            android:selectable="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/sHelpMoveCategory">
+        <Preference
+            android:summary="@string/sHelpMoveSwypeSummary"
+            android:title="@string/sHelpMoveSwype"
+            android:selectable="false"/>
+        <Preference
+            android:summary="@string/sHelpMoveTapSummary"
+            android:title="@string/sHelpMoveTap"
+            android:selectable="false"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/sHelpFightCategory">
+        <Preference
+            android:summary="@string/sHelpFightSummary"
+            android:title="@string/sHelpFight"
+            android:selectable="false"/>
+        <Preference
+            android:summary="@string/sHelpDrawSummary"
+            android:title="@string/sHelpDraw"
+            android:selectable="false"/>
+        <Preference
+            android:summary="@string/sHelpWinSummary"
+            android:title="@string/sHelpWin"
+            android:selectable="false"/>
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/sHelpPrivacyHeading">

@@ -1,15 +1,22 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="Example Category">
+    <PreferenceCategory android:title="Timed Fight Dialog">
         <SwitchPreference
-            android:id="@+id/pref_example_switch"
-            android:key="pref_example_switch"
-            android:title="@string/sPrefExampleSwitch"
-            android:summary="@string/sPrefExampleSummary"
-            android:defaultValue="false" />
-        <Preference
-            android:title="Test Setting"
-            android:summary="Text Summary" />
+            android:id="@+id/pref_timer_switch"
+            android:key="@string/sKeyTimerSwitch"
+            android:title="@string/sPrefFightDialogTitle"
+            android:summary="@string/sPrefFightDialogSummary"
+            android:defaultValue="true" />
+        <ListPreference
+            android:id="@+id/pref_timer_list"
+            android:dependency="@string/sKeyTimerSwitch"
+            android:key="@string/sKeyTimerList"
+            android:defaultValue="3"
+            android:title="@string/sPrefTimerTitle"
+            android:summary="@string/sPrefTimerSummary"
+            android:entries="@array/seconds"
+            android:entryValues="@array/seconds"
+            />
     </PreferenceCategory>
 
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->

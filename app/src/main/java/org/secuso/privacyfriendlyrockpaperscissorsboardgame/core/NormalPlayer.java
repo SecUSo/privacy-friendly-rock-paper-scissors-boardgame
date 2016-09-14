@@ -4,6 +4,7 @@ import android.graphics.Color;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -44,24 +45,16 @@ public class NormalPlayer implements IPlayer {
     @Override
     public List<RPSGameFigure> provideInitialAssignment(int numFigures) {
         List<RPSGameFigure> figures = new ArrayList<RPSGameFigure>();
-        Random rand = new Random();
-        Calendar cal = Calendar.getInstance();
-        rand.setSeed(cal.getTimeInMillis());
-        for (int i = 0; i < 15; i++) {
-            int type = rand.nextInt(3);
-            switch (type) {
-                case 0:
-                    figures.add(new RPSGameFigure(this, RPSFigure.ROCK));
-                    break;
-                case 1:
-                    figures.add(new RPSGameFigure(this, RPSFigure.PAPER));
-                    break;
-                case 2:
-                    figures.add(new RPSGameFigure(this, RPSFigure.SCISSOR));
-                    break;
-            }
+        for (int i = 0; i < 5; i++) {
+            figures.add(new RPSGameFigure(this, RPSFigure.ROCK));
+            figures.add(new RPSGameFigure(this, RPSFigure.PAPER));
+            figures.add(new RPSGameFigure(this, RPSFigure.SCISSOR));
         }
-        figures.add(rand.nextInt(15), new RPSGameFigure(this, RPSFigure.FLAG));
+        figures.add(new RPSGameFigure(this, RPSFigure.FLAG));
+        Calendar cal = Calendar.getInstance();
+        Random rand= new Random();
+        rand.setSeed(cal.getTimeInMillis());
+        Collections.shuffle(figures,rand);
         return figures;
     }
 
@@ -80,5 +73,10 @@ public class NormalPlayer implements IPlayer {
     @Override
     public boolean isAi() {
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return this.getId()+" "+this.getColor();
     }
 }

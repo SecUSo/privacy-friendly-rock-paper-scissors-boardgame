@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:gravity="center"
     tools:context=".activities.HomeActivity">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -107,7 +108,8 @@
                 android:layout_marginRight="30dp"
                 android:text="@string/sStartButtonAI"
                 android:id="@+id/game_button_start_ai"
-                android:onClick="startGameAI" />
+                android:onClick="startGameAI"
+                android:visibility="gone"/>
 
             <Button
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
@@ -120,7 +122,7 @@
                 android:layout_marginRight="30dp"
                 android:text="@string/sContinueButton"
                 android:id="@+id/game_button_continue"
-                android:onClick="onClick" />
+                android:onClick="continueGame" />
 
         </LinearLayout>
     </LinearLayout>

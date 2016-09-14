@@ -4,6 +4,7 @@ package org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,9 +13,12 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.SwitchPreference;
 import android.view.MenuItem;
 
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
+
+import java.util.Set;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -28,6 +32,9 @@ import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends BaseActivity {
+
+    public static final String KEY_TIMER_SWITCH="key_timer_switch";
+    public static final String KEY_TIMER_LIST="key_timer_list";
     /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
@@ -56,6 +63,7 @@ public class SettingsActivity extends BaseActivity {
             return true;
         }
     };
+
 
     /**
      * Helper method to determine if the device has an extra-large screen. For
@@ -90,7 +98,17 @@ public class SettingsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        PreferenceManager.setDefaultValues(this,R.xml.pref_general,false);
+        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+                if(s.equals(SettingsActivity.KEY_TIMER_SWITCH)){
+                    boolean b=sharedPreferences.getBoolean(SettingsActivity.KEY_TIMER_SWITCH,true);
+                    if(!b){
+                    }
+                }
+            }
+        });
         setContentView(R.layout.activity_settings);
 
         //setupActionBar();

@@ -7,4 +7,5 @@
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="player_indicator_text_size">25sp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="text_border">8dp</dimen>
 </resources>

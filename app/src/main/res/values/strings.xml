@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">RockPaperScissors</string>
+    <string name="app_name">Rock Paper Scissors</string>
     <string name="sStartButton">Game vs Friend</string>
     <string name="sStartButtonAI">Game vs AI</string>
     <string name="sContinueButton">Continue Game</string>
-    <string name="sGameDescDefault">Rock Paper Scissors Board Game with randomly assigned starting lineup</string>
-    <string name="sGameDescLizardSpock">Rock Paper Scissors Lizard Spock Board Game with randomly assigned starting lineup</string>
-    <string name="sGameDescDefaultManual">Rock Paper Scissors Board Game with manual assignment of starting lineup</string>
-    <string name="sGameDescLizardSpockManual">Rock Paper Scissors Lizard Spock Board Game with manual assignment of starting lineup</string>
+    <string name="sGameDescDefault">Rock Paper Scissors Board Game with equal amount of figures per type</string>
+    <string name="sGameDescLizardSpock">Rock Paper Scissors Lizard Spock Board Game with equal amount of figures per type</string>
+    <string name="sGameDescDefaultManual">Rock Paper Scissors Board Game with manually chosen amount of figures per type</string>
+    <string name="sGameDescLizardSpockManual">Rock Paper Scissors Lizard Spock Board Game with manually chosen amount of figures per type</string>
     <string name="sHome">Home</string>
     <string name="onTurn">Player %1$d is on turn</string>
     <!-- Drawer -->
@@ -24,19 +24,46 @@
     <string name="sHelpPermissionsHeading">Permissions</string>
     <string name="sHelpPermissionsDescription">Privacy Friendly Rock Paper Scissors Board Game does not use any permissions</string>
     <string name="sHelpIntro">Welcome to the help page. This app is a board game variant of the famous hand game Rock-Paper-Scissors. It features a single device multiplayer as well as games against an AI.</string>
+    <string name="sModesCategory">Gamemodes</string>
+    <string name="sModeSummary">The app features several gamemodes that can be accessed by either swiping in the main menu or tapping the arrow buttons</string>
+    <string name="sMode1">RockPaperScissors - Default</string>
+    <string name="sMode1Summary">This game mode features the default game with 5 Rocks, 5 Papers, 5 Scissors and one Flag for each player.</string>
+    <string name="sMode2">RockPaperScissors - Manual</string>
+    <string name="sMode2Summary">This game mode features the default game with the option for each player to choose on their own how many figures of each category they want to have.</string>
+    <string name="sMode3">RockPaperScissorsLizardSpock - Default</string>
+    <string name="sMode3Summary">This game mode features the extended game with lizard and spock figures with 3 rocks, 3 papers, 3 scissors, 3 lizards, 3 spocks and one Flag for each player.</string>
+    <string name="sMode4">RockPaperScissorsLizardSpock - Manual</string>
+    <string name="sMode4Summary">This game mode features the the extended game with lizard and spock figures with the option for each player to choose on their own how many figures of each category they want to have.</string>
+    <string name="sHelpMoveCategory">Moving</string>
+    <string name="sHelpMoveSwype">Moving by swyping</string>
+    <string name="sHelpMoveSwypeSummary">You can move figures by tapping it and than swiping it to the field you want it to go to.</string>
+    <string name="sHelpMoveTap">Moving by tapping</string>
+    <string name="sHelpMoveTapSummary">You can also move by tapping a figure once and then tapping the destination. By tapping the figure you will also get a highlighting for possible destinations.</string>
+    <string name="sHelpFightCategory">Fighting</string>
+    <string name="sHelpFight">Starting a fight</string>
+    <string name="sHelpFightSummary">To start a fight move your figure onto a field occupied by an opponents figure. The figures will then fight based on the principles of Rock Paper Scissor or Rock Paper Scissor Lizard Spock</string>
+    <string name="sHelpDraw">Draws</string>
+    <string name="sHelpDrawSummary">When a draw occurs you as well as your opponent will be asked to select a new type for your figure. Both of the new figures will then reenter the fight. The types remain after the fight.</string>
+    <string name="sHelpWin">Winning the game</string>
+    <string name="sHelpWinSummary">The game is won when you discover the opponents flag.</string>
     <!-- Settings -->
     <string name="sTitleActivitySettings">Settings</string>
     <string name="sPrefHeaderGeneral">General</string>
     <string name="sPrefExampleSwitch">Example Switch</string>
     <string name="sPrefExampleSwitch_summary">Example Switch Summary</string>
     <string name="sPrefExampleSummary">Example Summary</string>
+    <string name="sPrefFightDialogTitle">Use Timer for Fight Dialog</string>
+    <string name="sPrefFightDialogSummary">Use timer to dismiss the dialog shown in a fight or dismiss manually</string>
+    <string name="sPrefTimerTitle">Seconds for Timeout</string>
+    <string name="sPrefTimerSummary">Choose after how many seconds the dialog should be dismissed</string>
+    <string name="sKeyTimerSwitch" translatable="false">key_timer_switch</string>
+    <string name="sKeyTimerList" translatable="false">key_timer_list</string>
     <!-- About -->
     <string name="sAbout">About</string>
     <string name="sApp_name_prefix">Privacy Friendly RockPaperScissors Board Game</string>
-    <string name="sVersionNumber">0.9</string>
+    <string name="sVersionNumber" translatable="false">0.9</string>
     <string name="sAboutAuthor">Author:</string>
-    <string name="sAboutAuthorName">David Giessing</string>
-    <string name="sAboutAuthorContributors"></string>
+    <string name="sAboutAuthorName" translatable="false">David Giessing</string>
     <string name="sAboutAffiliation">In affiliation with</string>
     <string name="sPrivacyFriendly">This application belongs to the group of Privacy Friendly Apps developed by Technische Universität Darmstadt.</string>
     <string name="sMoreInfo">More information can be found on:</string>
@@ -63,4 +90,11 @@
     <string name="sToastEnemy">"This is not your figure"</string>
     <string name="sToastFlag">"Flags can not move"</string>
     <string name="sToastEmpty">Selection of empty cells is not permitted</string>
+    <!-- AssignmentDialog -->
+    <string name="sAssignmentTitle">Please submit your team Player %1$d</string>
+    <string name="sAssignmentRock">Number of Rocks in your team: %1$d</string>
+    <string name="sAssignmentPaper">Number of Papers in your team: %1$d</string>
+    <string name="sAssignmentScissor">Number of Scissors in your team: %1$d</string>
+    <string name="sAssignmentLizard">Number of Lizards in your team: %1$d</string>
+    <string name="sAssignmentSpock">Number of Spocks in your team: %1$d</string>
 </resources>

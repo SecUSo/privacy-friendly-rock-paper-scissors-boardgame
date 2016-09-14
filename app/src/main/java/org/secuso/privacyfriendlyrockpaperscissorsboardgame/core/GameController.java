@@ -20,8 +20,20 @@ import org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui.FightDialog;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui.RPSBoardLayout;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui.RPSFieldView;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.RandomAccess;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
@@ -32,7 +44,7 @@ import java.util.concurrent.Future;
 /**
  * Created by david on 06.05.2016.
  */
-public class GameController extends AnimatorListenerAdapter {
+public class GameController implements Animation.AnimationListener {
     private static Toast toast;
     public static final int MODE_NORMAL_AUTO = 0;
     public static final int MODE_ROCKPAPERSCISSORSLIZARDSPOCK_AUTO = 1;
@@ -55,6 +67,8 @@ public class GameController extends AnimatorListenerAdapter {
     Move drawMove;
     RPSFigure attackerFigure;
     RPSFigure attackedFigure;
+    List<RPSGameFigure> startingTeamP0;
+    List<RPSGameFigure> startingTeamP1;
 
     /**
      * Starts a new Game in Standard 8x8 Layout
@@ -100,14 +114,39 @@ public class GameController extends AnimatorListenerAdapter {
                     this.p0 = this.ai ? new LizardSpockAIPlayer(0, -1) : new LizardSpockPlayer(0, -1);
                     this.p1 = new LizardSpockPlayer(1, ContextCompat.getColor(this.context, R.color.colorAccent));
                     break;
+                case MODE_NORMAL_MANUAL:
+                    this.p0 = this.ai ? new AIPlayer(0, -1) : new NormalPlayer(0, -1);
+                    this.p1 = new NormalPlayer(1, ContextCompat.getColor(this.context, R.color.colorAccent));
+                    break;
+                case MODE_ROCKPAPERSCISSORSLIZARDSPOCK_MANUAL:
+                    this.p0 = this.ai ? new LizardSpockAIPlayer(0, -1) : new LizardSpockPlayer(0, -1);
+                    this.p1 = new LizardSpockPlayer(1, ContextCompat.getColor(this.context, R.color.colorAccent));
+                    break;
+
             }
             this.model.setPlayer(this.p0, this.p1);
             this.playerOnTurn = this.p1;
             this.model.setPlayerOnTurn(this.playerOnTurn);
-            this.model.setGamePane(this.placeFigures(p0.provideInitialAssignment(this.getX() * 2), p1.provideInitialAssignment(this.getX() * 2)));
-            this.model.setGameStateOK();
+            if(gameMode==this.MODE_ROCKPAPERSCISSORSLIZARDSPOCK_MANUAL||gameMode==this.MODE_NORMAL_MANUAL){
+                if(p0.isAi()){
+                    startingTeamP0=p0.provideInitialAssignment(16);
+                }
+                else view.showAssignmentDialog(p0,this.gameMode);
+                if(p1.isAi()){
+                    startingTeamP1=p1.provideInitialAssignment(16);
+                }
+                else view.showAssignmentDialog(p1,gameMode);
+            }
+            else{
+                startingTeamP0=p0.provideInitialAssignment(16);
+                startingTeamP1=p1.provideInitialAssignment(16);
+                this.model.setGamePane(this.placeFigures(startingTeamP0,startingTeamP1));
+                this.model.setGameStateOK();
+            }
         }
         this.view = view;
+        if(!model.gameStateIsReady())
+            return;
         this.view.drawFigures(this.getRepresentationForPlayer(), this.playerOnTurn);
     }
 
@@ -154,6 +193,7 @@ public class GameController extends AnimatorListenerAdapter {
     }
 
     public void forceRedraw() {
+        if(drawMove==null)
         this.view.drawFigures(this.getRepresentationForPlayer(), playerOnTurn);
     }
 
@@ -185,7 +225,7 @@ public class GameController extends AnimatorListenerAdapter {
                 return;
             }
             if (board[y][x].getType() != RPSFigure.FLAG)
-                this.view.highlightDestinations(this.getValidDestinations(new Coordinate(x, y), playerOnTurn));
+                this.view.highlightDestinations(this.getValidDestinations(new Coordinate(x, y), playerOnTurn),new Coordinate(x, y));
             else {
                 this.cellSelected = false;
                 this.toast.cancel();
@@ -201,7 +241,7 @@ public class GameController extends AnimatorListenerAdapter {
     }
 
     public void deselect() {
-        forceRedraw();
+            forceRedraw();
         this.cellSelected = false;
     }
 
@@ -444,7 +484,7 @@ public class GameController extends AnimatorListenerAdapter {
     }
 
     @Override
-    public void onAnimationEnd(Animator animation) {
+    public void onAnimationEnd(Animation animation) {
         this.deselect();
         updateModelAndView(this.model.getGamePane());
     }
@@ -493,6 +533,38 @@ public class GameController extends AnimatorListenerAdapter {
             this.playerMove(xTarget, yTarget);
             //Set up for next draw
         }
+
+    }
+
+    public void submitStartingTeam(Map<RPSFigure,Integer> team, IPlayer player){
+        List<RPSGameFigure> lineup=new ArrayList<>();
+        for(Map.Entry<RPSFigure,Integer> entry: team.entrySet()){
+            for(int i=0;i<entry.getValue();i++){
+                lineup.add(new RPSGameFigure(player,entry.getKey()));
+            }
+        }
+        lineup.add(new RPSGameFigure(player,RPSFigure.FLAG));
+        Random rand = new Random();
+        Calendar cal = Calendar.getInstance();
+        rand.setSeed(cal.getTimeInMillis());
+        Collections.shuffle(lineup,rand);
+        if(player.equals(p0))
+            startingTeamP0=lineup;
+        else startingTeamP1=lineup;
+        if(startingTeamP0!=null&&startingTeamP1!=null){
+            this.model.setGamePane(this.placeFigures(startingTeamP0,startingTeamP1));
+            this.model.setGameStateOK();
+            this.view.drawFigures(getRepresentationForPlayer(),playerOnTurn);
+        }
+    }
+
+    @Override
+    public void onAnimationStart(Animation animation) {
+
+    }
+
+    @Override
+    public void onAnimationRepeat(Animation animation) {
 
     }
 }

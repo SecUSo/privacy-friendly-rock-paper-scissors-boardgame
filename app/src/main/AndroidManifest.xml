@@ -25,6 +25,13 @@
                 android:value=".activities.HomeActivity" />
         </activity>
         <activity
+            android:name=".activities.ContinueActivity"
+            android:parentActivityName=".activities.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.HomeActivity" />
+        </activity>
+        <activity
             android:name=".activities.AboutActivity"
             android:label="@string/sAbout"
             android:parentActivityName=".activities.HomeActivity"

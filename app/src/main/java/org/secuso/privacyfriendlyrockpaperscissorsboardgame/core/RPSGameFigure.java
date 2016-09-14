@@ -33,9 +33,10 @@ public class RPSGameFigure {
     }
 
     public String toString() {
-        String result;
-        result = "" + type;
-        result += hidden ? "Versteckt" : "offen";
+        String result="";
+        result+=owner.getId();
+        result += " " + type.toString();
+        result += hidden ? " hidden": " open";
         return result;
     }
 }

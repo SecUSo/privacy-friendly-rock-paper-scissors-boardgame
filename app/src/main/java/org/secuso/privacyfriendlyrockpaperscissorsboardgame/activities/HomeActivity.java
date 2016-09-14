@@ -3,9 +3,11 @@ package org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,7 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PreferenceManager.setDefaultValues(this,R.xml.pref_general,false);
         setContentView(R.layout.activity_home);
         final SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         // Set up the ViewPager with the sections adapter.
@@ -98,6 +101,11 @@ public class HomeActivity extends BaseActivity {
         intent.putExtra(GAMEMODE_EXTRA, this.mViewPager.getCurrentItem());
         startActivity(intent);
 
+    }
+
+    public void continueGame(View view){
+        Intent intent = new Intent(this,ContinueActivity.class);
+        startActivity(intent);
     }
 
     public void onClick(View view) {
@@ -173,6 +181,20 @@ public class HomeActivity extends BaseActivity {
             View rootView = inflater.inflate(R.layout.fragment_main_menu, container, false);
 
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            switch(id){
+                case 1:
+                    textView.setText(getResources().getText(R.string.sMode2));
+                    break;
+                case 2:
+                    textView.setText(getResources().getText(R.string.sMode3));
+                    break;
+                case 3:
+                    textView.setText(getResources().getText(R.string.sMode4));
+                    break;
+                default:
+                    textView.setText(getResources().getText(R.string.sMode1));
+                    break;
+            }
             textView.setText("Mode: " + String.valueOf(id));
             return rootView;
         }
