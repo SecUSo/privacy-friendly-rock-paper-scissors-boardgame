@@ -558,6 +558,7 @@ public class GameController implements Animation.AnimationListener {
         }
     }
 
+
     @Override
     public void onAnimationStart(Animation animation) {
 
