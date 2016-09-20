@@ -108,5 +108,12 @@
         android:textStyle="bold"
         android:layout_gravity="center_horizontal"
         android:autoLink="web" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sUrlRepo"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:autoLink="web" />
 
 </LinearLayout>

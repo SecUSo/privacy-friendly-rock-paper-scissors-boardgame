@@ -1,5 +1,8 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -39,7 +42,32 @@ public class HomeActivity extends BaseActivity {
         }
 
         int index = mSharedPreferences.getInt("lastChosenPage", 0);
-
+        boolean welcomeScreenShown = mSharedPreferences.getBoolean("welcomeScreen",false);
+        if(!welcomeScreenShown){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.sWelcomeTitle);
+            builder.setMessage(R.string.sWelcome);
+            builder.setPositiveButton(R.string.sDialogHandOverOkButton, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    mSharedPreferences.edit().putBoolean("welcomeScreen",true).apply();
+                }
+            });
+            builder.setNegativeButton(R.string.sHelp, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    goToNavigationItem(R.id.nav_help);
+                }
+            });
+            Dialog dialog=builder.create();
+            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialogInterface) {
+                    mSharedPreferences.edit().putBoolean("welcomeScreen",true).apply();
+                }
+            });
+            dialog.show();
+        }
         mViewPager.setCurrentItem(index);
         mArrowLeft = (ImageView) findViewById(R.id.arrow_left);
         mArrowRight = (ImageView) findViewById(R.id.arrow_right);

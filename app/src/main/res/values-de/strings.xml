@@ -15,7 +15,7 @@
     <string name="sDialogHandOverMessage">Bitte übergib das Gerät und bestätige</string>
     <string name="sDialogHandOverOkButton">Okay</string>
     <string name="sDialogHandOverTitle">Dein Gegner ist am Zug</string>
-    <string name="sApp_name_prefix">Privatssphärenfreundliches Schere Stein Papier Brettspiel</string>
+    <string name="sApp_name_prefix">Privacy Friendly Schere Stein Papier Brettspiel</string>
     <string name="sDrawDialogTitle">Unentschieden! Wähle eine neue Figur Spieler %1$d</string>
     <string name="sFightDialogAttacked">Der Attackierte</string>
     <string name="sFightDialogAttacker">Der Angreifer</string>
@@ -31,11 +31,11 @@
     <string name="sMenuHelp">Hilfe</string>
     <string name="sMenuAbout">Über</string>
     <string name="sHome">Hautpmenü</string>
-    <string name="sHelpPrivacyHeading">Privatssphären Informationen</string>
+    <string name="sHelpPrivacyHeading">Datenschutzinfo</string>
     <string name="sHelpPermissionsHeading">Berechtigungen</string>
-    <string name="sHelpPermissionsDescription">Das privatssphärenfreundliche Schere Stein Papier Brettspiel verwendet keinerlei Berechtigungen.</string>
+    <string name="sHelpPermissionsDescription">Privacy Friendly Schere Stein Papier Brettspiel verwendet keinerlei Berechtigungen.</string>
     <string name="sHelpOverviewHeading">Überblick</string>
-    <string name="sMoreInfo">Weitere Informationen finden sie unter:</string>
+    <string name="sMoreInfo">Weitere Infos unter:</string>
     <string name="sNavigationDrawerClose">Schliesst die Navigationsleiste</string>
     <string name="sNavigationDrawerOpen">Öffnet die Navigationsleiste</string>
     <string name="sPrefExampleSummary">Beispiel Zusammenfassung</string>
@@ -46,7 +46,7 @@
     <string name="sPrefHeaderGeneral">Allgemein</string>
     <string name="sPrefTimerSummary">Wähle nach wie vielen Sekunden der Dialog mit Kampfinformationen geschlossen wird</string>
     <string name="sPrefTimerTitle">Sekunden bis zum Timeout</string>
-    <string name="sPrivacyFriendly">Diese App gehört zur Gruppe der privatssphärenfreundlichen Apps die von der Technischen Universität Darmstadt entwickelt wurden.</string>
+    <string name="sPrivacyFriendly">Diese App gehört zur Gruppe der Privacy Friendly Apps entwickelt von der Technischen Universität Darmstadt. Quelltext lizensiert unter GPLv3. Bilder copyright TU Darmstadt und Google Inc.</string>
     <string name="sStartButton">Spiele gegen einen Freund</string>
     <string name="sStartButtonAI">Spiele gegen einen Computer</string>
     <string name="sTitleActivitySettings">Einstellungen</string>

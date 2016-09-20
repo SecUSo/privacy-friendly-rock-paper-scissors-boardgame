@@ -14,8 +14,8 @@
             android:defaultValue="3"
             android:title="@string/sPrefTimerTitle"
             android:summary="@string/sPrefTimerSummary"
-            android:entries="@array/seconds"
-            android:entryValues="@array/seconds"
+            android:entries="@array/secondsLabel"
+            android:entryValues="@array/secondsLabel"
             />
     </PreferenceCategory>
 

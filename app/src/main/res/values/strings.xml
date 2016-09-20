@@ -65,14 +65,17 @@
     <string name="sAboutAuthor">Author:</string>
     <string name="sAboutAuthorName" translatable="false">David Giessing</string>
     <string name="sAboutAffiliation">In affiliation with</string>
-    <string name="sPrivacyFriendly">This application belongs to the group of Privacy Friendly Apps developed by Technische Universität Darmstadt.</string>
+    <string name="sPrivacyFriendly">This application belongs to the group of Privacy Friendly Apps developed by Technische Universität Darmstadt. Sourcecode licensed under GPLv3. Images copyright TU Darmstadt and Google Inc.</string>
     <string name="sMoreInfo">More information can be found on:</string>
-    <string name="sUrl" translatable="false"><a href="https://www.secuso.org/pfa">https://www.secuso.org/pfa</a></string>
-    <!-- Dialogs -->
+    <string name="sUrl" translatable="false"><a href="https://www.secuso.org/pfa">SECUSO-Website</a></string>
+    <string name="sUrlRepo" translatable="false"><a href="https://github.com/SecUSo/privacy-friendly-rock-paper-scissors-boardgame">Github-Repo</a></string>
+    <!-- HandoverDialog -->
     <string name="sDialogHandOverMessage">Please hand over the device and confirm</string>
     <string name="sDialogHandOverTitle">It\'s your opponents turn</string>
     <string name="sDialogHandOverOkButton">Okay</string>
-
+    <!-- WelcomeDialog -->
+    <string name="sWelcomeTitle">Privacy Friendly Rock Paper Scissors</string>
+    <string name="sWelcome">Welcome to Privacy Friendly Rock Paper Scissors. Press the arrow keys or swype to access the different game modes. </string>
     <!-- FightDialog -->
     <string name="sFightDialogAttacker">Attacker</string>
     <string name="sFightDialogAttacked">Attacked</string>

@@ -5,4 +5,9 @@
         <item>5</item>
         <item>10</item>
     </integer-array>
+    <string-array name="secondsLabel">
+        <item>3</item>
+        <item>5</item>
+        <item>10</item>
+    </string-array>
 </resources>

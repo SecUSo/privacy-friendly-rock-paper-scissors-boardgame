@@ -16,6 +16,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
+import android.support.v4.animation.ValueAnimatorCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.util.Pair;
@@ -341,7 +342,7 @@ public class RPSBoardLayout extends GridLayout {
         dialog.show();
     }
 
-    public void showAssignmentDialog(final IPlayer player, int gameMode){
+    public void showAssignmentDialog(final IPlayer player, final int gameMode){
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
         LayoutInflater inflater = ((Activity) this.getContext()).getLayoutInflater();
         final View assignmentDialogView = inflater.inflate(R.layout.starting_types_layout, null);
@@ -474,6 +475,12 @@ public class RPSBoardLayout extends GridLayout {
         });
         builder.setTitle(getResources().getString(R.string.sAssignmentTitle,player.getId()));
         AlertDialog dialog= builder.create();
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                showAssignmentDialog(player, gameMode);
+            }
+        });
         dialog.show();
     }
 
