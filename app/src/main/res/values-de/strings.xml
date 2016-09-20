@@ -19,7 +19,7 @@
     <string name="sDrawDialogTitle">Unentschieden! Wähle eine neue Figur Spieler %1$d</string>
     <string name="sFightDialogAttacked">Der Attackierte</string>
     <string name="sFightDialogAttacker">Der Angreifer</string>
-    <string name="sFightDialogSeconds">Schliessen (%1$d)</string>
+    <string name="sFightDialogSeconds">Schließen (%1$d)</string>
     <string name="sFightDialogTitle">Kampf</string>
     <string name="sFightDialogWinner">Sieger</string>
     <string name="sGameDescDefault">Schere Stein Papier Brettspiel mit der gleichen Anzahl von Figuren jedes Typs</string>
@@ -36,12 +36,12 @@
     <string name="sHelpPermissionsDescription">Privacy Friendly Schere Stein Papier Brettspiel verwendet keinerlei Berechtigungen.</string>
     <string name="sHelpOverviewHeading">Überblick</string>
     <string name="sMoreInfo">Weitere Infos unter:</string>
-    <string name="sNavigationDrawerClose">Schliesst die Navigationsleiste</string>
+    <string name="sNavigationDrawerClose">Schließt die Navigationsleiste</string>
     <string name="sNavigationDrawerOpen">Öffnet die Navigationsleiste</string>
     <string name="sPrefExampleSummary">Beispiel Zusammenfassung</string>
     <string name="sPrefExampleSwitch">Beispiel Schalter </string>
     <string name="sPrefExampleSwitch_summary">Beispiel Schalter Zusammenfassung</string>
-    <string name="sPrefFightDialogSummary">Verwende einen Timer um den Dialog mit Informationen zu einem Kampf zu schliessen</string>
+    <string name="sPrefFightDialogSummary">Verwende einen Timer um den Dialog mit Informationen zu einem Kampf zu schließen</string>
     <string name="sPrefFightDialogTitle">Verwende einen Timer für den Kampfdialog</string>
     <string name="sPrefHeaderGeneral">Allgemein</string>
     <string name="sPrefTimerSummary">Wähle nach wie vielen Sekunden der Dialog mit Kampfinformationen geschlossen wird</string>
@@ -77,9 +77,11 @@
     <string name="sMode2">Schere Stein Papier - Manuell</string>
     <string name="sMode2Summary">Dieser Spielmodus ist das Standard Spiel mit der Option für dich und deinen Gegner selbst zu bestimmen wie viele Figuren jedes Typs ihr habt.</string>
     <string name="sMode4">Schere Stein Papier Echse Spock - Manuell</string>
-    <string name="sMode3Summary">Dieser Spielmodus ist das Standard Spiel mit je 3 Steinen, Scheren und Papieren, Echsen und Spocks sowie einer Flagge.</string>
+    <string name="sMode3Summary">Dieser Spielmodus ist das erweiterte Spiel mit je 3 Steinen, Scheren und Papieren, Echsen und Spocks sowie einer Flagge.</string>
     <string name="sMode3">Schere Stein Papier Echse Spock - Standard</string>
-    <string name="sMode4Summary">Dieser Spielmodus ist das Erweiterte Spiel mit der Option für dich und deinen Gegner selbst zu bestimmen wie viele Figuren jedes Typs ihr habt.</string>
+    <string name="sMode4Summary">Dieser Spielmodus ist das erweiterte Spiel mit der Option für dich und deinen Gegner selbst zu bestimmen wie viele Figuren jedes Typs ihr habt.</string>
     <string name="sModeSummary">Die App enthält mehrere Spielmodi die durch wischen im Hauptmenü gewechselt werden können. Alternativ können auch die Pfeiltasten verwendet werden.</string>
     <string name="sModesCategory">Spielmodi</string>
+    <string name="sWelcome">Willkommen zu Privacy Friendly Schere Stein Papier. Tippe auf die Pfeiltasten oder wische um die verschiedenen Spielmodi zu erreichen.</string>
+    <string name="sWelcomeTitle">Privacy Friendly Schere Stein Papier</string>
 </resources>
