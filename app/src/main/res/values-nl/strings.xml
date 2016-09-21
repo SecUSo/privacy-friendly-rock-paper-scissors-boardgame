@@ -34,7 +34,7 @@
     <string name="sHelpFight">Het starten van een gevecht</string>
     <string name="sHelpFightCategory">Vechten</string>
     <string name="sHelpFightSummary">Omeen gevecht te beginnen beweeg uw figure op een plein bezet door u tegenstander. De figuren vechten na de regels van schaar steen papier respectievelijk schaar steen papier hagedis spock</string>
-    <string name="sHelpIntro">Welkom op de hulppagina</string>
+    <string name="sHelpIntro">Welkom op de hulppagina. Er is een lokale multiplayer met verschillende spelmodi.</string>
     <string name="sHelpMoveCategory">Beweging</string>
     <string name="sHelpMoveSwype">Beweging door vegen</string>
     <string name="sHelpMoveSwypeSummary">U kunt u figuuren bewegen door u ze antikt en vervolgens naar het doel plein vegt.</string>
@@ -84,4 +84,7 @@
     <string name="sWinDialogShowBoard">Zie het spelfeld</string>
     <string name="sWinDialogText">Uw hebt de tegenstander zijn flag blootgelegd en herstelde</string>
     <string name="sWinDialogTitle">Gefeliciteerd</string>
+    <string name="sDeleteMessage">Opgeslagen spel verwijderen</string>
+    <string name="sDeleteTitle">Wil u echt het opgeslagen spel verwijderen?</string>
+    <string name="sNoDeletion">Nee</string>
 </resources>

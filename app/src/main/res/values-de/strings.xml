@@ -26,7 +26,7 @@
     <string name="sGameDescDefaultManual">Schere Stein Papier Brettspiel mit selbst festgelegter Anzahl von Figuren jedes Typs</string>
     <string name="sHelp">Hilfe</string>
     <string name="sHelpCategoryExample">Beispiel Hilfe Kategorie</string>
-    <string name="sHelpIntro">Wilkommen auf der Hilfe Seite. Diese App ist eine Brettspielvariante des allseits bekannten Schere Stein Papier Spiels. Es gibt einen lokalen Multiplayer und auch die Möglichkeit gegen eine KI zu spielen.</string>
+    <string name="sHelpIntro">Wilkommen auf der Hilfe Seite. Diese App ist eine Brettspielvariante des allseits bekannten Schere Stein Papier Spiels. Es gibt einen lokalen Multiplayer mit verschiedenen Spielmodi.</string>
     <string name="sMenuSettings">Einstellungen</string>
     <string name="sMenuHelp">Hilfe</string>
     <string name="sMenuAbout">Über</string>
@@ -84,4 +84,7 @@
     <string name="sModesCategory">Spielmodi</string>
     <string name="sWelcome">Willkommen zu Privacy Friendly Schere Stein Papier. Tippe auf die Pfeiltasten oder wische um die verschiedenen Spielmodi zu erreichen.</string>
     <string name="sWelcomeTitle">Privacy Friendly Schere Stein Papier</string>
+    <string name="sDeleteMessage">Willst du diesen Spielstand wirklich löschen?</string>
+    <string name="sDeleteTitle">Spielstand löschen</string>
+    <string name="sNoDeletion">Nein</string>
 </resources>
