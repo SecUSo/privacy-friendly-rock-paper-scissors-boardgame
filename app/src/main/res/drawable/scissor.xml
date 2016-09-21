@@ -9,15 +9,15 @@
     <path
         android:name="path693"
         android:fillColor="#dadadb"
-        android:strokeColor="#000000"
+        android:strokeColor="#606060"
         android:strokeWidth="10"
         android:strokeLineJoin="round"
         android:pathData="M213.015,6.7113 C212.186,6.90187,120.164,283.876,120.164,283.876
 S170.68,299.22,169.852,299.41 C169.033,299.599,248.622,82.046,213.015,6.711 Z" />
     <path
         android:name="path596"
-        android:fillColor="#3f3f3f"
-        android:strokeColor="#000000"
+        android:fillColor="#000000"
+        android:strokeColor="#606060"
         android:strokeWidth="10"
         android:strokeLineJoin="bevel"
         android:pathData="M168.579,298.883 S123.169,417.943,131.579,435.623
@@ -31,7 +31,7 @@ C126.329,484.643,125.759,394.633,79.219,387.063 Z" />
     <path
         android:name="path674"
         android:fillColor="#dadadb"
-        android:strokeColor="#000000"
+        android:strokeColor="#606060"
         android:strokeWidth="10"
         android:strokeLineJoin="bevel"
         android:pathData="M67.6872,5.00003 C68.5241,5.14868,174.369,277.14,174.369,277.14
@@ -69,8 +69,8 @@ Z" />
 L134.319,264.383 Z" />
     <path
         android:name="path590"
-        android:fillColor="#3f3f40"
-        android:strokeColor="#000000"
+        android:fillColor="#000000"
+        android:strokeColor="#606060"
         android:strokeWidth="10"
         android:strokeLineJoin="bevel"
         android:pathData="M220.459,378.143 C287.259,356.873,305.779,462.413,245.789,471.673

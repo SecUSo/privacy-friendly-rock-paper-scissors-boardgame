@@ -10,7 +10,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +19,6 @@ import android.widget.TextView;
 
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.GameController;
-import org.w3c.dom.Text;
 
 public class HomeActivity extends BaseActivity {
     private ViewPager mViewPager;
@@ -208,22 +206,21 @@ public class HomeActivity extends BaseActivity {
 
             View rootView = inflater.inflate(R.layout.fragment_main_menu, container, false);
 
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            ImageView imageView = (ImageView) rootView.findViewById(R.id.section_label);
             switch(id){
                 case 1:
-                    textView.setText(getResources().getText(R.string.sMode2));
+                    imageView.setBackgroundResource(R.drawable.rpslsfix);
                     break;
                 case 2:
-                    textView.setText(getResources().getText(R.string.sMode3));
+                    imageView.setBackgroundResource(R.drawable.rpsman);
                     break;
                 case 3:
-                    textView.setText(getResources().getText(R.string.sMode4));
+                    imageView.setBackgroundResource(R.drawable.rpslsman);
                     break;
                 default:
-                    textView.setText(getResources().getText(R.string.sMode1));
+                    imageView.setBackgroundResource(R.drawable.rpsfix);
                     break;
             }
-            textView.setText("Mode: " + String.valueOf(id));
             return rootView;
         }
     }
