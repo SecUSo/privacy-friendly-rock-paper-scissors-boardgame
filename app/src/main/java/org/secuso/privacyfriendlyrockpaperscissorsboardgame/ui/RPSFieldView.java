@@ -3,16 +3,11 @@ package org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.VectorDrawable;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 
@@ -20,7 +15,7 @@ import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.RPSFigure;
 
 /**
- * Created by david on 11.06.2016.
+ * View representing a cell.
  */
 public class RPSFieldView extends ImageView {
     boolean black;
@@ -45,6 +40,11 @@ public class RPSFieldView extends ImageView {
         this.yIndex = y;
     }
 
+    /**
+     * Sets the image of a view as well as tinting it in the players color.
+     * @param fig
+     * @param playerColor
+     */
     public void setImage(RPSFigure fig, int playerColor) {
         if (fig != null) {
             Drawable drawable = DrawableCompat.wrap(ResourcesCompat.getDrawable(getResources(), fig.getImageResourceId(), null));
@@ -57,6 +57,14 @@ public class RPSFieldView extends ImageView {
         } else this.setImageDrawable(null);
     }
 
+    /**
+     * Sets up the Layout
+     * @param changed
+     * @param left
+     * @param top
+     * @param right
+     * @param bottom
+     */
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
@@ -73,7 +81,7 @@ public class RPSFieldView extends ImageView {
             params.width = (int) (parent.getHeight() - 2 * getResources().getDimension(R.dimen.border_margin)) / parent.getColumnCount();
             params.height = (int) (parent.getHeight() - 2 * getResources().getDimension(R.dimen.border_margin)) / parent.getRowCount();
         }
-        //Does not work on Android N
+        //Does not work on Android N seems to be a bug, could be related to: Issue 214831
         this.setLayoutParams(params);
     }
 }

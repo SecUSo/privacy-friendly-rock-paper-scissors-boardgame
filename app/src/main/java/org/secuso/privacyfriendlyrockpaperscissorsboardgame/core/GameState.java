@@ -1,20 +1,15 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.core;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 /**
- * Created by David Giessing on 07.05.2016.
+ * The Model class of the MVC Pattern used in the game. Is a fragment to allow for saving its state on changes in orientation and others.
  */
 public class GameState extends Fragment {
     /**
@@ -99,6 +94,10 @@ public class GameState extends Fragment {
         this.gameFinished = true;
     }
 
+    /**
+     * Writes the model to a file
+     * @param f the file
+     */
     public void saveToFile(File f) {
         FileOutputStream out= null;
         try {

@@ -33,7 +33,7 @@
     <string name="sMode3">RockPaperScissorsLizardSpock - Default</string>
     <string name="sMode3Summary">This game mode features the extended game with lizard and spock figures with 3 rocks, 3 papers, 3 scissors, 3 lizards, 3 spocks and one Flag for each player.</string>
     <string name="sMode4">RockPaperScissorsLizardSpock - Manual</string>
-    <string name="sMode4Summary">This game mode features the the extended game with lizard and spock figures with the option for each player to choose on their own how many figures of each category they want to have.</string>
+    <string name="sMode4Summary">This game mode features the extended game with lizard and spock figures with the option for each player to choose on their own how many figures of each category they want to have.</string>
     <string name="sHelpMoveCategory">Moving</string>
     <string name="sHelpMoveSwype">Moving by swyping</string>
     <string name="sHelpMoveSwypeSummary">You can move figures by tapping it and than swiping it to the field you want it to go to.</string>
@@ -100,4 +100,8 @@
     <string name="sAssignmentScissor">Number of Scissors in your team: %1$d</string>
     <string name="sAssignmentLizard">Number of Lizards in your team: %1$d</string>
     <string name="sAssignmentSpock">Number of Spocks in your team: %1$d</string>
-</resources>
+    <!-- DeleteSaveGameDialog-->
+    <string name="sDeleteTitle">Delete Save Game</string>
+    <string name="sDeleteMessage">Do you really want to delete this save game?</string>
+    <string name="sNoDeletion">No</string>
+    </resources>

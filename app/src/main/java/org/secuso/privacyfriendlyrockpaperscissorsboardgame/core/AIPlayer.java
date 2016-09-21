@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by david on 17.06.2016.
+ * Default AI for the normal modes. Not implemented yet
  */
 public class AIPlayer implements IPlayer {
 
@@ -20,12 +20,13 @@ public class AIPlayer implements IPlayer {
 
     @Override
     public List<RPSGameFigure> provideInitialAssignment(int numFigures) {
+        //TODO: implement
         return null;
     }
 
     @Override
     public void makeMove() {
-
+        //TODO: implement
     }
 
     @Override

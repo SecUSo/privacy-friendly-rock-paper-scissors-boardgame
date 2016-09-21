@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by david on 22.08.2016.
+ * Player for Lizard Spock modes
  */
 public class LizardSpockPlayer implements IPlayer {
 

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by david on 22.08.2016.
+ * AI Player for the extended game. Not implemented
  */
 public class LizardSpockAIPlayer implements IPlayer {
 
@@ -21,11 +21,13 @@ public class LizardSpockAIPlayer implements IPlayer {
 
     @Override
     public List<RPSGameFigure> provideInitialAssignment(int numFigures) {
+        //TODO:implement
         return null;
     }
 
     @Override
     public void makeMove() {
+        //TODO: implement
 
     }
 

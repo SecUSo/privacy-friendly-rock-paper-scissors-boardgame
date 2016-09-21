@@ -1,7 +1,7 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.core;
 
 /**
- * Created by david on 26.08.2016.
+ * class containing a move. It contains the starting location as x and y coordinates as well as the target location. It also contains the information whether a fight was won if there was one
  */
 public class Move {
     private int xStart;
@@ -22,7 +22,7 @@ public class Move {
         this.won = true;
     }
 
-    boolean isWon() {
+    public boolean isWon() {
         return this.won;
     }
 

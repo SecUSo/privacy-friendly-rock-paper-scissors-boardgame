@@ -27,5 +27,6 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:layout_gravity="center_vertical"
+        android:clipChildren="false"
         android:background="@color/colorPrimary" />
 </LinearLayout>

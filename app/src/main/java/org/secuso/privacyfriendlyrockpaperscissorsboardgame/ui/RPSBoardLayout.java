@@ -1,7 +1,5 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui;
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -11,22 +9,14 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
-import android.support.v4.animation.ValueAnimatorCompat;
 import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v4.util.Pair;
-import android.support.v4.view.LayoutInflaterCompat;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewAnimationUtils;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.GridLayout;
@@ -34,11 +24,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ViewAnimator;
 
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
-import org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities.GameActivity;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities.HomeActivity;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities.SettingsActivity;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.Coordinate;
@@ -47,15 +34,12 @@ import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.IPlayer;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.Move;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.RPSFigure;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.RPSGameFigure;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
@@ -167,9 +151,13 @@ public class RPSBoardLayout extends GridLayout {
         return null;
     }
 
+    /**
+     * Handles turnover from one player to another
+     * @param player the player that is next on turn
+     */
     public void handleTurnover(final IPlayer player) {
         this.clearBoard();
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder((Activity) this.getContext());
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this.getContext());
         dialogBuilder.setMessage(R.string.sDialogHandOverMessage);
         dialogBuilder.setTitle(R.string.sDialogHandOverTitle);
         dialogBuilder.setPositiveButton(R.string.sDialogHandOverOkButton, new DialogInterface.OnClickListener() {
@@ -188,6 +176,9 @@ public class RPSBoardLayout extends GridLayout {
         dialog.show();
     }
 
+    /**
+     * Clears the board (hides the figures)
+     */
     private void clearBoard() {
         for (RPSFieldView[] row : this.board) {
             for (RPSFieldView view : row) {
@@ -196,6 +187,11 @@ public class RPSBoardLayout extends GridLayout {
         }
     }
 
+    /**
+     * Highlights all destinations in a list as well as the current starting coordinate
+     * @param destinations all destinations that shall be highlighted
+     * @param selected the current starting coordinate
+     */
     public void highlightDestinations(List<Coordinate> destinations,Coordinate selected) {
         this.board[selected.getY()][selected.getX()].setBackgroundColor(Color.GREEN);
         for (Coordinate c : destinations)
@@ -203,6 +199,13 @@ public class RPSBoardLayout extends GridLayout {
 
     }
 
+    /**
+     * Shows a dialog containing information about a fight
+     * @param attacker the attacking figure
+     * @param attacked the attacked figure
+     * @param winner    the figure that won the fight
+     * @param listener the dismiss listener, that reacts to the dismission of the dialog
+     */
     public void showFightDialog(RPSGameFigure attacker, RPSGameFigure attacked, RPSGameFigure winner, DialogInterface.OnDismissListener listener) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
         LayoutInflater inflater = ((Activity) this.getContext()).getLayoutInflater();
@@ -222,6 +225,7 @@ public class RPSBoardLayout extends GridLayout {
         attackerImageView.setImageDrawable(ResourcesCompat.getDrawable(this.getContext().getResources(), attacker.getType().getImageResourceId(), null));
         winnerImageView.setImageDrawable(ResourcesCompat.getDrawable(this.getContext().getResources(), winner.getType().getImageResourceId(), null));
         final AlertDialog fightDialog = builder.create();
+        //Use or don't use timer depending on preferences
         SharedPreferences prefs= PreferenceManager.getDefaultSharedPreferences(getContext());
         boolean b=prefs.getBoolean(SettingsActivity.KEY_TIMER_SWITCH,true);
         if(b){
@@ -244,8 +248,11 @@ public class RPSBoardLayout extends GridLayout {
         fightDialog.show();
     }
 
+    /**
+     * Shows the dialog after a game was won with the options of going back to main as well as showing the final game pane
+     */
     public void showWinDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder((Activity) this.getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
         builder.setTitle(R.string.sWinDialogTitle);
         builder.setMessage(R.string.sWinDialogText);
         builder.setIcon(ResourcesCompat.getDrawable(this.getResources(), R.drawable.award_medal, null));
@@ -267,54 +274,85 @@ public class RPSBoardLayout extends GridLayout {
         winDialog.show();
     }
 
+    /**
+     * Animates simple turns (no fights)
+     * @param move the move that shall be animated
+     * @param listener the callback for the end of animation
+     */
     public void animateTurn(Move move, Animation.AnimationListener listener) {
-        RPSFieldView start = this.board[move.getyStart()][move.getxStart()];
-        int newBounds[][] = new int[4][1];
-        Rect oldBounds = new Rect(start.getLeft(), start.getTop(), start.getRight(), start.getBottom());
-        newBounds[0][0] = oldBounds.left;
-        newBounds[1][0] = oldBounds.top - (oldBounds.bottom - oldBounds.top);
-        newBounds[2][0] = oldBounds.right;
-        newBounds[3][0] = oldBounds.bottom - (oldBounds.bottom - oldBounds.top);
-        /*Drawable d = start.getDrawable().mutate();
-        ObjectAnimator animator = ObjectAnimator.ofMultiInt(d, "bounds", newBounds);
-        animator.setDuration(2000);
-        animator.addListener(listener);
-        animator.start();*/
-        RPSFieldView finish=this.board[move.getyTarget()][move.getxTarget()];
-        TranslateAnimation translation=new TranslateAnimation(Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,0);
-        translation.setDuration(2000);
-        translation.setFillAfter(true);
+        this.setChildrenDrawingOrderEnabled(false);
+        final RPSFieldView start = this.board[move.getyStart()][move.getxStart()];
+        //start.bringToFront();
+        start.setBackgroundColor(ResourcesCompat.getColor(getResources(),R.color.transparent,null));
+        RPSFieldView target=this.board[move.getyTarget()][move.getxTarget()];
+        TranslateAnimation translation=new TranslateAnimation(Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,move.getxTarget()-move.getxStart(),Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,move.getyTarget()-move.getyStart());
+        translation.setZAdjustment(Animation.ZORDER_TOP);
+        translation.setDuration(500);
+        translation.setFillAfter(false);
         translation.setFillEnabled(true);
         translation.setAnimationListener(listener);
+        /**
+         * needed for transitions down and to the right because those are of higher elevation than current view
+         */
+        AlphaAnimation alpha = new AlphaAnimation(1.0f,0.0f);
+        alpha.setDuration(500);
+        alpha.setFillAfter(false);
+        alpha.setFillEnabled(true);
+        target.setAnimation(alpha);
+        target.startAnimation(alpha);
         start.setAnimation(translation);
         start.startAnimation(translation);
     }
 
+    /**
+     * animation for fights
+     * @param move the move to animate
+     * @param listener the callback for the end of the animation
+     */
     public void animateFight(Move move, Animation.AnimationListener listener) {
-        RPSFieldView start = this.board[move.getyStart()][move.getxStart()];
-        int newBounds[][] = new int[4][1];
-        Rect oldBounds = new Rect(start.getLeft(), start.getTop(), start.getRight(), start.getBottom());
-        newBounds[0][0] = oldBounds.left;
-        newBounds[1][0] = oldBounds.top - (oldBounds.bottom - oldBounds.top);
-        newBounds[2][0] = oldBounds.right;
-        newBounds[3][0] = oldBounds.bottom - (oldBounds.bottom - oldBounds.top);
-        /*Drawable d = start.getDrawable().mutate();
-        ObjectAnimator animator = ObjectAnimator.ofMultiInt(d, "bounds", newBounds);
-        animator.setDuration(2000);
-        animator.addListener(listener);
-        animator.start();*/
-        TranslateAnimation translation=new TranslateAnimation(Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,0);
-        translation.setDuration(2000);
-        translation.setFillAfter(true);
-        translation.setFillEnabled(true);
-        translation.setAnimationListener(listener);
-        start.setAnimation(translation);
-        start.startAnimation(translation);
+        this.setChildrenDrawingOrderEnabled(false);
+        final RPSFieldView start = this.board[move.getyStart()][move.getxStart()];
+        //start.bringToFront();
+        //if attacker has won
+        if(move.isWon()){
+            start.setBackgroundColor(ResourcesCompat.getColor(getResources(),R.color.transparent,null));
+            TranslateAnimation translation=new TranslateAnimation(Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,move.getxTarget()-move.getxStart(),Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,move.getyTarget()-move.getyStart());
+            translation.setZAdjustment(Animation.ZORDER_TOP);
+            translation.setDuration(500);
+            translation.setFillAfter(false);
+            translation.setFillEnabled(true);
+            translation.setAnimationListener(listener);
+            RPSFieldView target= this.board[move.getyTarget()][move.getxTarget()];
+            AlphaAnimation alpha = new AlphaAnimation(1.0f,0.0f);
+            alpha.setDuration(500);
+            alpha.setFillAfter(false);
+            alpha.setFillEnabled(true);
+            target.setAnimation(alpha);
+            target.startAnimation(alpha);
+            start.setAnimation(translation);
+            start.startAnimation(translation);
+        }
+        //if attacker has lost
+        else{
+            AlphaAnimation alpha = new AlphaAnimation(1.0f,0.0f);
+            alpha.setDuration(500);
+            alpha.setFillAfter(false);
+            alpha.setFillEnabled(true);
+            alpha.setAnimationListener(listener);
+            start.setAnimation(alpha);
+            start.startAnimation(alpha);
+        }
     }
 
+    /**
+     * Handles the dialog to get a new type after a draw
+     * @param gameMode  the current game mode
+     * @param player    the player for which the request is made
+     * @param attacker  flag if the player is also the attacker for the draw
+     */
     public void getNewType(final int gameMode, final IPlayer player, final boolean attacker) {
         this.clearBoard();
-        AlertDialog.Builder builder = new AlertDialog.Builder((Activity) this.getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
         ArrayList<CharSequence> items = new ArrayList<CharSequence>();
         items.add(RPSFigure.ROCK.getName());
         items.add(RPSFigure.PAPER.getName());
@@ -342,6 +380,11 @@ public class RPSBoardLayout extends GridLayout {
         dialog.show();
     }
 
+    /**
+     * Handles the dialog for the assignments in the manual mode
+     * @param player    the player that has to submit its assignment
+     * @param gameMode  the current game mode
+     */
     public void showAssignmentDialog(final IPlayer player, final int gameMode){
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
         LayoutInflater inflater = ((Activity) this.getContext()).getLayoutInflater();

@@ -1,7 +1,5 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.core;
 
-import android.graphics.Color;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -9,7 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by david on 17.06.2016.
+ * Default Player for the default game mode(non Lizard Spock)
  */
 public class NormalPlayer implements IPlayer {
 
@@ -22,6 +20,10 @@ public class NormalPlayer implements IPlayer {
         this.color = color;
     }
 
+    /**
+     * Fallback for getting a new Type automatically, not used anymore
+     * @return
+     */
     @Override
     public RPSFigure getNewType() {
         Random rand = new Random();
@@ -42,6 +44,11 @@ public class NormalPlayer implements IPlayer {
         return id;
     }
 
+    /**
+     * Fallback for automatically providing an assignment not used anymore
+     * @param numFigures the number of figures that is allowed for the game
+     * @return
+     */
     @Override
     public List<RPSGameFigure> provideInitialAssignment(int numFigures) {
         List<RPSGameFigure> figures = new ArrayList<RPSGameFigure>();

@@ -1,45 +1,20 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.core;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Resources;
-import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.view.animation.Animation;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
-import org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities.GameActivity;
-import org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities.HomeActivity;
-import org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui.FightDialog;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui.RPSBoardLayout;
-import org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui.RPSFieldView;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.RandomAccess;
-import java.util.Set;
-import java.util.concurrent.Callable;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 /**
  * Created by david on 06.05.2016.
@@ -69,7 +44,7 @@ public class GameController implements Animation.AnimationListener {
     RPSFigure attackedFigure;
     List<RPSGameFigure> startingTeamP0;
     List<RPSGameFigure> startingTeamP1;
-
+    Move currentMove;
     /**
      * Starts a new Game in Standard 8x8 Layout
      */
@@ -82,7 +57,7 @@ public class GameController implements Animation.AnimationListener {
         this.gameFinished = this.model.isGameFinished();
         this.gameMode = model.getGameMode();
         this.ai = model.isAgainstAI();
-        this.toast = new Toast(this.context);
+        toast = new Toast(this.context);
     }
 
     public int getX() {
@@ -94,7 +69,7 @@ public class GameController implements Animation.AnimationListener {
     }
 
     /**
-     * Starts a new game. Creates the model, requests the starting assignments from both players and initializes the first turn
+     * Starts a new game or resumes an existing one. If its a new game it creates the model, requests the starting assignments from both players and initializes the first turn
      *
      * @param view the Board view to use as view
      */
@@ -127,7 +102,7 @@ public class GameController implements Animation.AnimationListener {
             this.model.setPlayer(this.p0, this.p1);
             this.playerOnTurn = this.p1;
             this.model.setPlayerOnTurn(this.playerOnTurn);
-            if(gameMode==this.MODE_ROCKPAPERSCISSORSLIZARDSPOCK_MANUAL||gameMode==this.MODE_NORMAL_MANUAL){
+            if(gameMode== MODE_ROCKPAPERSCISSORSLIZARDSPOCK_MANUAL||gameMode== MODE_NORMAL_MANUAL){
                 if(p0.isAi()){
                     startingTeamP0=p0.provideInitialAssignment(16);
                 }
@@ -192,6 +167,9 @@ public class GameController implements Animation.AnimationListener {
         return representationForPlayer;
     }
 
+    /**
+     * Forces the game pane to be redrawn
+     */
     public void forceRedraw() {
         if(drawMove==null)
         this.view.drawFigures(this.getRepresentationForPlayer(), playerOnTurn);
@@ -210,6 +188,11 @@ public class GameController implements Animation.AnimationListener {
         }
     }
 
+    /**
+     * selects a single cell, needed to register tap movements. Also blocks out the selection of empty cells and flags
+     * @param x
+     * @param y
+     */
     public void selectCell(int x, int y) {
         //Toast.makeText(this.context, "Select Cell "+y+", "+x, Toast.LENGTH_SHORT).show();
         this.cellSelected = true;
@@ -219,27 +202,30 @@ public class GameController implements Animation.AnimationListener {
         if (board[y][x] != null) {
             if (!board[y][x].getOwner().equals(this.playerOnTurn)) {
                 this.cellSelected = false;
-                this.toast.cancel();
-                this.toast = Toast.makeText(this.context, R.string.sToastEnemy, Toast.LENGTH_SHORT);
-                this.toast.show();
+                toast.cancel();
+                toast = Toast.makeText(this.context, R.string.sToastEnemy, Toast.LENGTH_SHORT);
+                toast.show();
                 return;
             }
             if (board[y][x].getType() != RPSFigure.FLAG)
                 this.view.highlightDestinations(this.getValidDestinations(new Coordinate(x, y), playerOnTurn),new Coordinate(x, y));
             else {
                 this.cellSelected = false;
-                this.toast.cancel();
-                this.toast = Toast.makeText(this.context, R.string.sToastFlag, Toast.LENGTH_SHORT);
-                this.toast.show();
+                toast.cancel();
+                toast = Toast.makeText(this.context, R.string.sToastFlag, Toast.LENGTH_SHORT);
+                toast.show();
                 return;
             }
         } else {
-            this.toast.cancel();
-            this.toast = Toast.makeText(this.context, R.string.sToastEmpty, Toast.LENGTH_SHORT);
-            this.toast.show();
+            toast.cancel();
+            toast = Toast.makeText(this.context, R.string.sToastEmpty, Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 
+    /**
+     * Deselects a cell to allow a new move
+     */
     public void deselect() {
             forceRedraw();
         this.cellSelected = false;
@@ -257,11 +243,17 @@ public class GameController implements Animation.AnimationListener {
         return this.selY;
     }
 
+    /**
+     * Validates a move and handles fights, draws, invalid moves as well as regular moves.
+     * @param move the move to be executed
+     * @return true if a selected cell can be deselected(also is a callback for whether we want an immediate redraw of the pane)
+     * @throws InterruptedException
+     */
     private boolean validateMove(final Move move) throws InterruptedException {
+        this.currentMove=move;
         //Check if movement direction and length is fine
         if (Math.abs(move.getxStart() - move.getxTarget()) == 1) {
             if (Math.abs(move.getyStart() - move.getyTarget()) == 0) {
-                ;
             } else {
                 //Toast.makeText(this.context, "Invalid Move", Toast.LENGTH_SHORT).show();
                 this.deselect();
@@ -271,7 +263,6 @@ public class GameController implements Animation.AnimationListener {
             }
         } else if (Math.abs(move.getxStart() - move.getxTarget()) == 0) {
             if (Math.abs(move.getyStart() - move.getyTarget()) == 1) {
-                ;
             } else {
                 // Toast.makeText(this.context, "Invalid Move", Toast.LENGTH_SHORT).show();
                 this.deselect();
@@ -305,9 +296,9 @@ public class GameController implements Animation.AnimationListener {
         }
         if (playerOnTurn.getId() == p1.getId()) {
             if (gamePane[move.getyStart()][move.getxStart()].getType() == RPSFigure.FLAG) {
-                this.toast.cancel();
-                this.toast = Toast.makeText(this.context, "Flags can not move", Toast.LENGTH_SHORT);
-                this.toast.show();
+                toast.cancel();
+                toast = Toast.makeText(this.context, "Flags can not move", Toast.LENGTH_SHORT);
+                toast.show();
                 return true;
             }
             //Check if target field is empty
@@ -315,9 +306,9 @@ public class GameController implements Animation.AnimationListener {
                 gamePane[move.getyTarget()][move.getxTarget()] = gamePane[move.getyStart()][move.getxStart()];
                 gamePane[move.getyStart()][move.getxStart()] = null;
                 this.model.setGamePane(gamePane);
-                this.view.animateTurn(move, this);
+                this.view.animateTurn(currentMove, this);
                 //nextTurn();
-                return true;
+                return false;
             } else {
                 if (gamePane[move.getyTarget()][move.getxTarget()].getOwner().getId() == p0.getId()) {
                     if (gamePane[move.getyStart()][move.getxStart()].getType() == gamePane[move.getyTarget()][move.getxTarget()].getType()) {
@@ -337,7 +328,7 @@ public class GameController implements Animation.AnimationListener {
                     gamePane[move.getyTarget()][move.getxTarget()] = attack(gamePane[move.getyStart()][move.getxStart()], gamePane[move.getyTarget()][move.getxTarget()], move, new DialogInterface.OnDismissListener() {
                         @Override
                         public void onDismiss(DialogInterface dialogInterface) {
-                            GameController.this.view.animateFight(move, GameController.this);
+                            GameController.this.view.animateFight(currentMove, GameController.this);
                         }
                     });
                     if (!this.gameFinished) {
@@ -357,9 +348,9 @@ public class GameController implements Animation.AnimationListener {
             }
         } else {
             if (gamePane[getY() - 1 - move.getyStart()][getX() - 1 - move.getxStart()].getType() == RPSFigure.FLAG) {
-                this.toast.cancel();
-                this.toast = Toast.makeText(this.context, "Flags can not move", Toast.LENGTH_SHORT);
-                this.toast.show();
+                toast.cancel();
+                toast = Toast.makeText(this.context, "Flags can not move", Toast.LENGTH_SHORT);
+                toast.show();
                 return true;
             }
             //Check if target field is empty
@@ -367,11 +358,11 @@ public class GameController implements Animation.AnimationListener {
                 gamePane[getY() - 1 - move.getyTarget()][getX() - 1 - move.getxTarget()] = gamePane[getY() - 1 - move.getyStart()][getX() - 1 - move.getxStart()];
                 gamePane[getY() - 1 - move.getyStart()][getX() - 1 - move.getxStart()] = null;
                 this.model.setGamePane(gamePane);
-                this.view.animateTurn(move, this);
-                return true;
+                this.view.animateTurn(currentMove, this);
+                return false;
             } else {
                 if (gamePane[getY() - 1 - move.getyTarget()][getX() - 1 - move.getxTarget()].getOwner().getId() == p1.getId()) {
-                    if (gamePane[getY() - 1 - move.getyStart()][getX() - 1 - move.getxStart()].getType() == gamePane[getY() - 1 - move.getyTarget()][getX() - 1 - move.getxStart()].getType()) {
+                    if (gamePane[getY() - 1 - move.getyStart()][getX() - 1 - move.getxStart()].getType() == gamePane[getY() - 1 - move.getyTarget()][getX() - 1 - move.getxTarget()].getType()) {
                         this.drawMove = move;
                         if (gamePane[getY() - 1 - move.getyStart()][getX() - 1 - move.getxStart()].getOwner().isAi())
                             this.attackedFigure = gamePane[getY() - 1 - move.getyStart()][getX() - 1 - move.getxStart()].getOwner().getNewType();
@@ -385,10 +376,10 @@ public class GameController implements Animation.AnimationListener {
                     }
                     this.deselect();
                     this.forceRedraw();
-                    gamePane[getY() - 1 - move.getyTarget()][getX() - 1 - move.getxTarget()] = attack(gamePane[getY() - 1 - move.getyStart()][getX() - 1 - move.getxStart()], gamePane[getY() - 1 - move.getyTarget()][getX() - 1 - move.getxStart()], move, new DialogInterface.OnDismissListener() {
+                    gamePane[getY() - 1 - move.getyTarget()][getX() - 1 - move.getxTarget()] = attack(gamePane[getY() - 1 - move.getyStart()][getX() - 1 - move.getxStart()], gamePane[getY() - 1 - move.getyTarget()][getX() - 1 - move.getxTarget()], move, new DialogInterface.OnDismissListener() {
                         @Override
                         public void onDismiss(DialogInterface dialogInterface) {
-                            GameController.this.view.animateFight(move, GameController.this);
+                            GameController.this.view.animateFight(currentMove, GameController.this);
                         }
                     });
                     if (!this.gameFinished) {
@@ -408,11 +399,18 @@ public class GameController implements Animation.AnimationListener {
         }
     }
 
+    /**
+     * Register a modified game pane in the model and display it
+     * @param newPane the modified game pane
+     */
     void updateModelAndView(RPSGameFigure[][] newPane) {
         this.view.drawFigures(this.getRepresentationForPlayer(), this.playerOnTurn);
         nextTurn();
     }
 
+    /**
+     * Foce a turnover and change players on turn
+     */
     void nextTurn() {
         if (playerOnTurn.getId() == p1.getId())
             playerOnTurn = p0;
@@ -421,15 +419,23 @@ public class GameController implements Animation.AnimationListener {
         view.handleTurnover(playerOnTurn);
     }
 
+    /**
+     * Handles attacks(no draws)
+     * @param attacker the attacking figure
+     * @param attacked the attacked figure
+     * @param move the move that led to the fight
+     * @param listener callback for when the fight dialog is dismissed
+     * @return the winning figure
+     */
     RPSGameFigure attack(RPSGameFigure attacker, RPSGameFigure attacked, Move move, DialogInterface.OnDismissListener listener) {
         if (attacked.getType() == RPSFigure.FLAG) {
             handleGameFinished();
-            move.setWon();
+            currentMove.setWon();
             return attacker;
         }
         if (attacked.getType().getsBeatenBy(attacker.getType())) {
             view.showFightDialog(attacker, attacked, attacker, listener);
-            move.setWon();
+            currentMove.setWon();
             return attacker;
         } else {
             view.showFightDialog(attacker, attacked, attacked, listener);
@@ -437,6 +443,9 @@ public class GameController implements Animation.AnimationListener {
         }
     }
 
+    /**
+     * Handles the end of the game. Shows the win dialog and discovers all figures
+     */
     private void handleGameFinished() {
         this.model.gameIsFinished();
         this.gameFinished = true;
@@ -450,6 +459,12 @@ public class GameController implements Animation.AnimationListener {
         view.showWinDialog();
     }
 
+    /**
+     * Get Valid Destinations for an origin coordinate. A destination is valid if it is empty or occupied by a figure not owned by player. This is part of the highlighting routine
+     * @param origin the starting coordinate
+     * @param player the player that is on turn
+     * @return a list of valid destinations for the current selected figure
+     */
     private List<Coordinate> getValidDestinations(Coordinate origin, IPlayer player) {
         ArrayList<Coordinate> result = new ArrayList<>();
         ArrayList<Coordinate> temp = new ArrayList<>();
@@ -469,26 +484,40 @@ public class GameController implements Animation.AnimationListener {
         return result;
     }
 
+    /**
+     * Checks whether a coordinate is valid in respect to the description in getValidDestinations
+     * @param c the coordinate to check
+     * @param field the gamepane used for validation
+     * @param player the player on turn
+     * @return true if a coordinate is a valid destination
+     */
     private boolean isValid(Coordinate c, RPSGameFigure[][] field, IPlayer player) {
         if (c.getX() >= this.getX() || c.getY() >= this.getY() || c.getX() < 0 || c.getY() < 0)
             return false;
         if (field[c.getY()][c.getX()] == null)
             return true;
-        else if (field[c.getY()][c.getX()].getOwner().equals(player))
-            return false;
-        else return true;
+        else return !field[c.getY()][c.getX()].getOwner().equals(player);
     }
 
     public boolean isGameFinished() {
         return this.gameFinished;
     }
 
+    /**
+     * Callback for all animations to resume game
+     * @param animation the animation that was played
+     */
     @Override
     public void onAnimationEnd(Animation animation) {
         this.deselect();
         updateModelAndView(this.model.getGamePane());
     }
 
+    /**
+     * Handles the callback of the draw screen.
+     * @param selection the selected figure type
+     * @param attacker shows if the selection is from the attacker or the attacked player
+     */
     public void handleDrawRoutine(int selection, boolean attacker) {
         if (drawMove == null)
             throw new RuntimeException("handleDrawRoutine was called but there was no draw to handle");
@@ -536,6 +565,11 @@ public class GameController implements Animation.AnimationListener {
 
     }
 
+    /**
+     * Handles the Callback for the starting Lineup Dialog
+     * @param team the selected team, this is in order by figure and needs to be randomized
+     * @param player the player that submitted the figures
+     */
     public void submitStartingTeam(Map<RPSFigure,Integer> team, IPlayer player){
         List<RPSGameFigure> lineup=new ArrayList<>();
         for(Map.Entry<RPSFigure,Integer> entry: team.entrySet()){

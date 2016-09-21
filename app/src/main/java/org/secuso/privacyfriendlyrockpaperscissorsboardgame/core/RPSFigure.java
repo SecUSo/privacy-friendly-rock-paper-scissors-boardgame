@@ -2,10 +2,7 @@ package org.secuso.privacyfriendlyrockpaperscissorsboardgame.core;
 
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
 
-import java.util.List;
-
 /**
- * Created by David Giessing on 06.05.2016.
  * The RPSFigure Class represents the Entities participating on the board. Each RPSFigure has weaknesses of Type Figures against which it will loose a fight.
  */
 public enum RPSFigure {

@@ -1,7 +1,7 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.core;
 
 /**
- * Created by david on 14.06.2016.
+ * Figure containing all relevant data like visibilty, ownership and type
  */
 public class RPSGameFigure {
 
