@@ -102,18 +102,18 @@
         android:text="@string/sMoreInfo" />
 
     <TextView
+        android:id="@+id/secusoWebsite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sUrl"
         android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        android:autoLink="web" />
+        android:layout_gravity="center_horizontal" />
     <TextView
+        android:id="@+id/githubURL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sUrlRepo"
         android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        android:autoLink="web" />
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

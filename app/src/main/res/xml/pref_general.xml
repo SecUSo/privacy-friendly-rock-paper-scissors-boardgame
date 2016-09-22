@@ -1,6 +1,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="Timed Fight Dialog">
+    <PreferenceCategory android:title="@string/sPrefTimedDialog">
         <SwitchPreference
             android:id="@+id/pref_timer_switch"
             android:key="@string/sKeyTimerSwitch"

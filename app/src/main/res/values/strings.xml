@@ -104,4 +104,5 @@
     <string name="sDeleteTitle">Delete Save Game</string>
     <string name="sDeleteMessage">Do you really want to delete this save game?</string>
     <string name="sNoDeletion">No</string>
-    </resources>
+    <string name="sPrefTimedDialog">Timed Fight Dialog</string>
+</resources>

@@ -30,17 +30,17 @@
     <string name="sHelp">Aide</string>
     <string name="sHelpCategoryExample">Exemple Aide Catégorie</string>
     <string name="sHelpDraw">Indécis</string>
-    <string name="sHelpDrawSummary">Quand un combat est indécis tu et ton adversaire son invité de choisir un nouveau figur. Les nouveaux figures retenu aprés le combat.</string>
+    <string name="sHelpDrawSummary">Quand un combat est indécis tu et ton adversaire serez invités de choisir un nouveau figur. Les nouveaux figures retenu aprés le combat.</string>
     <string name="sHelpExample">Exemple Aide Catégorie</string>
     <string name="sHelpFight">Commencer un combat</string>
     <string name="sHelpFightCategory">Combattre</string>
-    <string name="sHelpFightSummary">Pour que commencer un combat déplacer ton figur sur une case occupée par un figur de ton adversaire</string>
+    <string name="sHelpFightSummary">Pour commencer un combat déplaces ton figur sur une case occupée par un figur de ton adversaire</string>
     <string name="sHelpIntro">Bienvenue à la page d\'aide. Cette app est un jeu de table variant de le connue jeu des mains.  Il y a un multijoueur en local avec différent modes de jeu.</string>
     <string name="sHelpMoveCategory">Mouvoir</string>
     <string name="sHelpMoveSwype">Mouvoir en faisant glisser</string>
     <string name="sHelpMoveSwypeSummary">Tu peux mouvoir un figur en tapant et glisser à la case cible.</string>
     <string name="sHelpMoveTap">Mouvoir en taper</string>
-    <string name="sHelpMoveTapSummary">Tu peux mouvoir un figur en tapant et tapant à la case cible. En Tapant le figur tu obtenes suggestions pour des cibles potentielles.</string>
+    <string name="sHelpMoveTapSummary">Tu peux mouvoir un figur en tapant et tapant à la case cible. En tapant le figur tu obtenes des suggestions pour des cibles potentielles.</string>
     <string name="sHelpOverviewHeading">Vue d\'ensemble</string>
     <string name="sHelpPermissionsDescription">Privacy Friendly Papier Caillou Ciseaux autilise aucune autoristations</string>
     <string name="sHelpPermissionsHeading">Autorisations</string>
@@ -76,8 +76,8 @@
     <string name="sPrefTimerTitle">Secondes jusqu\'à ce délai</string>
     <string name="sPrefHeaderGeneral">Généralement</string>
     <string name="sPrefTimerSummary">Choissi après combien de secondes le dialogue avec les informations de combat est fermé</string>
-    <string name="sPrefFightDialogTitle">Utiliser une minuterie por le combat dialogue</string>
-    <string name="sPrefFightDialogSummary">Utiliser une minuterie pour fermer le dialogue avec les informations de combat</string>
+    <string name="sPrefFightDialogTitle">Utilise une minuterie pour le combat dialogue</string>
+    <string name="sPrefFightDialogSummary">Utilise une minuterie pour fermer le dialogue avec les informations de combat</string>
     <string name="sPrefExampleSwitch_summary">Exemple Interrupteur Résumé</string>
     <string name="sPrefExampleSwitch">Exemple Interrupteur</string>
     <string name="sModesCategory">Modes de jeu</string>
@@ -87,4 +87,5 @@
     <string name="sNoDeletion">Non</string>
     <string name="sPrefExampleSummary">Exemple Resumé</string>
     <string name="sGameDescDefaultManual">Papier Caillou Ciseaux jeu de table avec un numbre de figures d\'un type choisi par toi</string>
+    <string name="sPrefTimedDialog">Minuterie pour le combat dialogue</string>
 </resources>

@@ -69,9 +69,9 @@
     <string name="sHelpMoveSwype">Bewegen durch Swypen</string>
     <string name="sHelpMoveSwypeSummary">Du kannst deine Figuren bewegen indem du sie antippst und dann auf das Zielfeld Swypst.</string>
     <string name="sHelpMoveTap">Bewegen durch tippen</string>
-    <string name="sHelpMoveTapSummary">Du kannst deine Figuren bewegen indem du sie antippst und dann auf das Zielfeld tippst. Beim antippen einer Figur erhälst du auch Hinweise welche Ziele möglich sind.</string>
+    <string name="sHelpMoveTapSummary">Du kannst deine Figuren bewegen indem du sie antippst und dann auf das Zielfeld tippst. Beim Antippen einer Figur erhältst du auch Hinweise welche Ziele möglich sind.</string>
     <string name="sHelpWin">Spielende</string>
-    <string name="sHelpWinSummary">Das Spiel ist gewonnen wenn du die gegnerische Flagge entdeckt hast</string>
+    <string name="sHelpWinSummary">Das Spiel ist gewonnen wenn du die gegnerische Flagge entdeckt hast.</string>
     <string name="sMode1">Schere Stein Papier - Standard</string>
     <string name="sMode1Summary">Dieser Spielmodus ist das Standard Spiel mit je 5 Steinen, Scheren und Papieren sowie einer Flagge.</string>
     <string name="sMode2">Schere Stein Papier - Manuell</string>
@@ -87,4 +87,5 @@
     <string name="sDeleteMessage">Willst du diesen Spielstand wirklich löschen?</string>
     <string name="sDeleteTitle">Spielstand löschen</string>
     <string name="sNoDeletion">Nein</string>
+    <string name="sPrefTimedDialog">Timeout für Kampfdialog</string>
 </resources>

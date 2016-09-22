@@ -87,4 +87,5 @@
     <string name="sDeleteMessage">Opgeslagen spel verwijderen</string>
     <string name="sDeleteTitle">Wil u echt het opgeslagen spel verwijderen?</string>
     <string name="sNoDeletion">Nee</string>
+    <string name="sPrefTimedDialog">Timer voor gevecht dialogvenster</string>
 </resources>
