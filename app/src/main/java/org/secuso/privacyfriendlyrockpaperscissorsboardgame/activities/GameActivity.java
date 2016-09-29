@@ -1,7 +1,11 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -51,7 +55,7 @@ public class GameActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_game);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        this.gameController = new GameController(this.getApplicationContext(), model);
+        this.gameController = new GameController((Activity)this, model);
         boardLayout = (RPSBoardLayout) findViewById(R.id.boardLayout);
         boardLayout.createBoard(this.gameController);
         ActionBar ab = getSupportActionBar();
@@ -68,7 +72,6 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
     }
 
     @Override
@@ -82,7 +85,8 @@ public class GameActivity extends AppCompatActivity {
         Calendar c=Calendar.getInstance();
         name+=c.get(Calendar.DAY_OF_MONTH)+"_"+c.get(Calendar.MONTH)+"_"+c.get(Calendar.YEAR)+"_"+c.get(Calendar.HOUR_OF_DAY)+"_"+(c.get(Calendar.MINUTE)<10?"0"+c.get(Calendar.MINUTE):c.get(Calendar.MINUTE))+"_"+model.getGameMode()+".save";
         File dir = new File(getFilesDir(),name);
-        model.saveToFile(dir);
+        if(model.gameStateIsReady())
+            model.saveToFile(dir);
     }
 
     GameState gameStateFromFile(File f){

@@ -63,7 +63,7 @@
     <string name="sApp_name_prefix">Privacy Friendly RockPaperScissors Board Game</string>
     <string name="sVersionNumber" translatable="false">1.0</string>
     <string name="sAboutAuthor">Author:</string>
-    <string name="sAboutAuthorName" translatable="false">David Giessing</string>
+    <string name="sAboutAuthorName">David Giessing and contributors</string>
     <string name="sAboutAffiliation">In affiliation with</string>
     <string name="sPrivacyFriendly">This application belongs to the group of Privacy Friendly Apps developed by Technische Universität Darmstadt. Sourcecode licensed under GPLv3. Images copyright TU Darmstadt and Google Inc.</string>
     <string name="sMoreInfo">More information can be found on:</string>
@@ -74,7 +74,7 @@
     <string name="sDialogHandOverTitle">It\'s your opponents turn</string>
     <string name="sDialogHandOverOkButton">Okay</string>
     <!-- WelcomeDialog -->
-    <string name="sWelcomeTitle">Privacy Friendly Rock Paper Scissors</string>
+    <string name="sWelcomeTitle">Welcome</string>
     <string name="sWelcome">Welcome to Privacy Friendly Rock Paper Scissors. Press the arrow keys or swype to access the different game modes. </string>
     <!-- FightDialog -->
     <string name="sFightDialogAttacker">Attacker</string>
@@ -105,4 +105,5 @@
     <string name="sDeleteMessage">Do you really want to delete this save game?</string>
     <string name="sNoDeletion">No</string>
     <string name="sPrefTimedDialog">Timed Fight Dialog</string>
+    <string name="sAssignmentIncomplete">You need 15 figures for your team (Currently: %1$d)</string>
 </resources>

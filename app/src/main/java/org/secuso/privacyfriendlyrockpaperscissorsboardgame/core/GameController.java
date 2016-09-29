@@ -1,9 +1,12 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.core;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
 import android.support.v4.content.ContextCompat;
 import android.view.animation.Animation;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
@@ -37,7 +40,7 @@ public class GameController implements Animation.AnimationListener {
     boolean cellSelected;
     int selX;
     int selY;
-    Context context;
+    Activity context;
     boolean gameFinished;
     Move drawMove;
     RPSFigure attackerFigure;
@@ -48,7 +51,7 @@ public class GameController implements Animation.AnimationListener {
     /**
      * Starts a new Game in Standard 8x8 Layout
      */
-    public GameController(Context context, GameState model) {
+    public GameController(Activity context, GameState model) {
         this.fieldX = 8;
         this.fieldY = 8;
         this.model = model;
@@ -136,14 +139,12 @@ public class GameController implements Animation.AnimationListener {
         RPSGameFigure[][] gamePane = new RPSGameFigure[fieldY][fieldX];
         for (int i = 0; i < gamePane.length; i++) {
             for (int j = 0; j < gamePane[i].length; j++) {
-                gamePane[i][j] = null;
+                if(i<2)
+                    gamePane[i][j] = figuresP0.remove(0);
+                else if(i>5)
+                    gamePane[i][j] = figuresP1.remove(0);
+                else gamePane[i][j] =null;
             }
-        }
-        for (int i = 0; i < 16; i++) {
-            gamePane[i / 8][i % 8] = figuresP0.get(i);
-        }
-        for (int i = 0; i < 16; i++) {
-            gamePane[6 + i / 8][i % 8] = figuresP1.get(i);
         }
         return gamePane;
 
@@ -510,6 +511,7 @@ public class GameController implements Animation.AnimationListener {
     @Override
     public void onAnimationEnd(Animation animation) {
         this.deselect();
+        ((Activity)this.context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
         updateModelAndView(this.model.getGamePane());
     }
 
@@ -552,6 +554,7 @@ public class GameController implements Animation.AnimationListener {
                 gamePane[getY() - 1 - drawMove.getyTarget()][getX() - 1 - drawMove.getxTarget()] = new RPSGameFigure(p1, attackedFigure);
             }
             this.model.setGamePane(gamePane);
+            ((Activity)this.context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
             this.forceRedraw();
             this.selectCell(drawMove.getxStart(), drawMove.getyStart());
             int xTarget = drawMove.getxTarget();
@@ -586,6 +589,7 @@ public class GameController implements Animation.AnimationListener {
             startingTeamP0=lineup;
         else startingTeamP1=lineup;
         if(startingTeamP0!=null&&startingTeamP1!=null){
+            ((Activity)this.context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
             this.model.setGamePane(this.placeFigures(startingTeamP0,startingTeamP1));
             this.model.setGameStateOK();
             this.view.drawFigures(getRepresentationForPlayer(),playerOnTurn);

@@ -51,6 +51,7 @@ public class HomeActivity extends BaseActivity {
                     mSharedPreferences.edit().putBoolean("welcomeScreen",true).apply();
                 }
             });
+            builder.setIcon(R.mipmap.ic_drawer);
             builder.setNegativeButton(R.string.sHelp, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -209,16 +210,16 @@ public class HomeActivity extends BaseActivity {
             ImageView imageView = (ImageView) rootView.findViewById(R.id.section_label);
             switch(id){
                 case 1:
-                    imageView.setBackgroundResource(R.drawable.rpslsfix);
+                    imageView.setBackgroundResource(R.mipmap.rpslsfix);
                     break;
                 case 2:
-                    imageView.setBackgroundResource(R.drawable.rpsman);
+                    imageView.setBackgroundResource(R.mipmap.rpsman);
                     break;
                 case 3:
-                    imageView.setBackgroundResource(R.drawable.rpslsman);
+                    imageView.setBackgroundResource(R.mipmap.rpslsman);
                     break;
                 default:
-                    imageView.setBackgroundResource(R.drawable.rpsfix);
+                    imageView.setBackgroundResource(R.mipmap.rpsfix);
                     break;
             }
             return rootView;

@@ -71,7 +71,7 @@
     <string name="sPrefHeaderGeneral">algemeen</string>
     <string name="sPrefTimerSummary">Kiezen  na hoeveel seconden de gevecht dialogvenster zichzelf sluit.</string>
     <string name="sPrefTimerTitle">Seconden tot sluiten.</string>
-    <string name="sPrivacyFriendly">"Deze app behoort tot de groep van de Privacy Friendly Apps ontwikkeld van de Technische Universiteit Darmstadt. Broncode lizenziert onder GPLv3. Bilderen copyright TU Darmstadt en Google Inc. "</string>
+    <string name="sPrivacyFriendly">Deze app behoort tot de groep van de Privacy Friendly Apps ontwikkeld van de Technische Universiteit Darmstadt. Broncode lizenziert onder GPLv3. Bilderen copyright TU Darmstadt en Google Inc.</string>
     <string name="sStartButton">Spel tegen en vriend</string>
     <string name="sStartButtonAI">Spel tegen en computer</string>
     <string name="sTitleActivitySettings">instellingen</string>
@@ -79,7 +79,7 @@
     <string name="sToastEnemy">Diet is niet uw figuur.</string>
     <string name="sToastFlag">Vlaggen kan niet bewegen.</string>
     <string name="sWelcome">Welkom op Privacy Friendly Schaar Steen Papier. Tikt op de pijltjestoetsen of vegt om verschillende spelmodussen zo bereiken.</string>
-    <string name="sWelcomeTitle">Privacy Friendly Schaar Steen Papier</string>
+    <string name="sWelcomeTitle">Welkom</string>
     <string name="sWinDialogBack">Terug naar het hoofdmenu</string>
     <string name="sWinDialogShowBoard">Zie het spelfeld</string>
     <string name="sWinDialogText">Uw hebt de tegenstander zijn flag blootgelegd en herstelde</string>
@@ -88,4 +88,6 @@
     <string name="sDeleteTitle">Wil u echt het opgeslagen spel verwijderen?</string>
     <string name="sNoDeletion">Nee</string>
     <string name="sPrefTimedDialog">Timer voor gevecht dialogvenster</string>
+    <string name="sAboutAuthorName">David Giessing en bijdragers</string>
+    <string name="sAssignmentIncomplete">Je benodigst 15 figuuren in jouw team (Momenteel: %1$d)</string>
 </resources>

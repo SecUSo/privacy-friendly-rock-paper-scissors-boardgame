@@ -20,9 +20,7 @@ import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.RPSFigure;
 public class RPSFieldView extends ImageView {
     boolean black;
     int xIndex;
-
-    private boolean isHighlighted;
-
+    int yIndex;
     public int getyIndex() {
         return yIndex;
     }
@@ -31,11 +29,12 @@ public class RPSFieldView extends ImageView {
         return xIndex;
     }
 
-    int yIndex;
-
     public RPSFieldView(Context context, AttributeSet attrs, boolean black, int x, int y) {
         super(context, attrs);
         this.black = black;
+        if(black)
+            this.setBackgroundColor(Color.BLACK);
+        else this.setBackgroundColor(Color.WHITE);
         this.xIndex = x;
         this.yIndex = y;
     }
@@ -47,7 +46,7 @@ public class RPSFieldView extends ImageView {
      */
     public void setImage(RPSFigure fig, int playerColor) {
         if (fig != null) {
-            Drawable drawable = DrawableCompat.wrap(ResourcesCompat.getDrawable(getResources(), fig.getImageResourceId(), null));
+            Drawable drawable = ResourcesCompat.getDrawable(getResources(), fig.getImageResourceId(), null);
             if(drawable!=null)
                 drawable.mutate();
             if (playerColor != -1)
@@ -55,33 +54,5 @@ public class RPSFieldView extends ImageView {
             else clearColorFilter();
             this.setImageDrawable(drawable);
         } else this.setImageDrawable(null);
-    }
-
-    /**
-     * Sets up the Layout
-     * @param changed
-     * @param left
-     * @param top
-     * @param right
-     * @param bottom
-     */
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-        if (this.black)
-            this.setBackgroundColor(Color.BLACK);
-        else this.setBackgroundColor(Color.WHITE);
-        GridLayout.LayoutParams params = (GridLayout.LayoutParams) this.getLayoutParams();
-        RPSBoardLayout parent = (RPSBoardLayout) this.getParent();
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            params.width = (int) (parent.getWidth() - 2 * getResources().getDimension(R.dimen.border_margin)) / parent.getColumnCount();
-            params.height = (int) (parent.getWidth() - 2 * getResources().getDimension(R.dimen.border_margin)) / parent.getRowCount();
-
-        } else {
-            params.width = (int) (parent.getHeight() - 2 * getResources().getDimension(R.dimen.border_margin)) / parent.getColumnCount();
-            params.height = (int) (parent.getHeight() - 2 * getResources().getDimension(R.dimen.border_margin)) / parent.getRowCount();
-        }
-        //Does not work on Android N seems to be a bug, could be related to: Issue 214831
-        this.setLayoutParams(params);
     }
 }

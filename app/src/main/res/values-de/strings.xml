@@ -66,8 +66,8 @@
     <string name="sHelpFightCategory">Kämpfen</string>
     <string name="sHelpFightSummary">Um einen Kampf zu beginnen bewege deine Figur auf ein vom Gegner besetztes Feld. Die Figuren werden sich anhand der Schere Stein Papier bzw. Schere Stein Papier Echse Spock Regeln schlagen.</string>
     <string name="sHelpMoveCategory">Bewegen</string>
-    <string name="sHelpMoveSwype">Bewegen durch Swypen</string>
-    <string name="sHelpMoveSwypeSummary">Du kannst deine Figuren bewegen indem du sie antippst und dann auf das Zielfeld Swypst.</string>
+    <string name="sHelpMoveSwype">Bewegen durch Wischen</string>
+    <string name="sHelpMoveSwypeSummary">Du kannst deine Figuren bewegen indem du sie antippst und dann auf das Zielfeld wischst.</string>
     <string name="sHelpMoveTap">Bewegen durch tippen</string>
     <string name="sHelpMoveTapSummary">Du kannst deine Figuren bewegen indem du sie antippst und dann auf das Zielfeld tippst. Beim Antippen einer Figur erhältst du auch Hinweise welche Ziele möglich sind.</string>
     <string name="sHelpWin">Spielende</string>
@@ -83,9 +83,11 @@
     <string name="sModeSummary">Die App enthält mehrere Spielmodi die durch wischen im Hauptmenü gewechselt werden können. Alternativ können auch die Pfeiltasten verwendet werden.</string>
     <string name="sModesCategory">Spielmodi</string>
     <string name="sWelcome">Willkommen zu Privacy Friendly Schere Stein Papier. Tippe auf die Pfeiltasten oder wische um die verschiedenen Spielmodi zu erreichen.</string>
-    <string name="sWelcomeTitle">Privacy Friendly Schere Stein Papier</string>
+    <string name="sWelcomeTitle">Willkommen</string>
     <string name="sDeleteMessage">Willst du diesen Spielstand wirklich löschen?</string>
     <string name="sDeleteTitle">Spielstand löschen</string>
     <string name="sNoDeletion">Nein</string>
     <string name="sPrefTimedDialog">Timeout für Kampfdialog</string>
+    <string name="sAboutAuthorName">David Giessing und Mitwirkende</string>
+    <string name="sAssignmentIncomplete">Du brauchst 15 Figuren für dein Team (Aktuell: %1$d)</string>
 </resources>

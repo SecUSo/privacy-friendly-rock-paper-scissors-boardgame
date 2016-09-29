@@ -22,7 +22,7 @@
     <org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui.RPSBoardLayout
         android:id="@+id/boardLayout"
         android:padding="@dimen/border_margin"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layoutDirection="ltr"
         android:layout_height="wrap_content"
         android:clickable="true"

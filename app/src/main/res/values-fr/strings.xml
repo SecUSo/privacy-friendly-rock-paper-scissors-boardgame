@@ -64,7 +64,7 @@
     <string name="sWinDialogText">Tu as découvert le drapeau ennemi et gagné!</string>
     <string name="sWinDialogShowBoard">Voir le terrain de jeu</string>
     <string name="sWinDialogBack">Retour au menu principal</string>
-    <string name="sWelcomeTitle">Privacy Friendly Papier Caillou Ciseaux</string>
+    <string name="sWelcomeTitle">Bienvenue</string>
     <string name="sWelcome">Bienvenue en Privacy Friendly Papier Caillou Ciseaux. Taper à les touches fléchée ou essuyes pour que atteindre les différents modes de jeu</string>
     <string name="sToastFlag">Drapeaux ne peux pas se déplacer</string>
     <string name="sToastEnemy">Ce n\'est pas ton figur</string>
@@ -88,4 +88,6 @@
     <string name="sPrefExampleSummary">Exemple Resumé</string>
     <string name="sGameDescDefaultManual">Papier Caillou Ciseaux jeu de table avec un numbre de figures d\'un type choisi par toi</string>
     <string name="sPrefTimedDialog">Minuterie pour le combat dialogue</string>
+    <string name="sAboutAuthorName">David Giessing et contributeurs</string>
+    <string name="sAssignmentIncomplete">Vous avez besoin de 15 figures pour votre èquipe (Actuellement: %1$d)</string>
 </resources>
