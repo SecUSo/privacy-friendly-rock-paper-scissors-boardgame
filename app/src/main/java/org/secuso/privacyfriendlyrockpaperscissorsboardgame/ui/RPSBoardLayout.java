@@ -79,7 +79,6 @@ public class RPSBoardLayout extends GridLayout {
                 addView(board[i][j]);
             }
         }
-        requestLayout();
         gameController.startGame(this);
     }
 
@@ -546,6 +545,5 @@ public class RPSBoardLayout extends GridLayout {
         });
         dialog.show();
     }
-
 
 }
