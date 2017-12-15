@@ -13,7 +13,7 @@ Further development requires Android Studio, we recommend to use at least versio
 ### API Reference
 
 Mininum SDK: 17
-Target SDK: 23 
+Target SDK: 24 
 
 ## License
 Privacy Friendly Rock Paper Scissors is licensed under the GPLv3.
@@ -32,7 +32,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-The icons used in the nagivation drawer are licensed under the [CC BY 2.5] (http://creativecommons.org/licenses/by/2.5/). In addition to them the app uses icons from [Google Design Material Icons](https://design.google.com/icons/index.html) licensed under Apache License Version
+The icons used in the nagivation drawer are licensed under the [CC BY 2.5](http://creativecommons.org/licenses/by/2.5/). 
+In addition to them the app uses icons from [Google Design Material Icons](https://design.google.com/icons/index.html) licensed under Apache License Version.
+All other images (the logo of Privacy Friendly Apps, the SECUSO logo and the app logos) copyright Technische Universtität Darmstadt (2016).
 
 ## Contributors
 
