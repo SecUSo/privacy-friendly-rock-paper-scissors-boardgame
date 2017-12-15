@@ -1,17 +1,13 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 
-import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.RPSFigure;
 
 /**

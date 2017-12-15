@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -39,14 +38,11 @@ import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.IPlayer;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.Move;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.RPSFigure;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.RPSGameFigure;
-import org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui.dialogs.WinDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Created by david on 11.06.2016.

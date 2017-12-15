@@ -1,18 +1,15 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui.dialogs;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.res.ResourcesCompat;
 
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.activities.HomeActivity;
-import org.secuso.privacyfriendlyrockpaperscissorsboardgame.ui.RPSBoardLayout;
 
 /**
  * Created by david on 26.09.2016.

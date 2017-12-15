@@ -1,7 +1,5 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.core;
 
-import android.graphics.Color;
-
 import java.util.List;
 
 /**

@@ -1,12 +1,10 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame.core;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.support.v4.content.ContextCompat;
 import android.view.animation.Animation;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
