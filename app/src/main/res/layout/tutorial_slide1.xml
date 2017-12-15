@@ -22,6 +22,7 @@
             android:textStyle="bold" />
 
         <ImageView
+            android:layout_marginTop="10dp"
             android:layout_width="@dimen/img_width_height"
             android:layout_height="@dimen/img_width_height"
             android:background="@mipmap/splash_icon"
