@@ -7,6 +7,10 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home_black_24px"
             android:title="@string/sHome" />
+        <item
+            android:id="@+id/nav_tutorial"
+            android:icon="@drawable/ic_tutorial"
+            android:title="@string/tutorial" />
     </group>
     <group
         android:id="@+id/nav_group_add"

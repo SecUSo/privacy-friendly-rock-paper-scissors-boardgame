@@ -19,6 +19,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
+import org.secuso.privacyfriendlyrockpaperscissorsboardgame.tutorial.TutorialActivity;
+
+import static org.secuso.privacyfriendlyrockpaperscissorsboardgame.tutorial.TutorialActivity.ACTION_SHOW_ANYWAYS;
 
 /**
  * Created by Chris on 04.07.2016.
@@ -147,6 +150,11 @@ public class BaseActivity extends AppCompatActivity implements OnNavigationItemS
                 break;
             case R.id.nav_help:
                 intent = new Intent(this, HelpActivity.class);
+                createBackStack(intent);
+                break;
+            case R.id.nav_tutorial:
+                intent = new Intent(this, TutorialActivity.class);
+                intent.setAction(ACTION_SHOW_ANYWAYS);
                 createBackStack(intent);
                 break;
             case R.id.nav_settings:

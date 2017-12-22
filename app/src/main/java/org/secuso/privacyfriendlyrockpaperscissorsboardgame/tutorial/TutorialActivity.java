@@ -73,7 +73,6 @@ public class TutorialActivity extends AppCompatActivity {
 
         // Making notification bar transparent
         if(Build.VERSION.SDK_INT >=21)
-
         {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
