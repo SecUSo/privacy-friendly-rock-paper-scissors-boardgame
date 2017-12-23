@@ -92,6 +92,7 @@
     <string name="sAssignmentIncomplete">Du brauchst 15 Figuren für dein Team (Aktuell: %1$d)</string>
 
     <!-- ### TUTORIAL DIALOG ### -->
+    <string name="tutorial">Tutorial</string>
     <string name="slide1_heading">Willkommen!</string>
     <string name="slide1_text">Willkommen zu Privacy Friendly Schere Stein Papier Brettspiel.</string>
 
