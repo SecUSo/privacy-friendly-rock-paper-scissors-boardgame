@@ -107,8 +107,8 @@ public class GameState extends Fragment {
         }
         String result = "";
         result+="mode "+gameMode+"\n";
-        result+="P0 "+players[0].toString()+"\n";
-        result+="P1 "+players[1].toString()+"\n";
+        result+="P0 "+players[0].getId()+" "+players[0].getColor()+"\n";
+        result+="P1 "+players[1].getId()+" "+players[1].getColor()+"\n";
         result+="onTurn "+playerOnTurn.getId()+"\n";
         for(int i=0;i<8;i++){
             for(int j=0;j<8;j++){
