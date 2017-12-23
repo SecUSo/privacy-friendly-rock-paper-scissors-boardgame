@@ -52,10 +52,10 @@ public class ContinueActivity extends AppCompatActivity {
             dateAndTime=elements[0]+"."+elements[1]+"."+elements[2]+"\t\t"+elements[3]+":"+elements[4];
             int modeID=Integer.parseInt(elements[5].charAt(0)+"");
             switch (modeID){
-                case 1:
+                case 2:
                     mode=getString(R.string.sMode2);
                     break;
-                case 2:
+                case 1:
                     mode=getString(R.string.sMode3);
                     break;
                 case 3:

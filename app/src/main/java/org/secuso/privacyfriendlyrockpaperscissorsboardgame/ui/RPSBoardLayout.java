@@ -154,7 +154,8 @@ public class RPSBoardLayout extends GridLayout {
                     if (pane[i][j].getOwner().equals(onTurn)) {
                         board[i][j].setImage(pane[i][j].getType(), pane[i][j].getOwner().getColor());
                     } else
-                        board[i][j].setImage(pane[i][j].isHidden() ? RPSFigure.GHOST : pane[i][j].getType(), pane[i][j].getOwner().getColor());
+                        board[i][j].setImage(pane[i][j].isHidden() ?
+                                RPSFigure.GHOST : pane[i][j].getType(), pane[i][j].getOwner().getColor());
                 } else board[i][j].setImage(null, Color.TRANSPARENT);
             }
         }
