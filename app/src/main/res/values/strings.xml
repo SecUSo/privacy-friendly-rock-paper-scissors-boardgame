@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Rock Paper Scissors</string>
+    <string name="app_name">Rock Paper Scissors Board Game</string>
     <string name="sStartButton">Game vs Friend</string>
     <string name="sStartButtonAI">Game vs AI</string>
     <string name="sContinueButton">Continue Game</string>
@@ -60,7 +60,7 @@
     <string name="sKeyTimerList" translatable="false">key_timer_list</string>
     <!-- About -->
     <string name="sAbout">About</string>
-    <string name="sApp_name_prefix">Privacy Friendly RockPaperScissors Board Game</string>
+    <string name="sApp_name_prefix">Privacy Friendly Rock Paper Scissors Board Game</string>
     <string name="sVersionNumber" translatable="false">1.0</string>
     <string name="sAboutAuthor">Author:</string>
     <string name="sAboutAuthorName">David Giessing and contributors</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Schere Stein Papier</string>
+    <string name="app_name">Schere Stein Papier Brettspiel</string>
     <string name="onTurn">Spieler %1$d ist am Zug</string>
     <string name="sAbout">Über</string>
     <string name="sAboutAffiliation">In Zusammenarbeit mit</string>
