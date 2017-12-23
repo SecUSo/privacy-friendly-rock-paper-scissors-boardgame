@@ -43,7 +43,8 @@ public class GameActivity extends AppCompatActivity {
             model = (GameState) fm.findFragmentByTag("gameState");
         else{
             model=gameStateFromFile(new File(filename));
-            fm.beginTransaction().add(model, "gameState").commit();
+            if(model != null) fm.beginTransaction().add(model, "gameState").commit();
+            else model = (GameState) fm.findFragmentByTag("gameState");
         }
         if (model == null) {
             model = new GameState();
@@ -90,82 +91,72 @@ public class GameActivity extends AppCompatActivity {
     }
 
     GameState gameStateFromFile(File f){
-        GameState gameState = new GameState();
-        FileInputStream in=null;
         try {
-            in= new FileInputStream(f);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        String line="";
-        try {
-            line=reader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        gameState.setGameMode(Integer.valueOf(line.split(" ")[1]));
-        IPlayer[] players = new IPlayer[2];
-        for(int j=0;j<2;j++){
-            try {
-                line=reader.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
+            GameState gameState = new GameState();
+            FileInputStream in = new FileInputStream(f);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            String line = reader.readLine();
+
+            gameState.setGameMode(Integer.parseInt(line.split(" ")[1]));
+            IPlayer[] players = new IPlayer[2];
+            for (int j = 0; j < 2; j++) {
+                line = reader.readLine();
+
+                String[] player = line.split(" ");
+                players[j] = (gameState.getGameMode() == GameController.MODE_NORMAL_AUTO || gameState.getGameMode() == GameController.MODE_NORMAL_MANUAL) ?
+                        new NormalPlayer(Integer.parseInt(player[1]), Integer.parseInt(player[2])) :
+                        new LizardSpockPlayer(Integer.parseInt(player[1]), Integer.parseInt(player[2]));
             }
-            String [] player=line.split(" ");
-            players[j]= (gameState.getGameMode()== GameController.MODE_NORMAL_AUTO||gameState.getGameMode()== GameController.MODE_NORMAL_MANUAL)?new NormalPlayer(Integer.valueOf(player[1]),Integer.valueOf(player[2])):new LizardSpockPlayer(Integer.valueOf(player[1]),Integer.valueOf(player[2]));
-        }
-        gameState.setPlayer(players[0],players[1]);
-        try {
-            line=reader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        gameState.setPlayerOnTurn(players[Integer.valueOf(line.split(" ")[1])]);
-        RPSGameFigure[][] gamePane= new RPSGameFigure[8][8];
-        for(int j=0;j<8;j++){
-            for(int k=0;k<8;k++){
-                try {
-                    line=reader.readLine();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                if(line.contains("NULL"))
-                    gamePane[j][k]=null;
-                else{
-                    String[] values= line.split(" ");
-                    IPlayer owner=players[Integer.valueOf(values[1])];
-                    RPSFigure type;
-                    switch(Integer.valueOf(values[2])){
-                        case 0:
-                            type=RPSFigure.ROCK;
-                            break;
-                        case 1:
-                            type=RPSFigure.PAPER;
-                            break;
-                        case 2:
-                            type=RPSFigure.SCISSOR;
-                            break;
-                        case 3:
-                            type=RPSFigure.SPOCK;
-                            break;
-                        case 4:
-                            type=RPSFigure.LIZARD;
-                            break;
-                        default:
-                            type=RPSFigure.FLAG;
-                            break;
+
+            gameState.setPlayer(players[0], players[1]);
+            line = reader.readLine();
+
+            gameState.setPlayerOnTurn(players[Integer.parseInt(line.split(" ")[1])]);
+            RPSGameFigure[][] gamePane = new RPSGameFigure[8][8];
+            for (int j = 0; j < 8; j++) {
+                for (int k = 0; k < 8; k++) {
+                    line = reader.readLine();
+
+                    if (line.contains("NULL"))
+                        gamePane[j][k] = null;
+                    else {
+                        String[] values = line.split(" ");
+                        IPlayer owner = players[Integer.parseInt(values[1])];
+                        RPSFigure type;
+                        switch (Integer.parseInt(values[2])) {
+                            case 0:
+                                type = RPSFigure.ROCK;
+                                break;
+                            case 1:
+                                type = RPSFigure.PAPER;
+                                break;
+                            case 2:
+                                type = RPSFigure.SCISSOR;
+                                break;
+                            case 3:
+                                type = RPSFigure.SPOCK;
+                                break;
+                            case 4:
+                                type = RPSFigure.LIZARD;
+                                break;
+                            default:
+                                type = RPSFigure.FLAG;
+                                break;
+                        }
+                        boolean hidden = values[3].contains("hidden");
+                        gamePane[j][k] = new RPSGameFigure(owner, type);
+                        if (!hidden)
+                            gamePane[j][k].discover();
                     }
-                    boolean hidden=values[3].contains("hidden");
-                    gamePane[j][k]= new RPSGameFigure(owner,type);
-                    if(hidden)
-                        gamePane[j][k].discover();
                 }
             }
+            gameState.setGamePane(gamePane);
+            gameState.setGameStateOK();
+            f.delete();
+            return gameState;
+        } catch (Exception e) {
+            if(f.exists()) f.delete();
+            return null;
         }
-        gameState.setGamePane(gamePane);
-        gameState.setGameStateOK();
-        f.delete();
-        return gameState;
     }
 }

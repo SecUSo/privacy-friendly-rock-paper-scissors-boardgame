@@ -50,7 +50,7 @@ public class ContinueActivity extends AppCompatActivity {
             String name=files[f].getName();
             String[]elements=name.split("_");
             dateAndTime=elements[0]+"."+elements[1]+"."+elements[2]+"\t\t"+elements[3]+":"+elements[4];
-            int modeID=Integer.valueOf(elements[5].charAt(0));
+            int modeID=Integer.parseInt(elements[5].charAt(0)+"");
             switch (modeID){
                 case 1:
                     mode=getString(R.string.sMode2);
