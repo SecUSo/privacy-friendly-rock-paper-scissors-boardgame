@@ -14,6 +14,7 @@ public enum RPSFigure {
     SPOCK(R.drawable.spock),
     FLAG(R.drawable.flag),
     GHOST(R.drawable.ghost);
+
     int imageID;
 
     RPSFigure(int imageID) {

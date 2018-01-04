@@ -16,12 +16,14 @@ import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by david on 14.09.2016.
  */
 public class ContinueActivity extends AppCompatActivity {
-    File[] files;
+    List<File> files = new ArrayList<>();
     ArrayList<String> saveGameList;
     ArrayAdapter<String> adapter;
 
@@ -34,28 +36,30 @@ public class ContinueActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         File dir= getFilesDir();
         //get save games
-        this.files=dir.listFiles(new FilenameFilter() {
+        this.files.clear();
+        this.files.addAll(Arrays.asList(dir.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File file, String s) {
                 return s.contains(".save");
             }
-        });
+        })));
         //build the string savegames
         this.saveGameList= new ArrayList<>();
-        for(int f=0;f<files.length;f++){
+        for(int f=0;f<files.size();f++){
             String dateAndTime="";
             String mode="";
-            String name=files[f].getName();
+            String name=files.get(f).getName();
             String[]elements=name.split("_");
             dateAndTime=elements[0]+"."+elements[1]+"."+elements[2]+"\t\t"+elements[3]+":"+elements[4];
-            int modeID=Integer.valueOf(elements[5].charAt(0));
+            int modeID=Integer.parseInt(elements[5].charAt(0)+"");
             switch (modeID){
-                case 1:
+                case 2:
                     mode=getString(R.string.sMode2);
                     break;
-                case 2:
+                case 1:
                     mode=getString(R.string.sMode3);
                     break;
                 case 3:
@@ -74,23 +78,22 @@ public class ContinueActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(ContinueActivity.this,GameActivity.class);
-                intent.putExtra("file",files[i].getAbsolutePath());
+                intent.putExtra("file",files.get(i).getAbsolutePath());
                 startActivity(intent);
             }
         });
         //Allow deletion on long click
         ((ListView)findViewById(R.id.saveGameList)).setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
+            public boolean onItemLongClick(final AdapterView<?> adapterView, final View view, final int i, long l) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ContinueActivity.this);
                 builder.setTitle(R.string.sDeleteTitle);
                 builder.setMessage(R.string.sDeleteMessage);
                 builder.setPositiveButton(R.string.sDialogHandOverOkButton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface,int j) {
-                        File f=ContinueActivity.this.files[i];
-                        if(f.exists())
-                            f.delete();
+                        File f=ContinueActivity.this.files.get(i);
+                        if(f.exists()) f.delete();
                         ContinueActivity.this.refreshFiles(i);
                         dialogInterface.dismiss();
                     }
@@ -114,6 +117,7 @@ public class ContinueActivity extends AppCompatActivity {
      */
     private void refreshFiles(int i){
         this.saveGameList.remove(i);
+        this.files.remove(i);
         this.adapter.notifyDataSetChanged();
     }
 }
