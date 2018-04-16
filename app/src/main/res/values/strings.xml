@@ -62,7 +62,7 @@
     <!-- About -->
     <string name="sAbout">About</string>
     <string name="sApp_name_prefix">Privacy Friendly Rock Paper Scissors Board Game</string>
-    <string name="sVersionNumber" translatable="false">1.0</string>
+    <string name="sVersionNumber" translatable="false">Version v%s</string>
     <string name="sAboutAuthor">Author:</string>
     <string name="sAboutAuthorName">David Giessing and contributors</string>
     <string name="sAboutAffiliation">In affiliation with</string>

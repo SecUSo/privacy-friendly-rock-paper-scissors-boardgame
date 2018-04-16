@@ -7,6 +7,7 @@ import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 
+import org.secuso.privacyfriendlyrockpaperscissorsboardgame.BuildConfig;
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R;
 
 public class AboutActivity extends AppCompatActivity {
@@ -28,6 +29,8 @@ public class AboutActivity extends AppCompatActivity {
         }
 
         overridePendingTransition(0, 0);
+
+        ((TextView)findViewById(R.id.textFieldVersion)).setText(getString(R.string.sVersionNumber, BuildConfig.VERSION_NAME));
     }
 
     //@Override
