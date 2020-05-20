@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">Rock Paper Scissors</string>
+    <string name="app_name">Rock Paper Scissors Board Game</string>
+    <string name="app_name_short">Rock Paper Scissors</string>
     <string name="sStartButton">ゲーム vs 友達</string>
     <string name="sStartButtonAI">ゲーム vs AI</string>
     <string name="sContinueButton">ゲームを続ける</string>
@@ -62,7 +63,7 @@
     <string name="sAboutAuthor">作者:</string>
     <string name="sAboutAuthorName">David Giessing と貢献者</string>
     <string name="sAboutAffiliation">提携</string>
-    <string name="sPrivacyFriendly">このアプリケーションは、ダルムシュタット工科大学 (Technische Universität Darmstadt, Germany) が開発したプライバシーフレンドリーアプリのグループに属しています。ソースコードは GPLv3 の下でライセンスされます。画像の著作権は TU Darmstadt および Google Inc.</string>
+    <string name="sPrivacyFriendly">このアプリケーションは、ダルムシュタット工科大学 (SECUSO, Germany) が開発したプライバシーフレンドリーアプリのグループに属しています。ソースコードは GPLv3 の下でライセンスされます。画像の著作権は SECUSO および Google Inc.</string>
     <string name="sMoreInfo">さらに詳しい情報は以下でご覧ください:</string>
     <!-- HandoverDialog -->
     <string name="sDialogHandOverMessage">デバイスを渡して確認してください</string>
