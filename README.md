@@ -1,6 +1,12 @@
+[![Twitter](https://img.shields.io/badge/twitter-@SECUSOResearch-%231DA1F2.svg?&style=flat-square&logo=twitter&logoColor=1DA1F2)][Twitter]
+[![Mastodon](https://img.shields.io/badge/mastodon-@SECUSO__Research@baw%C3%BC.social-%233088D4.svg?&style=flat-square&logo=mastodon&logoColor=3088D4)][Mastodon]
+
+[Mastodon]: https://xn--baw-joa.social/@SECUSO_Research
+[Twitter]: https://twitter.com/SECUSOResearch
+
 ## Privacy Friendly Rock Paper Scissors
 
-Privacy Friendly Rock Paper Scissors is a board variant of the famous Rock Paper Scissors hand game. It does not use any permission, as the app can provide its full functionality without the usage of permissions.It also does neither include advertisement nor tracking mechanisms. This app belongs to the group of Privacy Friendly Apps developed by the Technische Universit‰t Darmstadt.
+Privacy Friendly Rock Paper Scissors is a board variant of the famous Rock Paper Scissors hand game. It does not use any permission, as the app can provide its full functionality without the usage of permissions.It also does neither include advertisement nor tracking mechanisms. This app belongs to the group of Privacy Friendly Apps developed by the Technische Universit√§t Darmstadt.
 
 ## Motivation 
 
@@ -34,7 +40,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 The icons used in the nagivation drawer are licensed under the [CC BY 2.5](http://creativecommons.org/licenses/by/2.5/). 
 In addition to them the app uses icons from [Google Design Material Icons](https://design.google.com/icons/index.html) licensed under Apache License Version.
-All other images (the logo of Privacy Friendly Apps, the SECUSO logo and the app logos) copyright Technische Universtit‰t Darmstadt (2016).
+All other images (the logo of Privacy Friendly Apps, the SECUSO logo and the app logos) copyright Technische Universtit√§t Darmstadt (2016).
 
 ## Contributors
 
