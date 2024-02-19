@@ -66,7 +66,7 @@
     <string name="sAboutAuthor">Author:</string>
     <string name="sAboutAuthorName">David Giessing and contributors</string>
     <string name="sAboutAffiliation">In affiliation with</string>
-    <string name="sPrivacyFriendly">This application belongs to the group of Privacy Friendly Apps developed by Technische Universität Darmstadt. Sourcecode licensed under GPLv3. Images copyright TU Darmstadt and Google Inc.</string>
+    <string name="sPrivacyFriendly">This application belongs to the group of Privacy Friendly Apps developed by Karlsruhe Institute of Technology. Sourcecode licensed under GPLv3. Images copyright KIT and Google Inc.</string>
     <string name="sMoreInfo">More information can be found on:</string>
     <string name="sUrl" translatable="false"><a href="https://www.secuso.org/pfa">SECUSO-Website</a></string>
     <string name="sUrlRepo" translatable="false"><a href="https://github.com/SecUSo/privacy-friendly-rock-paper-scissors-boardgame">Github-Repo</a></string>
