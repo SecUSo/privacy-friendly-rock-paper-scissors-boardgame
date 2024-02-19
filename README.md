@@ -6,7 +6,7 @@
 
 ## Privacy Friendly Rock Paper Scissors
 
-Privacy Friendly Rock Paper Scissors is a board variant of the famous Rock Paper Scissors hand game. It does not use any permission, as the app can provide its full functionality without the usage of permissions.It also does neither include advertisement nor tracking mechanisms. This app belongs to the group of Privacy Friendly Apps developed by the Technische Universität Darmstadt.
+Privacy Friendly Rock Paper Scissors is a board variant of the famous Rock Paper Scissors hand game. It does not use any permission, as the app can provide its full functionality without the usage of permissions.It also does neither include advertisement nor tracking mechanisms. This app belongs to the group of Privacy Friendly Apps developed by the Karlsruhe Institute of Technology.
 
 ## Motivation 
 
@@ -40,7 +40,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 The icons used in the nagivation drawer are licensed under the [CC BY 2.5](http://creativecommons.org/licenses/by/2.5/). 
 In addition to them the app uses icons from [Google Design Material Icons](https://design.google.com/icons/index.html) licensed under Apache License Version.
-All other images (the logo of Privacy Friendly Apps, the SECUSO logo and the app logos) copyright Technische Universtität Darmstadt (2016).
+All other images (the logo of Privacy Friendly Apps, the SECUSO logo and the app logos) copyright [SECUSO](www.secuso.org) (2019).
 
 ## Contributors
 
