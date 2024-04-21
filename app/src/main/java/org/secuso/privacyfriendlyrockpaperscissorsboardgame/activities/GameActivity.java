@@ -46,8 +46,8 @@ public class GameActivity extends AppCompatActivity {
         if (model == null) {
             model = new GameState();
             fm.beginTransaction().add(model, "gameState").commit();
-            int gameMode = intent.getIntExtra(HomeActivity.GAMEMODE_EXTRA, 0);
-            boolean ai = intent.getBooleanExtra(HomeActivity.AI_EXTRA, false);
+            int gameMode = intent.getIntExtra(HomeActivity.Companion.getGAMEMODE_EXTRA(), 0);
+            boolean ai = intent.getBooleanExtra(HomeActivity.Companion.getAI_EXTRA(), false);
             model.setAgainstAI(ai);
             model.setGameMode(gameMode);
         }
