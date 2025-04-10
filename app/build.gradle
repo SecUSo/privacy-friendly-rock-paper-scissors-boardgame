@@ -9,8 +9,8 @@ android {
         applicationId "org.secuso.privacyfriendlyrockpaperscissorsboardgame"
         minSdkVersion 16
         targetSdkVersion 34
-        versionCode 5
-        versionName "1.3.1"
+        versionCode 6
+        versionName "1.3.2"
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -36,8 +36,16 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
 
+    kotlin {
+        jvmToolchain(17)
+    }
+
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
+    }
+
+    lint {
+        lintConfig = file("lint.xml")
     }
 }
 
