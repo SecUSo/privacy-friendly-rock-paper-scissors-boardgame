@@ -1,0 +1,19 @@
+Privacy Friendly Schere Stein Papier ist eine Abwandlung des klassischen Handspiel "Schere-Stein-Papier". Zwei Spieler haben je 3 Figuren (Schere, Stein, Papier, Echse, Spock) und eine Flagge.
+Diese können vom anderen Spieler nicht gesehen werden und können bewegt werden. Treffen zwei Figuren auf ein Feld, werden die Schere-Stein-Papier-Regeln angewendet und die verlierende Figur entfernt.
+Außerdem hat jeder Spieler eine Flagge. Gewonnen hat der Spieler, der zuerst die gegnerische Flagge mit einer Figur erreicht.
+
+Was unterscheidet Privacy Friendly Schere Stein Papier von anderen, ähnlichen Apps?
+
+1) Keine Berechtigungen
+Privacy Friendly Schere Stein Papier benötigt keine Berechtigungen.
+
+2) Keine störende Werbung
+Viele andere kostenlose Apps im Google Play Store blenden störende Werbung ein, die unter anderem auch die Akkulaufzeit verkürzt und Datenvolumen verbrauchen kann.
+
+Die App gehört zur Gruppe der Privacy Friendly Apps, die von der Forschungsgruppe SECUSO entwickelt werden. Mehr Informationen unter: https://secuso.org/pfa
+
+
+Kontaktieren Sie uns gerne über:
+Bluesky - @secusoresearch.bsky.social https://bsky.app/profile/secusoresearch.bsky.social
+Mastodon - @SECUSO_Research@bawü.social https://xn--baw-joa.social/@SECUSO_Research/
+Offene Stellen - https://secuso.aifb.kit.edu/83.php

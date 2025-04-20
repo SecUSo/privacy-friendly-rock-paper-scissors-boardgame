@@ -1,0 +1,1 @@
+(SECUSO) Ein digitales Brettspiel mit Schere-Stein-Papier-Regeln.
