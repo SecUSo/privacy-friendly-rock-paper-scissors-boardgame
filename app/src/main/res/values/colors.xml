@@ -9,6 +9,7 @@
     <color name="yellow">#f6d126</color>
     <color name="black">#000000</color>
     <color name="middleblue">#8aa5ce</color>
+    <color name="red">#ff0000</color>
 
     <!-- dots inactive colors -->
     <color name="dot_dark_screen">#026499</color>

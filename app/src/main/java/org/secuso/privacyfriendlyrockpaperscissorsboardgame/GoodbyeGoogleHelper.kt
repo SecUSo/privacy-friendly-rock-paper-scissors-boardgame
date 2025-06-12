@@ -1,5 +1,6 @@
 package org.secuso.privacyfriendlyrockpaperscissorsboardgame;
 
+import android.app.AlertDialog
 import android.content.Context
 import android.graphics.text.LineBreaker
 import android.os.Build
@@ -8,7 +9,6 @@ import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.widget.CheckBox
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 
 fun checkGoodbyeGoogle(context: Context, layoutInflater: LayoutInflater) {
 
