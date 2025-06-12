@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.R
+import org.secuso.privacyfriendlyrockpaperscissorsboardgame.checkGoodbyeGoogle
 import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.GameController
 
 class HomeActivity : BaseActivity() {
@@ -65,6 +66,7 @@ class HomeActivity : BaseActivity() {
             override fun onPageScrollStateChanged(state: Int) {
             }
         })
+        checkGoodbyeGoogle(this, layoutInflater)
     }
 
     fun startGame(view: View?) {
