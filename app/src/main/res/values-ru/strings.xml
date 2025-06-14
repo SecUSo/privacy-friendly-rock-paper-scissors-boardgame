@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sStartButton">Играть с другом</string>
+    <string name="app_name">Игра в Камень, ножницы, бумага</string>
+    <string name="sGameDescDefaultManual">Игра в Камень, ножницы с выбранным числом фигур по типу</string>
+    <string name="sMenuAbout">О приложении</string>
+    <string name="sHelpOverviewHeading">Обзор</string>
+    <string name="app_name_short">Камень, ножницы, бумага</string>
+    <string name="sStartButtonAI">Играть с компьютером</string>
+    <string name="sContinueButton">Продолжить игру</string>
+    <string name="sGameDescLizardSpockManual">Игра в Бумага, ножницы, ящерица, Спок с выбранным числом фигур по типу</string>
+    <string name="sMenuSettings">Настройки</string>
+    <string name="sHome">Домой</string>
+    <string name="onTurn">Очередь игрока %1$d</string>
+    <string name="sMenuHelp">Справка</string>
+    <string name="sGameDescDefault">Игра в Камень, ножницы, бумага с одинаковым числом фигур по типу</string>
+    <string name="sHelp">Справка</string>
+    <string name="sNavigationDrawerOpen">Открыть панель навигации</string>
+    <string name="sGameDescLizardSpock">Игра в Бумага, ножницы, ящерица, Спок с одинаковым числом фигур по типу</string>
+    <string name="sNavigationDrawerClose">Закрыть панель навигации</string>
+    <string name="sMode4Summary">В этом игровом режиме представлена расширенная игра с фигурками ящерицы и Спока, при этом каждый игрок может самостоятельно выбрать, сколько фигурок каждого типа он хочет иметь.</string>
+    <string name="slide1_heading">Добро пожаловать!</string>
+    <string name="next">Далее</string>
+    <string name="viewhelp">Смотреть Справку</string>
+    <string name="okay">Ладно</string>
+    <string name="tutorial">Руководство</string>
+    <string name="skip">Пропустить</string>
+    <string name="sHelpPermissionsHeading">Разрешения</string>
+    <string name="sHelpExample">Example Help Entry</string>
+    <string name="sHelpCategoryExample">Example Help Category</string>
+    <string name="sHelpMoveCategory">Ходы</string>
+    <string name="sWinDialogBack">Назад к главному меню</string>
+    <string name="sWinDialogShowBoard">Показать доску</string>
+    <string name="main_button_welcomedialog">Показать приветствие</string>
+    <string name="sHelpWin">Победа в игре</string>
+    <string name="sHelpPrivacyHeading">Информация о конфиденциальности</string>
+    <string name="sHelpMoveTap">Ход по нажатию</string>
+    <string name="sHelpIntro">Добро пожаловать на страницу помощи. Это приложение — настольная версия знаменитой игры «Камень-Ножницы-Бумага». Оно представляет собой многопользовательский режим для одного устройства с различными режимами игры.</string>
+    <string name="sHelpPermissionsDescription">Это приложение не используют никаких разрешений</string>
+</resources>
