@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Rock Paper Scissors Board Game</string>
     <string name="app_name_short">Rock Paper Scissors</string>
@@ -107,21 +108,17 @@
     <string name="sNoDeletion">No</string>
     <string name="sPrefTimedDialog">Timed Fight Dialog</string>
     <string name="sAssignmentIncomplete">You need 15 figures for your team (Currently: %1$d)</string>
-
     <!-- ### TUTORIAL DIALOG ### -->
-    <string name="slide1_heading">Welcome!</string>
+    <string name="slide1_heading">Bienvenue!</string>
     <string name="slide1_text">Welcome to Privacy Friendly Rock Paper Scissors Boardgame.</string>
-
     <string name="slide2_heading">Boardgame</string>
     <string name="slide2_text">Rock Paper Scissors Boardgame is a combination of Rock Paper Scissors and Chess. Rocks, papers and scissors are the figures of the game and can \"fight\" against each other.</string>
-
     <string name="slide3_heading">How to play</string>
     <string name="slide3_text">The game\'s aim is capturing your opponents flag which is hidden between the opponent\'s figure. The opponent can either be another person or a computer. </string>
-
-    <string name="okay">Okay</string>
-    <string name="viewhelp">View Help</string>
+    <string name="okay">Ok</string>
+    <string name="viewhelp">Voir l\'aide</string>
     <string name="main_button_welcomedialog">Show Welcome</string>
-    <string name="next">Next</string>
-    <string name="skip">Skip</string>
+    <string name="next">Suivant</string>
+    <string name="skip">Passer</string>
     <string name="tutorial">Tutorial</string>
 </resources>
