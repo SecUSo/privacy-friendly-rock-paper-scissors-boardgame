@@ -46,6 +46,7 @@ public class GameController implements Animation.AnimationListener {
     List<RPSGameFigure> startingTeamP0;
     List<RPSGameFigure> startingTeamP1;
     Move currentMove;
+
     /**
      * Starts a new Game in Standard 8x8 Layout
      */
@@ -103,25 +104,22 @@ public class GameController implements Animation.AnimationListener {
             this.model.setPlayer(this.p0, this.p1);
             this.playerOnTurn = this.p1;
             this.model.setPlayerOnTurn(this.playerOnTurn);
-            if(gameMode== MODE_ROCKPAPERSCISSORSLIZARDSPOCK_MANUAL||gameMode== MODE_NORMAL_MANUAL){
-                if(p0.isAi()){
-                    startingTeamP0=p0.provideInitialAssignment(16);
-                }
-                else view.showAssignmentDialog(p0,this.gameMode);
-                if(p1.isAi()){
-                    startingTeamP1=p1.provideInitialAssignment(16);
-                }
-                else view.showAssignmentDialog(p1,gameMode);
-            }
-            else{
-                startingTeamP0=p0.provideInitialAssignment(16);
-                startingTeamP1=p1.provideInitialAssignment(16);
-                this.model.setGamePane(this.placeFigures(startingTeamP0,startingTeamP1));
+            if (gameMode == MODE_ROCKPAPERSCISSORSLIZARDSPOCK_MANUAL || gameMode == MODE_NORMAL_MANUAL) {
+                if (p0.isAi()) {
+                    startingTeamP0 = p0.provideInitialAssignment(16);
+                } else view.showAssignmentDialog(p0, this.gameMode);
+                if (p1.isAi()) {
+                    startingTeamP1 = p1.provideInitialAssignment(16);
+                } else view.showAssignmentDialog(p1, gameMode);
+            } else {
+                startingTeamP0 = p0.provideInitialAssignment(16);
+                startingTeamP1 = p1.provideInitialAssignment(16);
+                this.model.setGamePane(this.placeFigures(startingTeamP0, startingTeamP1));
                 this.model.setGameStateOK();
             }
         }
         this.view = view;
-        if(!model.gameStateIsReady())
+        if (!model.gameStateIsReady())
             return;
         this.view.drawFigures(this.getRepresentationForPlayer(), this.playerOnTurn);
     }
@@ -137,11 +135,11 @@ public class GameController implements Animation.AnimationListener {
         RPSGameFigure[][] gamePane = new RPSGameFigure[fieldY][fieldX];
         for (int i = 0; i < gamePane.length; i++) {
             for (int j = 0; j < gamePane[i].length; j++) {
-                if(i<2)
+                if (i < 2)
                     gamePane[i][j] = figuresP0.remove(0);
-                else if(i>5)
+                else if (i > 5)
                     gamePane[i][j] = figuresP1.remove(0);
-                else gamePane[i][j] =null;
+                else gamePane[i][j] = null;
             }
         }
         return gamePane;
@@ -170,8 +168,8 @@ public class GameController implements Animation.AnimationListener {
      * Forces the game pane to be redrawn
      */
     public void forceRedraw() {
-        if(drawMove==null)
-        this.view.drawFigures(this.getRepresentationForPlayer(), playerOnTurn);
+        if (drawMove == null)
+            this.view.drawFigures(this.getRepresentationForPlayer(), playerOnTurn);
     }
 
     public void playerMove(int xTarget, int yTarget) {
@@ -189,6 +187,7 @@ public class GameController implements Animation.AnimationListener {
 
     /**
      * selects a single cell, needed to register tap movements. Also blocks out the selection of empty cells and flags
+     *
      * @param x
      * @param y
      */
@@ -207,7 +206,7 @@ public class GameController implements Animation.AnimationListener {
                 return;
             }
             if (board[y][x].getType() != RPSFigure.FLAG)
-                this.view.highlightDestinations(this.getValidDestinations(new Coordinate(x, y), playerOnTurn),new Coordinate(x, y));
+                this.view.highlightDestinations(this.getValidDestinations(new Coordinate(x, y), playerOnTurn), new Coordinate(x, y));
             else {
                 this.cellSelected = false;
                 toast.cancel();
@@ -226,7 +225,7 @@ public class GameController implements Animation.AnimationListener {
      * Deselects a cell to allow a new move
      */
     public void deselect() {
-            forceRedraw();
+        forceRedraw();
         this.cellSelected = false;
     }
 
@@ -244,12 +243,13 @@ public class GameController implements Animation.AnimationListener {
 
     /**
      * Validates a move and handles fights, draws, invalid moves as well as regular moves.
+     *
      * @param move the move to be executed
      * @return true if a selected cell can be deselected(also is a callback for whether we want an immediate redraw of the pane)
      * @throws InterruptedException
      */
     private boolean validateMove(final Move move) throws InterruptedException {
-        this.currentMove=move;
+        this.currentMove = move;
         //Check if movement direction and length is fine
         if (Math.abs(move.getxStart() - move.getxTarget()) == 1) {
             if (Math.abs(move.getyStart() - move.getyTarget()) == 0) {
@@ -400,6 +400,7 @@ public class GameController implements Animation.AnimationListener {
 
     /**
      * Register a modified game pane in the model and display it
+     *
      * @param newPane the modified game pane
      */
     void updateModelAndView(RPSGameFigure[][] newPane) {
@@ -420,9 +421,10 @@ public class GameController implements Animation.AnimationListener {
 
     /**
      * Handles attacks(no draws)
+     *
      * @param attacker the attacking figure
      * @param attacked the attacked figure
-     * @param move the move that led to the fight
+     * @param move     the move that led to the fight
      * @param listener callback for when the fight dialog is dismissed
      * @return the winning figure
      */
@@ -460,6 +462,7 @@ public class GameController implements Animation.AnimationListener {
 
     /**
      * Get Valid Destinations for an origin coordinate. A destination is valid if it is empty or occupied by a figure not owned by player. This is part of the highlighting routine
+     *
      * @param origin the starting coordinate
      * @param player the player that is on turn
      * @return a list of valid destinations for the current selected figure
@@ -485,8 +488,9 @@ public class GameController implements Animation.AnimationListener {
 
     /**
      * Checks whether a coordinate is valid in respect to the description in getValidDestinations
-     * @param c the coordinate to check
-     * @param field the gamepane used for validation
+     *
+     * @param c      the coordinate to check
+     * @param field  the gamepane used for validation
      * @param player the player on turn
      * @return true if a coordinate is a valid destination
      */
@@ -504,19 +508,21 @@ public class GameController implements Animation.AnimationListener {
 
     /**
      * Callback for all animations to resume game
+     *
      * @param animation the animation that was played
      */
     @Override
     public void onAnimationEnd(Animation animation) {
         this.deselect();
-        ((Activity)this.context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+        ((Activity) this.context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
         updateModelAndView(this.model.getGamePane());
     }
 
     /**
      * Handles the callback of the draw screen.
+     *
      * @param selection the selected figure type
-     * @param attacker shows if the selection is from the attacker or the attacked player
+     * @param attacker  shows if the selection is from the attacker or the attacked player
      */
     public void handleDrawRoutine(int selection, boolean attacker) {
         if (drawMove == null)
@@ -552,7 +558,7 @@ public class GameController implements Animation.AnimationListener {
                 gamePane[getY() - 1 - drawMove.getyTarget()][getX() - 1 - drawMove.getxTarget()] = new RPSGameFigure(p1, attackedFigure);
             }
             this.model.setGamePane(gamePane);
-            ((Activity)this.context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+            ((Activity) this.context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
             this.forceRedraw();
             this.selectCell(drawMove.getxStart(), drawMove.getyStart());
             int xTarget = drawMove.getxTarget();
@@ -568,29 +574,30 @@ public class GameController implements Animation.AnimationListener {
 
     /**
      * Handles the Callback for the starting Lineup Dialog
-     * @param team the selected team, this is in order by figure and needs to be randomized
+     *
+     * @param team   the selected team, this is in order by figure and needs to be randomized
      * @param player the player that submitted the figures
      */
-    public void submitStartingTeam(Map<RPSFigure,Integer> team, IPlayer player){
-        List<RPSGameFigure> lineup=new ArrayList<>();
-        for(Map.Entry<RPSFigure,Integer> entry: team.entrySet()){
-            for(int i=0;i<entry.getValue();i++){
-                lineup.add(new RPSGameFigure(player,entry.getKey()));
+    public void submitStartingTeam(Map<RPSFigure, Integer> team, IPlayer player) {
+        List<RPSGameFigure> lineup = new ArrayList<>();
+        for (Map.Entry<RPSFigure, Integer> entry : team.entrySet()) {
+            for (int i = 0; i < entry.getValue(); i++) {
+                lineup.add(new RPSGameFigure(player, entry.getKey()));
             }
         }
-        lineup.add(new RPSGameFigure(player,RPSFigure.FLAG));
+        lineup.add(new RPSGameFigure(player, RPSFigure.FLAG));
         Random rand = new Random();
         Calendar cal = Calendar.getInstance();
         rand.setSeed(cal.getTimeInMillis());
-        Collections.shuffle(lineup,rand);
-        if(player.equals(p0))
-            startingTeamP0=lineup;
-        else startingTeamP1=lineup;
-        if(startingTeamP0!=null&&startingTeamP1!=null){
-            ((Activity)this.context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-            this.model.setGamePane(this.placeFigures(startingTeamP0,startingTeamP1));
+        Collections.shuffle(lineup, rand);
+        if (player.equals(p0))
+            startingTeamP0 = lineup;
+        else startingTeamP1 = lineup;
+        if (startingTeamP0 != null && startingTeamP1 != null) {
+            ((Activity) this.context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+            this.model.setGamePane(this.placeFigures(startingTeamP0, startingTeamP1));
             this.model.setGameStateOK();
-            this.view.drawFigures(getRepresentationForPlayer(),playerOnTurn);
+            this.view.drawFigures(getRepresentationForPlayer(), playerOnTurn);
         }
     }
 
