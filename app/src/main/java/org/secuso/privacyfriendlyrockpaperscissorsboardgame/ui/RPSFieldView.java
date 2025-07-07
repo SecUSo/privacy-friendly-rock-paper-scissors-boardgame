@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -13,7 +14,7 @@ import org.secuso.privacyfriendlyrockpaperscissorsboardgame.core.RPSFigure;
 /**
  * View representing a cell.
  */
-public class RPSFieldView extends ImageView {
+public class RPSFieldView extends AppCompatImageView {
     boolean black;
     int xIndex;
     int yIndex;
