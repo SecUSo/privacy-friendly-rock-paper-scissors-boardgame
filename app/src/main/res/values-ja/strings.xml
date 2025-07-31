@@ -1,0 +1,105 @@
+<resources>
+    <string name="app_name">Rock Paper Scissors Board Game</string>
+    <string name="app_name_short">Rock Paper Scissors</string>
+    <string name="sStartButton">ゲーム vs 友達</string>
+    <string name="sStartButtonAI">ゲーム vs AI</string>
+    <string name="sContinueButton">ゲームを続ける</string>
+    <string name="sGameDescDefault">種類ごとに同じ数の絵がある、じゃんけんボードゲーム</string>
+    <string name="sGameDescLizardSpock">種類ごとに同じ数の絵がある、グー・チョキ・パー・トカゲ・スポックじゃんけんボードゲーム</string>
+    <string name="sGameDescDefaultManual">種類ごとにマニュアルで選択された数の絵がある、じゃんけんボードゲーム</string>
+    <string name="sGameDescLizardSpockManual">種類ごとにマニュアルで選択された数の絵がある、グー・チョキ・パー・トカゲ・スポックじゃんけんボードゲーム</string>
+    <string name="sHome">ホーム</string>
+    <string name="onTurn">プレイヤー %1$d の順番です</string>
+    <!-- Drawer -->
+    <string name="sMenuHelp">ヘルプ</string>
+    <string name="sMenuAbout">アプリについて</string>
+    <string name="sMenuSettings">設定</string>
+    <string name="sNavigationDrawerOpen">ナビゲーションドロワーを開く</string>
+    <string name="sNavigationDrawerClose">ナビゲーションドロワーを閉じる</string>
+    <!-- Help -->
+    <string name="sHelp">ヘルプ</string>
+    <string name="sHelpOverviewHeading">概要</string>
+    <string name="sHelpExample">サンプル ヘルプ エントリー</string>
+    <string name="sHelpCategoryExample">サンプル ヘルプ カテゴリー</string>
+    <string name="sHelpPrivacyHeading">プライバシー情報</string>
+    <string name="sHelpPermissionsHeading">アクセス許可</string>
+    <string name="sHelpPermissionsDescription">プライバシーフレンドリーじゃんけんボードゲームはアクセス許可を何も使用ません</string>
+    <string name="sHelpIntro">ヘルプページへようこそ。 このアプリは、じゃんけんの変形のボードゲームです。 これは、異なるゲームモードと、単一のデバイスでマルチプレイヤー機能があります。</string>
+    <string name="sModesCategory">ゲームモード</string>
+    <string name="sModeSummary">このアプリには、メインメニューでスワイプするか、矢印ボタンをタップしてアクセスできる、いくつかのゲームモードがあります</string>
+    <string name="sMode1">じゃんけん - デフォルト</string>
+    <string name="sMode1Summary">このゲームモードは、各プレイヤーに 5 つの石、5 つの紙、5 つのはさみ、1 つのフラグが用意されるデフォルトのゲームです。</string>
+    <string name="sMode2">じゃんけん - マニュアル</string>
+    <string name="sMode2Summary">このゲームモードは、デフォルトのゲームに、各プレイヤーが自分が希望する各カテゴリーの絵の数を自分で選ぶことができるオプションが用意されています。</string>
+    <string name="sMode3">グー・チョキ・パー・トカゲ・スポックじゃんけん - デフォルト</string>
+    <string name="sMode3Summary">このゲームモードは、各プレイヤーに 3 つの石、3 つの紙、3 つのはさみ、3 つのトカゲ、3 つスポーク、1 つのフラグを持つ、トカゲとスポックの絵で拡張したゲームが特徴です。</string>
+    <string name="sMode4">グー・チョキ・パー・トカゲ・スポックじゃんけん - マニュアル</string>
+    <string name="sMode4Summary">このゲームモードは、トカゲとスポックの絵を使って拡張されたゲームで、各プレイヤーが自分が希望する各カテゴリーの数を自分で選ぶことができます。</string>
+    <string name="sHelpMoveCategory">移動</string>
+    <string name="sHelpMoveSwype">スワイプで移動</string>
+    <string name="sHelpMoveSwypeSummary">絵をタップして移動したいフィールドにスワイプすることで、絵を移動できます。</string>
+    <string name="sHelpMoveTap">タップで移動</string>
+    <string name="sHelpMoveTapSummary">絵を一度タップしてから宛先をタップすることで移動することもできます。 絵をタップすることで、選択可能な宛先をハイライト表示することもできます。</string>
+    <string name="sHelpFightCategory">勝負</string>
+    <string name="sHelpFight">勝負を始める</string>
+    <string name="sHelpFightSummary">勝負を始めるには、対戦相手の絵が占めるフィールドに絵を移動します。 絵は、じゃんけんまたはグー・チョキ・パー・トカゲ・スポックの原則に基づいて勝負します</string>
+    <string name="sHelpDraw">引き分け</string>
+    <string name="sHelpDrawSummary">引き分けが発生すると、あなたと相手が新しい種類の絵を選択するよう求められます。 両方の新しい絵で再び勝負に入ります。 勝負の後に種類は残ります。</string>
+    <string name="sHelpWin">ゲームの勝ち</string>
+    <string name="sHelpWinSummary">あなたが相手のフラグを発見するとゲームに勝ちます。</string>
+    <!-- Settings -->
+    <string name="sTitleActivitySettings">設定</string>
+    <string name="sPrefHeaderGeneral">全般</string>
+    <string name="sPrefExampleSwitch">サンプル スイッチ</string>
+    <string name="sPrefExampleSwitch_summary">サンプル スイッチ サマリー</string>
+    <string name="sPrefExampleSummary">サンプル サマリー</string>
+    <string name="sPrefFightDialogTitle">勝負ダイアログにタイマーを使用する</string>
+    <string name="sPrefFightDialogSummary">タイマを使用して勝負に表示されたダイアログを閉じる、または手動で閉じる</string>
+    <string name="sPrefTimerTitle">タイムアウトの秒数</string>
+    <string name="sPrefTimerSummary">ダイアログを閉じる秒数を選択します</string>
+    <!-- About -->
+    <string name="sAbout">アプリについて</string>
+    <string name="sApp_name_prefix">Privacy Friendly RockPaperScissors Board Game</string>
+    <string name="sAboutAuthor">作者:</string>
+    <string name="sAboutAuthorName">David Giessing と貢献者</string>
+    <string name="sAboutAffiliation">提携</string>
+    <string name="sPrivacyFriendly">このアプリケーションは、ダルムシュタット工科大学 (SECUSO, Germany) が開発したプライバシーフレンドリーアプリのグループに属しています。ソースコードは GPLv3 の下でライセンスされます。画像の著作権は SECUSO および Google Inc.</string>
+    <string name="sMoreInfo">さらに詳しい情報は以下でご覧ください:</string>
+    <!-- HandoverDialog -->
+    <string name="sDialogHandOverMessage">デバイスを渡して確認してください</string>
+    <string name="sDialogHandOverTitle">相手の順番です</string>
+    <string name="sDialogHandOverOkButton">OK</string>
+    <!-- WelcomeDialog -->
+    <string name="sWelcomeTitle">ようこそ</string>
+    <string name="sWelcome">プライバシーフレンドリーなじゃんけんへようこそ。 矢印キーを押すかスワイプすると、さまざまなゲームモードにアクセスできます。 </string>
+    <!-- FightDialog -->
+    <string name="sFightDialogAttacker">アタッカー</string>
+    <string name="sFightDialogAttacked">攻撃された</string>
+    <string name="sFightDialogWinner">勝ち</string>
+    <string name="sFightDialogTitle">勝負</string>
+    <string name="sFightDialogSeconds">閉じる (%1$d)</string>
+    <!-- WinDialog -->
+    <string name="sWinDialogTitle">おめでとう!</string>
+    <string name="sWinDialogText">あなたは敵のフラグを発見して、ゲームに勝ちました!</string>
+    <string name="sWinDialogBack">メインメニューに戻る</string>
+    <string name="sWinDialogShowBoard">ボードを表示</string>
+    <!-- DrawDialog -->
+    <string name="sDrawDialogTitle">引き分け! 新しいプレイヤーを選んでください %1$d</string>
+    <!-- Toasts -->
+    <string name="sToastEnemy">"これはあなたの絵ではありません"</string>
+    <string name="sToastFlag">"フラグは移動できません"</string>
+    <string name="sToastEmpty">空のマスを選択することはできません</string>
+    <!-- AssignmentDialog -->
+    <string name="sAssignmentTitle">チームプレイヤーを提出してください %1$d</string>
+    <string name="sAssignmentRock">あなたのチームの石の数: %1$d</string>
+    <string name="sAssignmentPaper">あなたのチームの紙の数: %1$d</string>
+    <string name="sAssignmentScissor">あなたのチームのはさみの数: %1$d</string>
+    <string name="sAssignmentLizard">あなたのチームのトカゲの数: %1$d</string>
+    <string name="sAssignmentSpock">あなたのチームのスポックの数: %1$d</string>
+    <!-- DeleteSaveGameDialog-->
+    <string name="sDeleteTitle">セーブしたゲームを削除</string>
+    <string name="sDeleteMessage">このセーブしたゲームを削除してもよろしいですか?</string>
+    <string name="sNoDeletion">いいえ</string>
+    <string name="sPrefTimedDialog">タイマー勝負ダイアログ</string>
+    <string name="sAssignmentIncomplete">チームには 15 の絵が必要です (現在: %1$d)</string>
+</resources>
